@@ -13,7 +13,7 @@ namespace SADA
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         public App()
         {
@@ -25,7 +25,7 @@ namespace SADA
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
         /// </summary>
-        public new static App Current => (App)Application.Current;
+        public new static App Current => Application.Current as App;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.

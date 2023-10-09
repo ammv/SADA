@@ -25,7 +25,7 @@ namespace SADA.Infastructure.Core
             element.SetValue(AutoWireViewModelProperty, value);
         }
 
-        private static void AutoWireViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void AutoWireViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
                 Bind(d);
