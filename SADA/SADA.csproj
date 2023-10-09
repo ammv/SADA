@@ -98,6 +98,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Start\AuthorizationViewModel.cs" />
     <Compile Include="View\Start\AuthorizationView.xaml.cs">
       <DependentUpon>AuthorizationView.xaml</DependentUpon>
@@ -147,7 +148,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infastructure\" />
     <Folder Include="Model\" />
     <Folder Include="Services\" />
   </ItemGroup>
