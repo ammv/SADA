@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace SADA.ViewModel.Start
 
         private void _AuthCommand()
         {
+            Task.Run(() => WeakReferenceMessenger.Default.Send("Hello!"));
             _navigationService.NavigateTo<View.Start.TestView>();
         }
 

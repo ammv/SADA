@@ -99,6 +99,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
+    <Compile Include="Infastructure\Messages\AuthMessage.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModel\Start\AuthViewModel.cs" />

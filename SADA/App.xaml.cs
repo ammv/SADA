@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using SADA.Services;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace SADA
 {
@@ -20,7 +21,14 @@ namespace SADA
         {
             Services = ConfigureServices();
 
+            RegisterMessages();
+
             this.InitializeComponent();
+        }
+
+        private void RegisterMessages()
+        {
+            WeakReferenceMessenger.Default.Register(Services.GetService<ViewModel.Start.MainViewModel>());
         }
 
         /// <summary>
