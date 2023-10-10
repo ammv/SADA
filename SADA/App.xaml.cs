@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SADA.Services;
 
 namespace SADA
 {
@@ -33,7 +34,7 @@ namespace SADA
         public IServiceProvider Services { get; }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var view = Services.GetService<View.Start.AuthorizationView>();
+            var view = Services.GetService<View.Start.MainView>();
             view.Show();
         }
 
@@ -50,19 +51,21 @@ namespace SADA
 
         private static void ConfigureView(ServiceCollection services)
         {
-            services.AddSingleton<View.Start.AuthorizationView>();
-            services.AddSingleton<ViewModel.Start.AuthorizationViewModel>();
+            services.AddSingleton<View.Start.MainView>();
+            services.AddSingleton<View.Start.AuthView>();
+            services.AddSingleton<View.Start.TestView>();
 
-            services.AddSingleton(provider => new View.Start.AuthorizationView
-            {
-                DataContext = provider.GetRequiredService<ViewModel.Start.AuthorizationViewModel>()
-            });
+            services.AddSingleton<ViewModel.Start.MainViewModel>();
+            services.AddSingleton<ViewModel.Start.TestViewModel>();
+            services.AddSingleton<ViewModel.Start.AuthViewModel>();
+            
+            services.AddSingleton<INavigationService, NavigationService>();
+
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)
         {
-            services.AddSingleton<Func<Type, ObservableObject>>(serviceProvider => viewModelType =>
-              (ObservableObject)serviceProvider.GetRequiredService(viewModelType));
+            
         }
 
         
