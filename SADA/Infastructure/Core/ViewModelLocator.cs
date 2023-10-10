@@ -10,6 +10,9 @@ using System.Windows;
 
 namespace SADA.Infastructure.Core
 {
+    /// <summary>
+    /// Finds the ViewModel for the View using System.Reflection and naming conventions in MVVM using the attached AutoWireViewModelProperty dependency property in the XAML markup of the View
+    /// </summary>
     class ViewModelLocator
     {
         public static DependencyProperty AutoWireViewModelProperty = DependencyProperty.RegisterAttached("AutoWireViewModel", typeof(bool),
