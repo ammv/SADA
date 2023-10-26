@@ -1,15 +1,11 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SADA.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SADA.ViewModel.Start
 {
-    class TestViewModel
+    class TestViewModel : ObservableObject
     {
 
         #region Fields
@@ -30,7 +26,7 @@ namespace SADA.ViewModel.Start
 
         private void _BackCommand()
         {
-            _navigationService.NavigateTo<View.Start.AuthView>();
+            _navigationService.NavigateTo<ViewModel.Start.AuthViewModel>();
         }
 
         #endregion

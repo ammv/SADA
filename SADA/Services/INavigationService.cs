@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SADA.Services
 {
     public interface INavigationService
     {
-        Page CurrentView { get; }
+        ObservableObject CurrentView { get; }
 
-        void NavigateTo<T>() where T : Page;
+        void NavigateTo<T>() where T : ObservableObject;
     }
 }

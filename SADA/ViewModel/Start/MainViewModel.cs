@@ -1,16 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    class MainViewModel: ObservableObject, IRecipient<string>
+    class MainViewModel : ObservableObject, IRecipient<string>
     {
         private INavigationService _navigationService;
 
@@ -23,7 +18,7 @@ namespace SADA.ViewModel.Start
         public MainViewModel(INavigationService navigationService)
         {
             NavigationService = navigationService;
-            NavigationService.NavigateTo<View.Start.AuthView>();
+            NavigationService.NavigateTo<ViewModel.Start.AuthViewModel>();
         }
 
         public void Receive(string message)

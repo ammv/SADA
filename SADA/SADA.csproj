@@ -98,13 +98,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
     <Compile Include="Infastructure\Messages\AuthMessage.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="ViewModel\Admin\TestAdminViewModel.cs" />
     <Compile Include="ViewModel\Start\AuthViewModel.cs" />
     <Compile Include="ViewModel\Start\MainViewModel.cs" />
     <Compile Include="ViewModel\Start\TestViewModel.cs" />
+    <Compile Include="View\Admin\TestAdminView.xaml.cs">
+      <DependentUpon>TestAdminView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Start\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +123,21 @@
     <Compile Include="View\Start\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resource\DataTemplates\DataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataTemplate.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resource\Include.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\TestAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Start\AuthView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +180,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\DataTemplates\DataTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataTemplate.xaml</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

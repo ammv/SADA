@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:ViewStart="clr-namespace:SADA.View.Start" 
+                xmlns:ViewAdmin="clr-namespace:SADA.View.Admin" 
+                xmlns:ViewModelStart="clr-namespace:SADA.ViewModel.Start" 
+                xmlns:ViewModelAdmin="clr-namespace:SADA.ViewModel.Admin" 
+             >  
+                <DataTemplate DataType="{x:Type ViewModelStart:AuthViewModel}">
+                <ViewStart:AuthView />
+                </DataTemplate>
+                 
+                <DataTemplate DataType="{x:Type ViewModelStart:MainViewModel}">
+                <ViewStart:MainView />
+                </DataTemplate>
+                 
+                <DataTemplate DataType="{x:Type ViewModelStart:TestViewModel}">
+                <ViewStart:TestView />
+                </DataTemplate>
+                 
+                <DataTemplate DataType="{x:Type ViewModelAdmin:TestAdminViewModel}">
+                <ViewAdmin:TestAdminView />
+                </DataTemplate>
+                    
+</ResourceDictionary>

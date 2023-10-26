@@ -1,20 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace SADA.Services
 {
     public class NavigationService : ObservableObject, INavigationService
     {
-        private Page _currentView;
+        private ObservableObject _currentView;
         private readonly IServiceProvider _provider;
 
-        public Page CurrentView
+        public ObservableObject CurrentView
         {
             get => _currentView;
             private set
@@ -28,9 +22,9 @@ namespace SADA.Services
             _provider = provider;
         }
 
-        public void NavigateTo<T>() where T : Page
+        public void NavigateTo<T>() where T : ObservableObject
         {
-            var view = _provider.GetService(typeof(T)) as Page;
+            var view = _provider.GetService(typeof(T)) as ObservableObject;
             CurrentView = view;
         }
     }

@@ -2,17 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace SADA.ViewModel.Start
 {
-    public class AuthViewModel: ObservableObject
+    public class AuthViewModel : ObservableObject
     {
         #region Fields
 
@@ -37,7 +32,7 @@ namespace SADA.ViewModel.Start
         private void _AuthCommand()
         {
             Task.Run(() => WeakReferenceMessenger.Default.Send("Hello!"));
-            _navigationService.NavigateTo<View.Start.TestView>();
+            _navigationService.NavigateTo<TestViewModel>();
         }
 
         #endregion

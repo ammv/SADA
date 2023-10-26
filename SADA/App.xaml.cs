@@ -1,14 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using SADA.Services;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Text;
 using System.Windows;
-using SADA.Services;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace SADA
 {
@@ -19,6 +17,7 @@ namespace SADA
     {
         public App()
         {
+
             Services = ConfigureServices();
 
             RegisterMessages();
@@ -66,16 +65,16 @@ namespace SADA
             services.AddSingleton<ViewModel.Start.MainViewModel>();
             services.AddSingleton<ViewModel.Start.TestViewModel>();
             services.AddSingleton<ViewModel.Start.AuthViewModel>();
-            
+
             services.AddSingleton<INavigationService, NavigationService>();
 
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)
         {
-            
+
         }
 
-        
+
     }
 }
