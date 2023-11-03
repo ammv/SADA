@@ -9,6 +9,7 @@
         xmlns:utils="clr-namespace:SADA.ViewModel.Utils"
         xmlns:components="clr-namespace:SADA.Components"
         xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{DynamicResource WindowStyle}"
         mc:Ignorable="d"
         xmlns:mahicon="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -25,6 +26,8 @@
         Width="1920">
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
+        
+        
     </Window.Resources>
 
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
@@ -103,7 +106,7 @@
 
                     <StackPanel HorizontalAlignment="Left"
                                 Orientation="Horizontal"
-                                Margin="10 0 0 0">
+                                Margin="16 0 0 0">
                         <!--Лого-->
                         <Path Data="{DynamicResource Logo}"
                               Stretch="Uniform"
@@ -153,6 +156,7 @@
                 <hc:TabControl ShowCloseButton="True"
                                IsDraggable="True"
                                x:Name="TabControlx"
+                               SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged}"
                                ItemsSource="{Binding TabItemInfos}"
                                Grid.Column="2"
                                Style="{DynamicResource TabControlStyleCustom}">
@@ -179,14 +183,15 @@
                             <RowDefinition Height="24" />
                         </Grid.RowDefinitions>
                         <hc:SideMenu Grid.Row="0"
-                                     Margin="4 0 0 0">
+                                     
+                                     Margin="8 0 0 0">
 
-                            <hc:SideMenuItem>
-                                <hc:SideMenuItem.Header>
-                                    <TextBlock Text="Главное"
-                                               FontSize="16"
-                                               FontWeight="SemiBold" />
-                                </hc:SideMenuItem.Header>
+                            <hc:SideMenuItem Header="Главное"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Главная</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="House"
                                                                     Height="24"
@@ -195,12 +200,12 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem>
-                                <hc:SideMenuItem.Header>
-                                    <TextBlock Text="Продажи"
-                                               FontSize="16"
-                                               FontWeight="SemiBold" />
-                                </hc:SideMenuItem.Header>
+                            <hc:SideMenuItem Header="Продажи"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Продажи</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="Bag"
                                                                     Height="24"
@@ -209,12 +214,12 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem>
-                                <hc:SideMenuItem.Header>
-                                    <TextBlock Text="Администрирование"
-                                               FontSize="16"
-                                               FontWeight="SemiBold" />
-                                </hc:SideMenuItem.Header>
+                            <hc:SideMenuItem Header="Администрирование"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Администрирование</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="Gear"
                                                                     Height="24"
@@ -223,12 +228,12 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem>
-                                <hc:SideMenuItem.Header>
-                                    <TextBlock Text="Справочники"
-                                               FontSize="16"
-                                               FontWeight="SemiBold" />
-                                </hc:SideMenuItem.Header>
+                            <hc:SideMenuItem Header="Справочники"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Справочники</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="JournalBookmark"
                                                                     Height="24"
@@ -237,12 +242,12 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem>
-                                <hc:SideMenuItem.Header>
-                                    <TextBlock Text="Контрагенты"
-                                               FontSize="16"
-                                               FontWeight="SemiBold" />
-                                </hc:SideMenuItem.Header>
+                            <hc:SideMenuItem Header="Контрагенты"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Контрагенты</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="People"
                                                                     Height="24"
@@ -253,8 +258,10 @@
                         </hc:SideMenu>
 
                         <Button Content="Выйти из системы"
-                                Margin="8 0"
+                                FontSize="16"
+                                Height="Auto"
                                 Style="{DynamicResource ButtonDefault}"
+                                
                                 Grid.Row="1" />
                     </Grid>
                 </Border>
