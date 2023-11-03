@@ -18,6 +18,7 @@ namespace DataLayer
         public StaffPost()
         {
             this.CounteragentContactPerson = new HashSet<CounteragentContactPerson>();
+            this.Staff = new HashSet<Staff>();
         }
     
         public int ID { get; set; }
@@ -25,5 +26,7 @@ namespace DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CounteragentContactPerson> CounteragentContactPerson { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Staff> Staff { get; set; }
     }
 }

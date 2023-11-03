@@ -210,6 +210,7 @@
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />

@@ -583,6 +583,8 @@
           <Property Name="PhotoID" Type="int" />
           <Property Name="CarDealershipID" Type="int" />
           <Property Name="IsDeleted" Type="bit" />
+          <Property Name="PostID" Type="int" />
+          <Property Name="RoleID" Type="int" />
         </EntityType>
         <EntityType Name="StaffPost">
           <Key>
@@ -1718,6 +1720,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Staff__PostID__3FD07829">
+          <End Role="StaffPost" Type="Self.StaffPost" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__RoleID__40C49C62">
+          <End Role="StaffRole" Type="Self.StaffRole" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Staff__UserID__5DCAEF64">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
@@ -2212,6 +2238,14 @@
           </AssociationSet>
           <AssociationSet Name="FK__Staff__PhotoID__5FB337D6" Association="Self.FK__Staff__PhotoID__5FB337D6">
             <End Role="File" EntitySet="File" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__PostID__3FD07829" Association="Self.FK__Staff__PostID__3FD07829">
+            <End Role="StaffPost" EntitySet="StaffPost" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__RoleID__40C49C62" Association="Self.FK__Staff__RoleID__40C49C62">
+            <End Role="StaffRole" EntitySet="StaffRole" />
             <End Role="Staff" EntitySet="Staff" />
           </AssociationSet>
           <AssociationSet Name="FK__Staff__UserID__5DCAEF64" Association="Self.FK__Staff__UserID__5DCAEF64">
@@ -2973,6 +3007,10 @@
           <NavigationProperty Name="ProductOrder" Relationship="Self.FK__ProductOr__Manag__756D6ECB" FromRole="Staff" ToRole="ProductOrder" />
           <NavigationProperty Name="Salary" Relationship="Self.FK__Salary__StaffID__2704CA5F" FromRole="Staff" ToRole="Salary" />
           <NavigationProperty Name="User" Relationship="Self.FK__Staff__UserID__5DCAEF64" FromRole="Staff" ToRole="User" />
+          <Property Name="PostID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="StaffPost" Relationship="SADAModel.FK__Staff__PostID__3FD07829" FromRole="Staff" ToRole="StaffPost" />
+          <NavigationProperty Name="StaffRole" Relationship="SADAModel.FK__Staff__RoleID__40C49C62" FromRole="Staff" ToRole="StaffRole" />
         </EntityType>
         <EntityType Name="StaffPost">
           <Key>
@@ -2981,6 +3019,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CounteragentContactPerson" Relationship="Self.FK__Counterag__PostI__6FE99F9F" FromRole="StaffPost" ToRole="CounteragentContactPerson" />
+          <NavigationProperty Name="Staff" Relationship="SADAModel.FK__Staff__PostID__3FD07829" FromRole="StaffPost" ToRole="Staff" />
         </EntityType>
         <EntityType Name="StaffRole">
           <Key>
@@ -2989,6 +3028,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CounteragentContactPerson" Relationship="Self.FK__Counterag__RoleI__6EF57B66" FromRole="StaffRole" ToRole="CounteragentContactPerson" />
+          <NavigationProperty Name="Staff" Relationship="SADAModel.FK__Staff__RoleID__40C49C62" FromRole="StaffRole" ToRole="Staff" />
         </EntityType>
         <EntityType Name="Street">
           <Key>
@@ -4642,7 +4682,39 @@
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="UserRoleRight" EntitySet="UserRoleRight" />
           </AssociationSet>
+          <AssociationSet Name="FK__Staff__PostID__3FD07829" Association="SADAModel.FK__Staff__PostID__3FD07829">
+            <End Role="StaffPost" EntitySet="StaffPost" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__RoleID__40C49C62" Association="SADAModel.FK__Staff__RoleID__40C49C62">
+            <End Role="StaffRole" EntitySet="StaffRole" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Staff__PostID__3FD07829">
+          <End Type="SADAModel.StaffPost" Role="StaffPost" Multiplicity="0..1" />
+          <End Type="SADAModel.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__RoleID__40C49C62">
+          <End Type="SADAModel.StaffRole" Role="StaffRole" Multiplicity="0..1" />
+          <End Type="SADAModel.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5263,6 +5335,8 @@
           <EntitySetMapping Name="Staff">
             <EntityTypeMapping TypeName="SADAModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="PassportID" ColumnName="PassportID" />

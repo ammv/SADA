@@ -163,6 +163,8 @@
         <AssociationConnector Association="SADAModel.FK__UserRoleR__Table__2D27B809" ManuallyRouted="false" />
         <AssociationConnector Association="SADAModel.FK__User__RoleID__32E0915F" ManuallyRouted="false" />
         <AssociationConnector Association="SADAModel.FK__UserRoleR__RoleI__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Staff__PostID__3FD07829" />
+        <AssociationConnector Association="SADAModel.FK__Staff__RoleID__40C49C62" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

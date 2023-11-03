@@ -43,10 +43,7 @@ namespace SADA
         {
             var view = Services.GetService<View.Start.AuthView>();
             view.Show();
-
-            
         }
-
 
         private static IServiceProvider ConfigureServices()
         {
@@ -63,7 +60,7 @@ namespace SADA
             services.AddSingleton<View.Start.MainView>();
             services.AddSingleton<View.Start.AuthView>();
 
-            services.AddSingleton<ViewModel.Start.MainViewModel>();
+            services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddSingleton<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
         }
@@ -72,10 +69,10 @@ namespace SADA
         {
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<WindowFadeChanger>();
-            services.AddSingleton<IDataGridService, DataGridService>();
+            //services.AddSingleton<IDataGridService, DataGridService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IDatabaseTableService>(
-                provider => new DatabaseTableService(new SADAEntities()));
+            //services.AddSingleton<IDatabaseTableService>(
+            //    provider => new DatabaseTableService(new SADAEntities()));
         }
 
         public T GetService<T>()

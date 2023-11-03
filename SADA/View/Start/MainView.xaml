@@ -8,6 +8,7 @@
         xmlns:core="clr-namespace:SADA.Infastructure.Core"
         xmlns:utils="clr-namespace:SADA.ViewModel.Utils"
         xmlns:components="clr-namespace:SADA.Components"
+        xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{DynamicResource WindowStyle}"
@@ -26,17 +27,13 @@
         Width="1920">
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
+        <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
         
         
     </Window.Resources>
 
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
-        <intr:Interaction.Triggers>
-            <intr:EventTrigger EventName="MouseLeftButtonDown">
-                <intr:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
-                                       MethodName="DragMove" />
-            </intr:EventTrigger>
-        </intr:Interaction.Triggers>
+        
 
         <Grid>
             <Grid.RowDefinitions>
@@ -58,6 +55,13 @@
                     Padding="0 4 0 0"
                     CornerRadius="3.5 3.5 0 0"
                     Grid.ColumnSpan="3">
+
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="MouseLeftButtonDown">
+                        <intr:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+                                               MethodName="DragMove" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
 
                 <Grid>
                     <StackPanel HorizontalAlignment="Right"
@@ -125,8 +129,8 @@
                                                             Margin="0 0 8 0"
                                                             VerticalAlignment="Center"
                                                             Width="16" />
-                            
-                            <TextBlock Text="Рагимов Мурад Геншинович (Менеджер по закупкам)" />
+
+                            <TextBlock Text="{Binding Staff, Converter={StaticResource StaffToStringConverter}}"/>
                         </StackPanel>
 
                         
@@ -160,9 +164,15 @@
                                ItemsSource="{Binding TabItemInfos}"
                                Grid.Column="2"
                                Style="{DynamicResource TabControlStyleCustom}">
+                    
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
+                            <DataTemplate.Resources>
+                                <Style TargetType="{x:Type hc:TabItem}">
+                                    
+                                </Style>
+                            </DataTemplate.Resources>
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>
                     <hc:TabControl.ContentTemplate>
@@ -170,6 +180,7 @@
                             <ContentControl Content="{Binding ViewModel}" />
                         </DataTemplate>
                     </hc:TabControl.ContentTemplate>
+
                 </hc:TabControl>
 
                 <!--Боковое меню-->

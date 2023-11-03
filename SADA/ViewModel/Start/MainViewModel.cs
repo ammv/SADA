@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DataLayer;
 using HandyControl.Controls;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,12 @@ namespace SADA.ViewModel.Start
             _menuMap.Add("Продажи", typeof(TestViewModel));
 
             OpenTabCommand = new RelayCommand<string>(_OpenTabCommand);
+
+            using (var ctx = new SADAEntities())
+            {
+                Staff = ctx.Staff.FirstOrDefault(s => s.UserID == App.CurrentUser.ID);
+                MessageBox.Show(Staff.Passport.Name);
+            }
         }
 
         #endregion
@@ -52,6 +59,8 @@ namespace SADA.ViewModel.Start
             get => _selectedTabItemIndex;
             set => SetProperty(ref _selectedTabItemIndex, value);
         }
+
+        public Staff Staff { get; }
 
         #endregion
 
