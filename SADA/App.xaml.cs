@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using DataLayer;
+using FadeWpf;
+using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using SADA.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 
 namespace SADA
@@ -15,9 +15,9 @@ namespace SADA
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        public static User CurrentUser { get; set; }
         public App()
         {
-
             Services = ConfigureServices();
 
             RegisterMessages();
@@ -27,7 +27,7 @@ namespace SADA
 
         private void RegisterMessages()
         {
-            WeakReferenceMessenger.Default.Register(Services.GetService<ViewModel.Start.MainViewModel>());
+            //WeakReferenceMessenger.Default.Register(Services.GetService<ViewModel.Start.MainViewModel>());
         }
 
         /// <summary>
@@ -41,8 +41,10 @@ namespace SADA
         public IServiceProvider Services { get; }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var view = Services.GetService<View.Start.MainView>();
+            var view = Services.GetService<View.Start.AuthView>();
             view.Show();
+
+            
         }
 
 
@@ -60,21 +62,26 @@ namespace SADA
         {
             services.AddSingleton<View.Start.MainView>();
             services.AddSingleton<View.Start.AuthView>();
-            services.AddSingleton<View.Start.TestView>();
 
             services.AddSingleton<ViewModel.Start.MainViewModel>();
-            services.AddSingleton<ViewModel.Start.TestViewModel>();
             services.AddSingleton<ViewModel.Start.AuthViewModel>();
-
-            services.AddSingleton<INavigationService, NavigationService>();
-
+            services.AddTransient<ViewModel.Start.TestViewModel>();
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)
         {
-
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<WindowFadeChanger>();
+            services.AddSingleton<IDataGridService, DataGridService>();
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IDatabaseTableService>(
+                provider => new DatabaseTableService(new SADAEntities()));
         }
 
+        public T GetService<T>()
+        {
+            return Services.GetService<T>();
+        }
 
     }
 }

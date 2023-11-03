@@ -17,13 +17,13 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ExpenseGroup()
         {
-            this.Expense = new HashSet<Expense>();
+            this.ExpenseType = new HashSet<ExpenseType>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expense> Expense { get; set; }
+        public virtual ICollection<ExpenseType> ExpenseType { get; set; }
     }
 }

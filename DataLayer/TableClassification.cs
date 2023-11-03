@@ -23,6 +23,7 @@ namespace DataLayer
         public int ID { get; set; }
         public Nullable<int> TypeID { get; set; }
         public string TableName { get; set; }
+        public string RussianName { get; set; }
     
         public virtual TableClassificationType TableClassificationType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

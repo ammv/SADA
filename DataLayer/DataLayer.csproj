@@ -51,259 +51,248 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Car.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarAttribute.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarBody.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarBrand.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarColor.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarDealership.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarDrive.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarEngine.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarEquipment.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarEquipmentGroupAttribute.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarExpense.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarFuel.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarFuelType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarGroupAttribute.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarModel.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarPaymentFromCounteragent.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarPaymentToCounteragent.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarPhoto.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarStatus.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarSteeringWheelPosition.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarTransmission.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="City.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Counteragent.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CounteragentContactPerson.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CounteragentGroup.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CounteragentInteraction.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CounteragentInteractionType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CounteragentType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Country.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.edmx</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="District.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Expense.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseGroup.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseType.cs">
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="File.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneralExpense.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IndividualPerson.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JuridicalPerson.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Log.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LogLevel.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LogType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Passport.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PassportGiver.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PaymentType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductArrival.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductArrivalPosition.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductGroup.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductOrder.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductOrderPosition.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductSpecific.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductSuitableCarBrand.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductSuitableCarModel.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SadaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SadaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SadaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SadaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SadaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SadaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Salary.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SalaryType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SoloTrader.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Staff.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StaffPost.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StaffRole.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Street.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TableClassification.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TableClassificationType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxationSystemType.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfMeasurement.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRole.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRoleRight.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+      <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="DBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="DBModel.edmx.diagram">
-      <DependentUpon>DBModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-      <LastGenOutput>DBModel.cs</LastGenOutput>
-    </Content>
+    <EntityDeploy Include="SadaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SadaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SadaModel.edmx.diagram">
+      <DependentUpon>SadaModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SadaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SadaModel.edmx</DependentUpon>
+      <LastGenOutput>SadaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SadaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SadaModel.edmx</DependentUpon>
+      <LastGenOutput>SadaModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

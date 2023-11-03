@@ -3,11 +3,267 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SADA.View.Start"
+        xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:core="clr-namespace:SADA.Infastructure.Core"
+        xmlns:utils="clr-namespace:SADA.ViewModel.Utils"
+        xmlns:components="clr-namespace:SADA.Components"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Style="{DynamicResource WindowStyle}"
         mc:Ignorable="d"
-        Title="AuthorizationView"
-        Height="450"
-        Width="800">
-    <Frame Content="{Binding NavigationService.CurrentView, Mode=OneWay}" 
-           NavigationUIVisibility="Hidden"
-           />
+        xmlns:mahicon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        WindowState="Maximized"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Main, Source={StaticResource viewModelLocator}}"
+        Title="AuthView"
+        MinHeight="720"
+        ResizeMode="CanResize"
+        MinWidth="1280"
+        Height="1080"
+        Width="1920">
+    <Window.Resources>
+        <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
+    </Window.Resources>
+
+    <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
+        <intr:Interaction.Triggers>
+            <intr:EventTrigger EventName="MouseLeftButtonDown">
+                <intr:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+                                       MethodName="DragMove" />
+            </intr:EventTrigger>
+        </intr:Interaction.Triggers>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition />
+                <RowDefinition Height="24" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="24" />
+            </Grid.ColumnDefinitions>
+
+
+            <!--Верхнее меню-->
+            <Border Background="{DynamicResource PrimaryBackgroundBrush}"
+                    Grid.Row="0"
+                    Padding="0 4 0 0"
+                    CornerRadius="3.5 3.5 0 0"
+                    Grid.ColumnSpan="3">
+
+                <Grid>
+                    <StackPanel HorizontalAlignment="Right"
+                                Margin="0 0 4 0"
+                                Orientation="Horizontal">
+
+                        <Button Style="{DynamicResource TransparentButton}"
+                                Width="24"
+                                Background="Transparent"
+                                Padding="0"
+                                Margin="0 0 8 0">
+                            <mahicon:PackIconBootstrapIcons Kind="Calculator"
+                                                            Height="24"
+                                                            Padding="4"
+                                                            Style="{DynamicResource ItemIcon}"
+                                                            Width="24"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="Black" />
+                        </Button>
+
+                        <Button Style="{DynamicResource TransparentButton}"
+                                Width="24"
+                                Background="Transparent"
+                                Padding="0"
+                                Margin="0 0 8 0">
+                            <mahicon:PackIconBootstrapIcons Kind="Calendar2Date"
+                                                            Height="24"
+                                                            Padding="4"
+                                                            Style="{DynamicResource ItemIcon}"
+                                                            Width="24"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="Black" />
+                        </Button>
+
+                        <components:VerticalSeparator1c Height="26"
+                                                        Margin="0 0 8 0"
+                                                        Width="1" />
+
+
+                        <ContentControl Content="{StaticResource WindowTopButtonsViewModel}"
+                                        Margin="-8 0 4 0" />
+
+
+
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                Margin="10 0 0 0">
+                        <!--Лого-->
+                        <Path Data="{DynamicResource Logo}"
+                              Stretch="Uniform"
+                              Height="24"
+                              Margin="0 4 8 4"
+                              HorizontalAlignment="Left"
+                              Fill="{DynamicResource PrimaryBlueBrush}" />
+
+                        <components:VerticalSeparator1c Height="26"
+                                                        Margin="0 0 8 0"
+                                                        Width="1" />
+
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <mahicon:PackIconBootstrapIcons Kind="Person"
+                                                            Height="16"
+                                                            Margin="0 0 8 0"
+                                                            VerticalAlignment="Center"
+                                                            Width="16" />
+                            
+                            <TextBlock Text="Рагимов Мурад Геншинович (Менеджер по закупкам)" />
+                        </StackPanel>
+
+                        
+                    </StackPanel>
+                    
+                </Grid>
+            </Border>
+
+            <!--Нижний весь контент-->
+            <Grid Grid.Row="1"
+                  
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="50" Width="240"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <GridSplitter Grid.Column="1"
+                              ShowsPreview="True"
+                              Width="5" 
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Stretch" />
+
+                <!--Вкладки-->
+                <hc:TabControl ShowCloseButton="True"
+                               IsDraggable="True"
+                               x:Name="TabControlx"
+                               ItemsSource="{Binding TabItemInfos}"
+                               Grid.Column="2"
+                               Style="{DynamicResource TabControlStyleCustom}">
+                    <hc:TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </hc:TabControl.ItemTemplate>
+                    <hc:TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding ViewModel}" />
+                        </DataTemplate>
+                    </hc:TabControl.ContentTemplate>
+                </hc:TabControl>
+
+                <!--Боковое меню-->
+                <Border Background="{DynamicResource PrimaryBackgroundBrush}"
+                        CornerRadius="0 0 0 3.5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--Место под лого тип-->
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                        </Grid.RowDefinitions>
+                        <hc:SideMenu Grid.Row="0"
+                                     Margin="4 0 0 0">
+
+                            <hc:SideMenuItem>
+                                <hc:SideMenuItem.Header>
+                                    <TextBlock Text="Главное"
+                                               FontSize="16"
+                                               FontWeight="SemiBold" />
+                                </hc:SideMenuItem.Header>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="House"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem>
+                                <hc:SideMenuItem.Header>
+                                    <TextBlock Text="Продажи"
+                                               FontSize="16"
+                                               FontWeight="SemiBold" />
+                                </hc:SideMenuItem.Header>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="Bag"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem>
+                                <hc:SideMenuItem.Header>
+                                    <TextBlock Text="Администрирование"
+                                               FontSize="16"
+                                               FontWeight="SemiBold" />
+                                </hc:SideMenuItem.Header>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="Gear"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem>
+                                <hc:SideMenuItem.Header>
+                                    <TextBlock Text="Справочники"
+                                               FontSize="16"
+                                               FontWeight="SemiBold" />
+                                </hc:SideMenuItem.Header>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="JournalBookmark"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem>
+                                <hc:SideMenuItem.Header>
+                                    <TextBlock Text="Контрагенты"
+                                               FontSize="16"
+                                               FontWeight="SemiBold" />
+                                </hc:SideMenuItem.Header>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="People"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+                        </hc:SideMenu>
+
+                        <Button Content="Выйти из системы"
+                                Margin="8 0"
+                                Style="{DynamicResource ButtonDefault}"
+                                Grid.Row="1" />
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+
+
+
+        </Grid>
+    </hc:Card>
 </Window>

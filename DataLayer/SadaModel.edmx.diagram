@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3133e84da2bd41c9a078a546d5440cf7" Name="Diagram1">
+        <EntityTypeShape EntityType="SADAModel.Address" Width="1.5" PointX="12" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Car" Width="1.5" PointX="16.5" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarAttribute" Width="1.5" PointX="16.5" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarBody" Width="1.5" PointX="12" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarBrand" Width="1.5" PointX="9.75" PointY="45.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarColor" Width="1.5" PointX="14.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarDealership" Width="1.5" PointX="14.25" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarDrive" Width="1.5" PointX="12" PointY="37.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarEngine" Width="1.5" PointX="12" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarEquipment" Width="1.5" PointX="14.25" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarEquipmentGroupAttribute" Width="1.5" PointX="18.75" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarExpense" Width="1.5" PointX="21.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarFuel" Width="1.5" PointX="12" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarFuelType" Width="1.5" PointX="9.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarGroupAttribute" Width="1.5" PointX="16.5" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarModel" Width="1.5" PointX="12" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarPaymentFromCounteragent" Width="1.5" PointX="24.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarPaymentToCounteragent" Width="1.5" PointX="24.75" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarPhoto" Width="1.5" PointX="21.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarStatus" Width="1.5" PointX="14.25" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarSteeringWheelPosition" Width="1.5" PointX="12" PointY="48.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CarTransmission" Width="1.5" PointX="12" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.City" Width="1.5" PointX="5.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Counteragent" Width="1.5" PointX="19.5" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CounteragentContactPerson" Width="1.5" PointX="24.75" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CounteragentGroup" Width="1.5" PointX="17.25" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CounteragentInteraction" Width="1.5" PointX="27.75" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CounteragentInteractionType" Width="1.5" PointX="25.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.CounteragentType" Width="1.5" PointX="17.25" PointY="38.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Country" Width="1.5" PointX="0.75" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.District" Width="1.5" PointX="7.5" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Expense" Width="1.5" PointX="19.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ExpenseGroup" Width="1.5" PointX="15" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ExpenseType" Width="1.5" PointX="17.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.File" Width="1.5" PointX="20.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.JuridicalPerson" Width="1.5" PointX="27.75" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Log" Width="1.5" PointX="25.5" PointY="44" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.LogLevel" Width="1.5" PointX="23.25" PointY="50.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.LogType" Width="1.5" PointX="23.25" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Passport" Width="1.5" PointX="14.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.PassportGiver" Width="1.5" PointX="12" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.PaymentType" Width="1.5" PointX="14.25" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Product" Width="1.5" PointX="17.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductArrival" Width="1.5" PointX="21.75" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductArrivalPosition" Width="1.5" PointX="24" PointY="40.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductGroup" Width="1.5" PointX="15" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductOrder" Width="1.5" PointX="30.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductOrderPosition" Width="1.5" PointX="33" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductSpecific" Width="1.5" PointX="19.5" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductSuitableCarBrand" Width="1.5" PointX="28.5" PointY="41.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.ProductSuitableCarModel" Width="1.5" PointX="19.5" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Region" Width="1.5" PointX="3" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Salary" Width="1.5" PointX="27.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.SalaryType" Width="1.5" PointX="25.5" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.SoloTrader" Width="1.5" PointX="21.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Staff" Width="1.5" PointX="22.5" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.StaffPost" Width="1.5" PointX="22.5" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.StaffRole" Width="1.5" PointX="22.5" PointY="47.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.Street" Width="1.5" PointX="9.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.TableClassification" Width="1.5" PointX="18" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.TableClassificationType" Width="1.5" PointX="15.75" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.TaxationSystemType" Width="1.5" PointX="19.5" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.UnitOfMeasurement" Width="1.5" PointX="15" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.User" Width="1.5" PointX="20.25" PointY="42" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.UserRole" Width="1.5" PointX="18" PointY="42.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.UserRoleRight" Width="1.5" PointX="20.25" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SADAModel.IndividualPerson" Width="1.5" PointX="21.75" PointY="58.125" IsExpanded="true" />
+        <AssociationConnector Association="SADAModel.FK__Address__StreetI__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarDealer__Addre__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Juridical__Busin__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Passport__Regist__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Passport__Reside__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__SoloTrade__Busin__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__SoloTrade__Regis__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__Buyer__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__CarDealersh__42E1EEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__ColorID__45BE5BA9" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__EquipmentID__43D61337" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__ManagerBuyo__5224328E" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__ManagerSale__531856C7" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__Manufacture__47A6A41B" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__PaymentType__51300E55" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__Provider__4A8310C6" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Car__StatusID__4C6B5938" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarExpens__CarID__22401542" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__CarID__0C50D423" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__CarID__1209AD79" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPhoto__CarID__56E8E7AB" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Salary__CarID__29E1370A" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Attri__40058253" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__BodyI__2FCF1A8A" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarModel__CarBra__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSu__CarBr__04AFB25B" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__CarDe__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductAr__CarDe__690797E6" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSp__CarDe__00DF2177" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Staff__CarDealer__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Drive__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Engin__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__FuelI__3493CFA7" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Model__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Steer__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Trans__30C33EC3" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarGroupA__Equip__3C34F16F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarEquipm__Group__3F115E1A" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarExpens__Expen__2057CCD0" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarFuel__TypeID__2BFE89A6" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSu__CarMo__0880433F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__Count__11158940" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__Payme__12FDD1B2" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__Count__0B5CAFEA" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPaymen__Payme__0D44F85C" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__CarPhoto__FileID__57DD0BE4" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__City__RegionID__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__District__CityID__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__Count__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__Count__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__Group__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__TypeI__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Individua__Count__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Juridical__Count__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductAr__Count__681373AD" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductOr__Count__73852659" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__SoloTrade__Count__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__PostI__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__RoleI__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__Manag__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Counterag__TypeI__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Region__CountryI__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Street__District__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Expense__TypeID__1B9317B3" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ExpenseTy__Group__18B6AB08" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Staff__PhotoID__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Juridical__Taxat__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Log__LevelID__336AA144" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Log__TypeID__345EC57D" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Log__UserID__318258D2" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Passport__Passpo__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Staff__PassportI__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductOr__Payme__74794A92" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Product__GroupID__5E8A0973" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Product__UnitOfM__6442E2C9" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductAr__Produ__6DCC4D03" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductOr__Produ__7A3223E8" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSp__Produ__7FEAFD3E" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSu__Produ__03BB8E22" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductSu__Produ__078C1F06" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductAr__Arriv__6CD828CA" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductOr__Manag__756D6ECB" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__ProductOr__Produ__793DFFAF" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Salary__StaffID__2704CA5F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Salary__TypeID__28ED12D1" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__SoloTrade__Taxat__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__Staff__UserID__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__TableClas__TypeI__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__UserRoleR__Table__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__User__RoleID__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="SADAModel.FK__UserRoleR__RoleI__2C3393D0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -16,11 +16,8 @@ namespace DataLayer
     {
         public int ID { get; set; }
         public Nullable<int> ExpenseID { get; set; }
-        public decimal Sum { get; set; }
         public bool HasPayment { get; set; }
-        public string Note { get; set; }
         public Nullable<int> CarID { get; set; }
-        public bool IsDeleted { get; set; }
     
         public virtual Car Car { get; set; }
         public virtual Expense Expense { get; set; }

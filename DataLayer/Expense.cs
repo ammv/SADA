@@ -18,17 +18,16 @@ namespace DataLayer
         public Expense()
         {
             this.CarExpense = new HashSet<CarExpense>();
-            this.GeneralExpense = new HashSet<GeneralExpense>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> GroupID { get; set; }
-        public string Name { get; set; }
+        public Nullable<int> TypeID { get; set; }
+        public decimal Sum { get; set; }
+        public string Note { get; set; }
+        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarExpense> CarExpense { get; set; }
-        public virtual ExpenseGroup ExpenseGroup { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GeneralExpense> GeneralExpense { get; set; }
+        public virtual ExpenseType ExpenseType { get; set; }
     }
 }

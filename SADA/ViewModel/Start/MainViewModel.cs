@@ -1,29 +1,68 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using SADA.Services;
-using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace SADA.ViewModel.Start
 {
-    class MainViewModel : ObservableObject, IRecipient<string>
+    class MainViewModel : ObservableObject
     {
-        private INavigationService _navigationService;
 
-        public INavigationService NavigationService
+        #region Constructor
+        public MainViewModel()
         {
-            get { return _navigationService; }
-            set { _navigationService = value; }
+            _tabItemInfos.Add(new TabItemInfo( "Мурад черт",
+                App.Current.GetService<TestViewModel>()));
+            _tabItemInfos.Add(new TabItemInfo("Мурад черт 1",
+                App.Current.GetService<TestViewModel>()));
+            _tabItemInfos.Add(new TabItemInfo("Мурад черт 2",
+                App.Current.GetService<TestViewModel>()));
         }
 
-        public MainViewModel(INavigationService navigationService)
+        #endregion
+
+        #region Fields
+
+        private ObservableCollection<TabItemInfo> _tabItemInfos = new ObservableCollection<TabItemInfo>();
+
+        #endregion
+
+        #region Properties
+
+        public ObservableCollection<TabItemInfo> TabItemInfos
         {
-            NavigationService = navigationService;
-            NavigationService.NavigateTo<ViewModel.Start.AuthViewModel>();
+            get => _tabItemInfos;
+            set => SetProperty(ref _tabItemInfos, value);
         }
 
-        public void Receive(string message)
+        #endregion
+
+        #region Commands
+
+
+        #endregion
+
+        #region Commands implementations
+
+        #endregion
+
+        #region Other
+
+        public class TabItemInfo
         {
-            MessageBox.Show(message);
+            public TabItemInfo(string name, ObservableObject viewModel)
+            {
+                Name = name;
+                ViewModel = viewModel;
+            }
+
+            public string Name { get; set; }
+            public ObservableObject ViewModel { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
+
+        #endregion
     }
 }

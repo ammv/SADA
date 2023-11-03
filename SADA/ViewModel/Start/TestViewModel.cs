@@ -1,45 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using SADA.Services;
-using System.Windows.Input;
+using System;
 
 namespace SADA.ViewModel.Start
 {
     class TestViewModel : ObservableObject
     {
+        private string _buttonText;
 
-        #region Fields
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Commands
-
-        public ICommand BackCommand { get; }
-
-        private INavigationService _navigationService;
-
-        #endregion
-
-        #region Command implementations
-
-        private void _BackCommand()
+        public TestViewModel()
         {
-            _navigationService.NavigateTo<ViewModel.Start.AuthViewModel>();
+            ButtonText = DateTime.Now.ToLongTimeString();
         }
 
-        #endregion
-
-        #region Конструктор
-        public TestViewModel(INavigationService navigationService)
+        public string ButtonText
         {
-            BackCommand = new RelayCommand(_BackCommand);
-            _navigationService = navigationService;
+            get { return _buttonText; }
+            set { SetProperty(ref _buttonText, value); }
         }
 
-        #endregion
     }
-
-
 }
