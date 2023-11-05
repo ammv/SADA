@@ -4,8 +4,9 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Images/SVG.xaml" />
         <ResourceDictionary Source="DataTemplates/Include.xaml" />
-        <ResourceDictionary Source="Style/Include.xaml" />
         <ResourceDictionary Source="Icons/Include.xaml" />
+        <ResourceDictionary Source="Style/Include.xaml" />
+        
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

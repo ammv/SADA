@@ -57,7 +57,10 @@
             </Grid.RowDefinitions>
 
             <ContentPresenter Content="{StaticResource WindowTopButtonsViewModel}"
-                              Grid.ColumnSpan="3" Margin="0 8 8 0" />
+                              Grid.ColumnSpan="3"
+                              VerticalAlignment="Top"
+                              Grid.RowSpan="2"
+                              Margin="0 8 8 0" />
 
             <Path Data="{DynamicResource Logo}"
                   Height="103.37"

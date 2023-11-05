@@ -4,6 +4,8 @@
         <ResourceDictionary Source="Window.xaml" />
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="MainStyle.xaml" />
+        <ResourceDictionary Source="Icons.xaml" />
+        <ResourceDictionary Source="Button.xaml" />
         <ResourceDictionary Source="TabControl.xaml" />
         <ResourceDictionary Source="WindowButtons.xaml" />
     </ResourceDictionary.MergedDictionaries>

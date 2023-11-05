@@ -213,8 +213,11 @@
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
+    <Compile Include="Infastructure\Core\ITab.cs" />
+    <Compile Include="Infastructure\Core\TabObservableObject.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
+    <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
     <Compile Include="Infastructure\Dialogs\TextDialog.xaml.cs">
       <DependentUpon>TextDialog.xaml</DependentUpon>
@@ -226,6 +229,7 @@
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="ViewModel\Start\MainViewModel_Old.cs" />
     <Compile Include="ViewModel\Start\MockMainViewModel.cs" />
+    <Compile Include="Infastructure\Core\TabItemInfo.cs" />
     <Compile Include="ViewModel\Start\TestViewModel.cs" />
     <Compile Include="ViewModel\Utils\WindowTopButtonsViewModel.cs" />
     <Compile Include="Infastructure\Messages\AuthMessage.cs" />
@@ -295,7 +299,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resource\Style\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\Style\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\Style\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,7 +392,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\Images\logo.png" />
+    <SplashScreen Include="Resource\Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\Images\wnd_close_activate_btn.png" />

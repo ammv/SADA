@@ -28,12 +28,12 @@
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
         <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
-        
-        
+
+
     </Window.Resources>
 
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
-        
+
 
         <Grid>
             <Grid.RowDefinitions>
@@ -70,6 +70,7 @@
 
                         <Button Style="{DynamicResource TransparentButton}"
                                 Width="24"
+                                Command="{Binding OpenCalculatorToolCommand}"
                                 Background="Transparent"
                                 Padding="0"
                                 Margin="0 0 8 0">
@@ -123,65 +124,92 @@
                                                         Margin="0 0 8 0"
                                                         Width="1" />
 
-                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center"
+                                    Orientation="Horizontal">
                             <mahicon:PackIconBootstrapIcons Kind="Person"
                                                             Height="16"
                                                             Margin="0 0 8 0"
                                                             VerticalAlignment="Center"
                                                             Width="16" />
 
-                            <TextBlock Text="{Binding Staff, Converter={StaticResource StaffToStringConverter}}"/>
+                            <TextBlock Text="{Binding Staff, Converter={StaticResource StaffToStringConverter}}" />
                         </StackPanel>
 
-                        
+
                     </StackPanel>
-                    
+
                 </Grid>
             </Border>
 
             <!--Нижний весь контент-->
             <Grid Grid.Row="1"
-                  
                   Grid.RowSpan="2"
                   Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="50" Width="240"/>
+                    <ColumnDefinition MinWidth="50"
+                                      Width="240" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
+                <!--Разделитель-->
                 <GridSplitter Grid.Column="1"
+                              ToolTip="Drag left-right to resize"
                               ShowsPreview="True"
-                              Width="5" 
+                              Width="5"
+                              Background="{DynamicResource PrimaryBackgroundBrush}"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Stretch" />
 
                 <!--Вкладки-->
-                <hc:TabControl ShowCloseButton="True"
-                               IsDraggable="True"
-                               x:Name="TabControlx"
+                <hc:TabControl IsDraggable="True"
                                SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged}"
-                               ItemsSource="{Binding TabItemInfos}"
                                Grid.Column="2"
-                               Style="{DynamicResource TabControlStyleCustom}">
+                               ItemsSource="{Binding Tabs}"
+                               Style="{StaticResource TabControlStyleCustom}">
                     
+
                     <hc:TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                            <DataTemplate.Resources>
-                                <Style TargetType="{x:Type hc:TabItem}">
-                                    
-                                </Style>
-                            </DataTemplate.Resources>
+                        <DataTemplate DataType="{x:Type core:ITab}">
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="Button"
+                                           BasedOn="{StaticResource TransparentButton}">
+
+                                        
+                                    </Style>
+                                </Grid.Resources>
+                                <TextBlock Text="{Binding Name}"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center" />
+                                <Button Command="{Binding CloseCommand}"
+                                        HorizontalAlignment="Right"
+                                        x:Name="btn"
+                                        VerticalAlignment="Center"
+                                        TextElement.Foreground="Black"
+                                        Margin="0 0 16 0"
+                                        >
+                                    <mahicon:PackIconBootstrapIcons Kind="X"
+                                                                    x:Name="icon"
+                                                                    Height="12"
+                                                                    Width="12" />
+                                </Button>
+                                
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" 
+                                         SourceName="btn"
+                                        
+                                         Value="True">
+                                    <Setter Property="TextElement.Foreground" TargetName="icon"
+                                            Value="{DynamicResource PrimaryGrayColor}" />
+                                </Trigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>
-                    <hc:TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding ViewModel}" />
-                        </DataTemplate>
-                    </hc:TabControl.ContentTemplate>
-
                 </hc:TabControl>
+
+
 
                 <!--Боковое меню-->
                 <Border Background="{DynamicResource PrimaryBackgroundBrush}"
@@ -194,7 +222,6 @@
                             <RowDefinition Height="24" />
                         </Grid.RowDefinitions>
                         <hc:SideMenu Grid.Row="0"
-                                     
                                      Margin="8 0 0 0">
 
                             <hc:SideMenuItem Header="Главное"
@@ -269,10 +296,11 @@
                         </hc:SideMenu>
 
                         <Button Content="Выйти из системы"
+                                Command="{Binding ExitFromAccountCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                                 FontSize="16"
                                 Height="Auto"
                                 Style="{DynamicResource ButtonDefault}"
-                                
                                 Grid.Row="1" />
                     </Grid>
                 </Border>

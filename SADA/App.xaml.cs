@@ -15,14 +15,24 @@ namespace SADA
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        System.Threading.Mutex mutex;
         public static User CurrentUser { get; set; }
         public App()
         {
             Services = ConfigureServices();
 
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+
+            ShutdownMode = ShutdownMode.OnLastWindowClose;
+
             RegisterMessages();
 
             this.InitializeComponent();
+        }
+
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Непредвиденная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void RegisterMessages()
@@ -41,7 +51,14 @@ namespace SADA
         public IServiceProvider Services { get; }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var view = Services.GetService<View.Start.AuthView>();
+            bool createdNew;
+            string mutName = "Приложение";
+            mutex = new System.Threading.Mutex(true, mutName, out createdNew);
+            if (!createdNew)
+            {
+                this.Shutdown();
+            }
+            var view = Services.GetService<View.Start.MainView>();
             view.Show();
         }
 
@@ -57,11 +74,11 @@ namespace SADA
 
         private static void ConfigureView(ServiceCollection services)
         {
-            services.AddSingleton<View.Start.MainView>();
-            services.AddSingleton<View.Start.AuthView>();
+            services.AddTransient<View.Start.MainView>();
+            services.AddTransient<View.Start.AuthView>();
 
             services.AddTransient<ViewModel.Start.MainViewModel>();
-            services.AddSingleton<ViewModel.Start.AuthViewModel>();
+            services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
         }
 
@@ -78,6 +95,11 @@ namespace SADA
         public T GetService<T>()
         {
             return Services.GetService<T>();
+        }
+
+        public Window LastOpenedWindow()
+        {
+            return Windows[Windows.Count - 1];
         }
 
     }
