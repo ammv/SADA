@@ -1,8 +1,11 @@
-﻿using DataLayer;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using DataLayer;
 using FadeWpf;
 using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
+using SADA.Infastructure.Messages;
 using SADA.Services;
+using SADA.ViewModel.Start;
 using System;
 using System.Globalization;
 using System.Threading;
@@ -37,7 +40,7 @@ namespace SADA
 
         private void RegisterMessages()
         {
-            //WeakReferenceMessenger.Default.Register(Services.GetService<ViewModel.Start.MainViewModel>());
+            //WeakReferenceMessenger.Default.Register<MainViewModel, OpenTabFromDialogMessage>();
         }
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace SADA
 
             ConfigureOtherServices(services);
             ConfigureView(services);
+            ConfigureViewModel(services);
 
             return services.BuildServiceProvider();
         }
@@ -76,10 +80,18 @@ namespace SADA
         {
             services.AddTransient<View.Start.MainView>();
             services.AddTransient<View.Start.AuthView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MenuDialogView>();
+
+        }
+
+        private static void ConfigureViewModel(ServiceCollection services)
+        {
+
 
             services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel.MenuDialogViewModel>();
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)

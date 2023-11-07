@@ -1,4 +1,5 @@
-﻿using SADA.ViewModel.Start;
+﻿using SADA.Infastructure.Dialogs.ViewModel;
+using SADA.ViewModel.Start;
 using SADA.ViewModel.Utils;
 using System.ComponentModel;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace SADA.Infastructure.Core
                 {
 
                     return App.Current.Services.GetService(typeof(AuthViewModel)) as AuthViewModel;
+                    return App.Current.GetService<AuthViewModel>();
                 }
             }
         }
@@ -34,8 +36,7 @@ namespace SADA.Infastructure.Core
                 }
                 else
                 {
-
-                    return App.Current.Services.GetService(typeof(MainViewModel)) as MainViewModel;
+                    return App.Current.GetService<MainViewModel>();
                 }
             }
         }
@@ -52,7 +53,23 @@ namespace SADA.Infastructure.Core
         {
             get
             {
-                return new TestViewModel();
+                if (IsInDesignMode())
+                {
+                    return new TestViewModel();
+                }
+                return App.Current.GetService<TestViewModel>();
+            }
+        }
+
+        public MenuDialogViewModel MenuDialog
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MenuDialogViewModel();
+                }
+                return App.Current.GetService<MenuDialogViewModel>();
             }
         }
 

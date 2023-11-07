@@ -219,9 +219,11 @@
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
-    <Compile Include="Infastructure\Dialogs\TextDialog.xaml.cs">
-      <DependentUpon>TextDialog.xaml</DependentUpon>
+    <Compile Include="Infastructure\Dialogs\ViewModel\MenuDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\View\MenuDialogView.xaml.cs">
+      <DependentUpon>MenuDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
     <Compile Include="Services\DatabaseTableService.cs" />
     <Compile Include="Services\DataGridService.cs" />
     <Compile Include="Services\IDatabaseTableService.cs" />
@@ -267,7 +269,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Infastructure\Dialogs\TextDialog.xaml">
+    <Page Include="Infastructure\Dialogs\View\MenuDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

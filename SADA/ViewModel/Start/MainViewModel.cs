@@ -1,31 +1,35 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DataLayer;
 using FadeWpf;
+using HandyControl.Controls;
 using HandyControl.Data;
 using SADA.Infastructure.Core;
+using SADA.Infastructure.Dialogs;
+using SADA.Infastructure.Dialogs.View;
+using SADA.Infastructure.Messages;
 using SADA.View.Start;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
+using MessageBox = HandyControl.Controls.MessageBox;
+using Window = System.Windows.Window;
 
 namespace SADA.ViewModel.Start
 {
-    partial class MainViewModel : ObservableObject
+    partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
     {
 
         #region Constructor
         public MainViewModel(WindowFadeChanger windowFadeChanger = null)
         {
-            _menuMap.Add("Главная", TypeWrapper<TabObservableObject>.Make<TestViewModel>());
-            _menuMap.Add("Администрирование", TypeWrapper<TabObservableObject>.Make<TestViewModel>());
-            _menuMap.Add("Контрагенты", TypeWrapper<TabObservableObject>.Make<TestViewModel>());
-            _menuMap.Add("Продажи", TypeWrapper<TabObservableObject>.Make<TestViewModel>());
+            this._windowFadeChanger = windowFadeChanger;
 
-            OpenTabCommand = new RelayCommand<string>(_OpenTabCommand);
+            //OpenTabCommand = new RelayCommand<string>(_OpenTabCommand);
+            OpenTabCommand = new RelayCommand<string>(_OpenDialogCommand);
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
 
@@ -34,19 +38,11 @@ namespace SADA.ViewModel.Start
             using (var ctx = new SADAEntities())
             {
                 //Staff = ctx.Staff.FirstOrDefault(s => s.UserID == App.CurrentUser.ID);
-                Staff = ctx.Staff.FirstOrDefault(s => s.UserID == 1);
-                MessageBox.Show(Staff.Passport.Name);
+                Staff = ctx.Staff.Include("Passport").Include("StaffPost").FirstOrDefault(s => s.UserID == 1);
             }
 
-            this._windowFadeChanger = windowFadeChanger;
+            WeakReferenceMessenger.Default.Register(this);
 
-
-            /*
-             * TypeRestrictor<TabObservableObject>
-             * TypeWrapper<T, TypeRestrictor<TRestrict>>
-             * 
-             * 
-             */
         }
 
         private void _Tabs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -79,6 +75,7 @@ namespace SADA.ViewModel.Start
         private int _selectedTabItemIndex;
         private Dictionary<string, TypeWrapper<TabObservableObject>> _menuMap = new Dictionary<string, TypeWrapper<TabObservableObject>>();
         private readonly WindowFadeChanger _windowFadeChanger;
+        private Dialog _currentDialog = null;
 
         #endregion
 
@@ -112,35 +109,42 @@ namespace SADA.ViewModel.Start
 
         #region Commands implementations
 
-        private void _OpenTabCommand(string parameter)
+        //private void _OpenTabCommand(string parameter)
+        //{
+
+        //    //1. Понять, открыта ли уже текущая вкладка
+        //    int index = -1;
+        //    for (int i = 0; i < _Tabs.Count; i++)
+        //    {
+        //        if (_Tabs[i].Name == parameter)
+        //        {
+        //            index = i;
+        //            break;
+        //        }
+        //    }
+
+        //    if (index != -1)
+        //    {
+        //        SelectedTabItemIndex = index;
+        //    }
+        //    else
+        //    {
+        //        if (_menuMap.TryGetValue(parameter, out TypeWrapper<TabObservableObject> typeWrapper))
+        //        {
+        //            var tabVm = App.Current.Services.GetService(typeWrapper.TypeDerived) as TabObservableObject;
+        //            tabVm.Name = parameter;
+        //            Tabs.Add(tabVm);
+
+        //            SelectedTabItemIndex = _Tabs.Count - 1;
+        //        }
+        //    }
+        //}
+
+        private void _OpenDialogCommand(string parameter)
         {
-
-            //1. Понять, открыта ли уже текущая вкладка
-            int index = -1;
-            for (int i = 0; i < _Tabs.Count; i++)
-            {
-                if (_Tabs[i].Name == parameter)
-                {
-                    index = i;
-                    break;
-                }
-            }
-
-            if (index != -1)
-            {
-                SelectedTabItemIndex = index;
-            }
-            else
-            {
-                if (_menuMap.TryGetValue(parameter, out TypeWrapper<TabObservableObject> typeWrapper))
-                {
-                    var tabVm = App.Current.Services.GetService(typeWrapper.TypeDerived) as TabObservableObject;
-                    tabVm.Name = parameter;
-                    Tabs.Add(tabVm);
-
-                    SelectedTabItemIndex = _Tabs.Count - 1;
-                }
-            }
+            //var dialog = ;
+            _currentDialog = Dialog.Show(App.Current.GetService<MenuDialogView>());
+           // result.InputBindings.AddRange(dialog.InputBindings);
         }
 
         private void _OpenCalculatorToolCommand()
@@ -150,7 +154,7 @@ namespace SADA.ViewModel.Start
 
         private void _ExitFromAccountCommand(Window window)
         {
-            var result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo
+            var result = MessageBox.Show(new MessageBoxInfo
             {
                 Message = "Вы уверены, что хотите выйти из аккаунта?",
                 Caption = "Выход из аккаунта",
@@ -162,6 +166,15 @@ namespace SADA.ViewModel.Start
             if (result == System.Windows.MessageBoxResult.Yes)
             {
                 _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
+            }
+        }
+
+        public void Receive(DialogTabChangedMessage message)
+        {
+            if(_currentDialog != null)
+            {
+                Tabs.Add(message.Value);
+                _currentDialog.Close();
             }
         }
 

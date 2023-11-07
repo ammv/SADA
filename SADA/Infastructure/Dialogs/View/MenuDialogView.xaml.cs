@@ -1,13 +1,14 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace SADA.Infastructure.Dialogs
+namespace SADA.Infastructure.Dialogs.View
 {
     /// <summary>
     /// Логика взаимодействия для TextDialog.xaml
     /// </summary>
-    public partial class TextDialog : UserControl
+    public partial class MenuDialogView : UserControl
     {
-        public TextDialog()
+        public MenuDialogView()
         {
             InitializeComponent();
         }
