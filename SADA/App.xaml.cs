@@ -97,6 +97,19 @@ namespace SADA
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ManualDialogView>();
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ProductDialogView>();
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>();
+
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.AdministrationDialogViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.CarDialogViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.HomeDialogViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.ManualDialogViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.ProductDialogViewModel>();
+            services.AddSingleton<Infastructure.Dialogs.ViewModel
+                .MainMenu.SalaryAndStaffViewModel>();
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)

@@ -22,7 +22,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         #region Constructor
 
-        public SalaryAndStaffViewModel(): base()
+        public SalaryAndStaffViewModel() : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
         }

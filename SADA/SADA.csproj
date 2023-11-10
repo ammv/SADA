@@ -254,6 +254,13 @@
     <Compile Include="Services\IDatabaseTableService.cs" />
     <Compile Include="Services\IDataGridService.cs" />
     <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="ViewModel\MainMenu\Administration\Login\UserRoleManagementViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Administration\Login\UsersViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Administration\System\EventJournalViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonView.cs" />
     <Compile Include="ViewModel\Start\MainViewModel_Old.cs" />
     <Compile Include="ViewModel\Start\MockMainViewModel.cs" />
     <Compile Include="Infastructure\Core\TabItemInfo.cs" />
@@ -267,6 +274,57 @@
     <Compile Include="ViewModel\Start\AuthViewModel.cs" />
     <Compile Include="ViewModel\Start\MainViewModel.cs" />
     <Compile Include="ViewModel\Start\MockAuthViewModel.cs" />
+    <Compile Include="View\MainMenu\Administration\Login\UserRoleManagementView.xaml.cs">
+      <DependentUpon>UserRoleManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Administration\Login\UsersView.xaml.cs">
+      <DependentUpon>UsersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Administration\System\EventJournalView.xaml.cs">
+      <DependentUpon>EventJournalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Car\PayToCounteragent.xaml.cs">
+      <DependentUpon>PayToCounteragent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragent.xaml.cs">
+      <DependentUpon>PurchaseFromCounteragent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Salon\CarInSalonView.xaml.cs">
+      <DependentUpon>CarInSalonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Other\Equipment.xaml.cs">
+      <DependentUpon>Equipment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Counteragent\CounteragentView.xaml.cs">
+      <DependentUpon>CounteragentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Counteragent\InteractionWithCounteragentView.xaml.cs">
+      <DependentUpon>InteractionWithCounteragentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Expense\CarExpenseView.xaml.cs">
+      <DependentUpon>CarExpenseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Expense\GeneralExpenseView.xaml.cs">
+      <DependentUpon>GeneralExpenseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Income\CarSaleIncomeView.xaml.cs">
+      <DependentUpon>CarSaleIncomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Income\ProductSaleIncomeView.xaml.cs">
+      <DependentUpon>ProductSaleIncomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Product\Income\ProductIncomeView.xaml.cs">
+      <DependentUpon>ProductIncomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Product\Other\PriceListView.xaml.cs">
+      <DependentUpon>PriceListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Product\Other\ProductRemainsView.xaml.cs">
+      <DependentUpon>ProductRemainsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Product\Sales\ProductSaleView.xaml.cs">
+      <DependentUpon>ProductSaleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Start\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
     </Compile>
@@ -382,6 +440,74 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\MainMenu\Administration\Login\UserRoleManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Administration\Login\UsersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Administration\System\EventJournalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Car\Car\PayToCounteragent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Car\Car\PurchaseFromCounteragent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Car\Salon\CarInSalonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Car\Other\Equipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Counteragent\CounteragentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Counteragent\InteractionWithCounteragentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Expense\CarExpenseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Expense\GeneralExpenseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Income\CarSaleIncomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Income\ProductSaleIncomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Product\Income\ProductIncomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Product\Other\PriceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Product\Other\ProductRemainsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Product\Sales\ProductSaleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Start\AuthView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +558,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="ViewModel\MainMenu\Home\Counteragent\" />
+    <Folder Include="ViewModel\MainMenu\Home\Expense\" />
+    <Folder Include="ViewModel\MainMenu\Home\Income\" />
+    <Folder Include="ViewModel\MainMenu\Manual\" />
+    <Folder Include="ViewModel\MainMenu\Product\Income\" />
+    <Folder Include="ViewModel\MainMenu\Product\Other\" />
+    <Folder Include="ViewModel\MainMenu\Product\Sales\" />
+    <Folder Include="ViewModel\MainMenu\SalaryAndStaff\Salary\" />
+    <Folder Include="ViewModel\MainMenu\SalaryAndStaff\Staff\" />
+    <Folder Include="View\MainMenu\Manual\" />
+    <Folder Include="View\MainMenu\SalaryAndStaff\Salary\" />
+    <Folder Include="View\MainMenu\SalaryAndStaff\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
