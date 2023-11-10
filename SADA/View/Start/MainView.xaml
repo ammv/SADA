@@ -228,7 +228,7 @@
                                              Command="{Binding OpenTabCommand}"
                                              FontSize="16">
                                 <hc:SideMenuItem.CommandParameter>
-                                    <sys:String>Главная</sys:String>
+                                    <sys:String>Главное</sys:String>
                                 </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="House"
@@ -238,11 +238,39 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem Header="Продажи"
+                            <hc:SideMenuItem Header="Автомобили"
                                              Command="{Binding OpenTabCommand}"
                                              FontSize="16">
                                 <hc:SideMenuItem.CommandParameter>
-                                    <sys:String>Продажи</sys:String>
+                                    <sys:String>Автомобили</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconVaadinIcons Kind="Car"
+                                                                 Height="24"
+                                                                 Width="24"/>
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem Header="Зарплата и кадры"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Зарплата и кадры</sys:String>
+                                </hc:SideMenuItem.CommandParameter>
+                                <hc:SideMenuItem.Icon>
+                                    <mahicon:PackIconBootstrapIcons Kind="People"
+                                                                    Height="24"
+                                                                    Width="24" />
+                                </hc:SideMenuItem.Icon>
+
+                            </hc:SideMenuItem>
+
+                            <hc:SideMenuItem Header="Товары"
+                                             Command="{Binding OpenTabCommand}"
+                                             FontSize="16">
+                                <hc:SideMenuItem.CommandParameter>
+                                    <sys:String>Товары</sys:String>
                                 </hc:SideMenuItem.CommandParameter>
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconBootstrapIcons Kind="Bag"
@@ -280,19 +308,7 @@
 
                             </hc:SideMenuItem>
 
-                            <hc:SideMenuItem Header="Контрагенты"
-                                             Command="{Binding OpenTabCommand}"
-                                             FontSize="16">
-                                <hc:SideMenuItem.CommandParameter>
-                                    <sys:String>Контрагенты</sys:String>
-                                </hc:SideMenuItem.CommandParameter>
-                                <hc:SideMenuItem.Icon>
-                                    <mahicon:PackIconBootstrapIcons Kind="People"
-                                                                    Height="24"
-                                                                    Width="24" />
-                                </hc:SideMenuItem.Icon>
-
-                            </hc:SideMenuItem>
+                            
                         </hc:SideMenu>
 
                         <Button Content="Выйти из системы"

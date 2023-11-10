@@ -86,12 +86,17 @@ namespace SADA
 
         private static void ConfigureViewModel(ServiceCollection services)
         {
-
-
             services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel.MenuDialogViewModel>();
+
+
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.CarDialogView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.HomeDialogView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ManualDialogView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ProductDialogView>();
+            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>();
         }
 
         private static void ConfigureOtherServices(ServiceCollection services)

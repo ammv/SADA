@@ -143,7 +143,28 @@ namespace SADA.ViewModel.Start
         private void _OpenDialogCommand(string parameter)
         {
             //var dialog = ;
-            _currentDialog = Dialog.Show(App.Current.GetService<MenuDialogView>());
+            switch(parameter)
+            {
+                case "Главное":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.HomeDialogView>());
+                    break;
+                case "Администрирование":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>());
+                    break;
+                case "Автомобили":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.CarDialogView>());
+                    break;
+                case "Зарплата и кадры":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>());
+                    break;
+                case "Справочники":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ManualDialogView>());
+                    break;
+                case "Товары":
+                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ProductDialogView>());
+                    break;
+            }
+            
            // result.InputBindings.AddRange(dialog.InputBindings);
         }
 
@@ -174,6 +195,7 @@ namespace SADA.ViewModel.Start
             if(_currentDialog != null)
             {
                 Tabs.Add(message.Value);
+                SelectedTabItemIndex = Tabs.Count - 1;
                 _currentDialog.Close();
             }
         }

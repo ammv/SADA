@@ -212,6 +212,7 @@
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
+    <Compile Include="Infastructure\Core\DialogBase.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
@@ -219,7 +220,31 @@
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\AdministrationDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\CarDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\HomeDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\ManualDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\ProductDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\ViewModel\MainMenu\SalaryAndStaffViewModel.cs" />
     <Compile Include="Infastructure\Dialogs\ViewModel\MenuDialogViewModel.cs" />
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\AdministrationDialogView.xaml.cs">
+      <DependentUpon>AdministrationDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\CarDialogView.xaml.cs">
+      <DependentUpon>CarDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\HomeDialogView.xaml.cs">
+      <DependentUpon>HomeDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\ManualDialogView.xaml.cs">
+      <DependentUpon>ManualDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\ProductDialogView.xaml.cs">
+      <DependentUpon>ProductDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infastructure\Dialogs\View\MainMenu\SalaryAndStaffDialogView.xaml.cs">
+      <DependentUpon>SalaryAndStaffDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Infastructure\Dialogs\View\MenuDialogView.xaml.cs">
       <DependentUpon>MenuDialogView.xaml</DependentUpon>
     </Compile>
@@ -266,6 +291,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\VerticalSeparator1c.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\AdministrationDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\CarDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\HomeDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\ManualDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\ProductDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Dialogs\View\MainMenu\SalaryAndStaffDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

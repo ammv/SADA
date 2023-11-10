@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using HandyControl.Controls;
+using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.ViewModel.Start;
 using System;
@@ -12,18 +13,17 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SADA.Infastructure.Dialogs.ViewModel
+namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
-    class MenuDialogViewModel: ObservableObject
+    class HomeDialogViewModel : DialogBase
     {
         #region Fields
         #endregion
 
         #region Constructor
 
-        public MenuDialogViewModel()
+        public HomeDialogViewModel() : base()
         {
-            LoadedCommand = new RelayCommand<UserControl>(_loadedCommand);
             TestCommand = new RelayCommand(_TestCommand);
         }
 
@@ -34,19 +34,12 @@ namespace SADA.Infastructure.Dialogs.ViewModel
 
         #region Commands
 
-        public RelayCommand<UserControl> LoadedCommand { get; }
         public RelayCommand TestCommand { get; }
 
         #endregion
 
         #region Commands implementations
 
-        private void _loadedCommand(UserControl uc)
-        {
-            if (uc == null) return;
-            uc.Focusable = true;
-            Keyboard.Focus(uc);
-        }
         private void _TestCommand()
         {
             var testVm = App.Current.GetService<TestViewModel>();
