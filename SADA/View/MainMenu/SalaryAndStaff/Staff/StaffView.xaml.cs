@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SADA.View.MainMenu.Administration.System
+namespace SADA.View.MainMenu.SalaryAndStaff.Staff
 {
     /// <summary>
-    /// Логика взаимодействия для EventJournalView.xaml
+    /// Логика взаимодействия для StaffView.xaml
     /// </summary>
-    public partial class EventJournalView : UserControl
+    public partial class StaffView : UserControl
     {
-        public EventJournalView()
+        public StaffView()
         {
             InitializeComponent();
         }

@@ -35,7 +35,7 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding ProductSaleCommand}">
                             <TextBlock Text="Продажи товаров" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -52,7 +52,7 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding ProductIncomeCommand}">
                             <TextBlock Text="Приходы товаров" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -70,13 +70,13 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding PriceListCommand}">
                             <TextBlock Text="Прайс-лист" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
-                            <TextBlock Text="Остатки" />
+                        <Hyperlink Command="{Binding ProductRemainsCommand}">
+                            <TextBlock Text="Остатки товаров" />
                         </Hyperlink>
                     </ListBoxItem>
                 </ListBox>
@@ -86,6 +86,7 @@
 
         <Button Width="22"
                 Height="22"
+                ToolTip="Esc"
                 Command="hc:ControlCommands.Close"
                 Style="{StaticResource ButtonIcon}"
                 Foreground="{DynamicResource PrimaryBrush}"

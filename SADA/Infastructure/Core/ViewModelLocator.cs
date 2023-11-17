@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace SADA.Infastructure.Core
 {
-    class ViewModelLocator
+    internal class ViewModelLocator
     {
         private DependencyObject dummy = new DependencyObject();
         private _Dialogs _dialogs = new _Dialogs();

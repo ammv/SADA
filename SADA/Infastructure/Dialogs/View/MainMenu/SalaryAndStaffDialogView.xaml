@@ -35,7 +35,7 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding StaffCommand}">
                             <TextBlock Text="Сотрудники" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -52,36 +52,13 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding AccrualOfSalariesCommand}">
                             <TextBlock Text="Начисление зарплат" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding SalaryReportCommand}">
                             <TextBlock Text="Отчеты по зарплате" />
-                        </Hyperlink>
-                    </ListBoxItem>
-                </ListBox>
-            </StackPanel>
-
-            <StackPanel Width="350">
-                <TextBlock Text="Прочее"
-                           HorizontalAlignment="Left"
-                           TextWrapping="Wrap"
-                           Width="200"
-                           Style="{StaticResource TextBlockLargeBold}"
-                           Margin="0 0 0 8" />
-                <ListBox Style="{x:Null}"
-                         BorderThickness="0"
-                         FontSize="16">
-                    <ListBoxItem>
-                        <Hyperlink>
-                            <TextBlock Text="Прайс-лист" />
-                        </Hyperlink>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <Hyperlink>
-                            <TextBlock Text="Остатки" />
                         </Hyperlink>
                     </ListBoxItem>
                 </ListBox>
@@ -91,6 +68,7 @@
 
         <Button Width="22"
                 Height="22"
+                ToolTip="Esc"
                 Command="hc:ControlCommands.Close"
                 Style="{StaticResource ButtonIcon}"
                 Foreground="{DynamicResource PrimaryBrush}"

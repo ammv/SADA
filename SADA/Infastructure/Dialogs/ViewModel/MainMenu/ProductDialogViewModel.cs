@@ -25,6 +25,10 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         public ProductDialogViewModel() : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
+            ProductIncomeCommand = new RelayCommand(_ProductIncomeCommand);
+            ProductSaleCommand = new RelayCommand(_ProductSaleCommand);
+            PriceListCommand = new RelayCommand(_PriceListCommand);
+            ProductRemainsCommand = new RelayCommand(_ProductRemainsCommand);
         }
 
         #endregion
@@ -36,6 +40,13 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         public RelayCommand TestCommand { get; }
 
+        public RelayCommand ProductIncomeCommand { get; }
+
+        public RelayCommand ProductSaleCommand { get; }
+
+        public RelayCommand PriceListCommand { get; }
+        public RelayCommand ProductRemainsCommand { get; }
+
         #endregion
 
         #region Commands implementations
@@ -44,7 +55,42 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         {
             var testVm = App.Current.GetService<TestViewModel>();
 
-            testVm.Name = DateTime.Now.ToLongDateString();
+            testVm.Name = "_TestCommand";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+        private void _ProductIncomeCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "_ProductIncomeCommand";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
+        private void _ProductSaleCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "_ProductSaleCommand";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
+        private void _PriceListCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "_PriceListCommand";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
+        private void _ProductRemainsCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "_ProductRemainsCommand";
 
             WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
         }

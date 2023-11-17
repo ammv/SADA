@@ -35,7 +35,7 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding EventJournalCommand}">
                             <TextBlock Text="Журнал событий" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -55,12 +55,12 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding UsersCommand}">
                             <TextBlock Text="Пользователи" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding UserRoleManagementCommand}">
                             <TextBlock Text="Управление ролями" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -76,6 +76,7 @@
                 Foreground="{DynamicResource PrimaryBrush}"
                 hc:IconElement.Geometry="{StaticResource ErrorGeometry}"
                 Padding="0"
+                ToolTip="Esc"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,4,4,0" />

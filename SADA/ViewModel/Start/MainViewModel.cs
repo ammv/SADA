@@ -32,8 +32,12 @@ namespace SADA.ViewModel.Start
             OpenTabCommand = new RelayCommand<string>(_OpenDialogCommand);
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
+            CloseSelectedTabCommand = new RelayCommand(_CloseSelectedTabCommand);
+            SetDefaultSideMenuSizeCommand = new RelayCommand(_SetDefaultSideMenuSizeCommand);
 
             _Tabs.CollectionChanged += _Tabs_CollectionChanged;
+
+            //_Tabs.Add(App.Current.GetService<WelcomeTabView>() as ITab);
 
             using (var ctx = new SADAEntities())
             {
@@ -43,23 +47,6 @@ namespace SADA.ViewModel.Start
 
             WeakReferenceMessenger.Default.Register(this);
 
-        }
-
-        private void _Tabs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            ITab tab;
-
-            switch(e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    tab = (ITab)e.NewItems[0];
-                    tab.CloseRequested += Tab_CloseRequested;
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    tab = (ITab)e.OldItems[0];
-                    tab.CloseRequested -= Tab_CloseRequested;
-                    break;
-            }
         }
 
         private void Tab_CloseRequested(object sender, EventArgs e)
@@ -76,6 +63,8 @@ namespace SADA.ViewModel.Start
         private Dictionary<string, TypeWrapper<TabObservableObject>> _menuMap = new Dictionary<string, TypeWrapper<TabObservableObject>>();
         private readonly WindowFadeChanger _windowFadeChanger;
         private Dialog _currentDialog = null;
+        private const double _sideMenuWidthBase = 240;
+        private double _sideMenuWidth = _sideMenuWidthBase;
 
         #endregion
 
@@ -89,8 +78,14 @@ namespace SADA.ViewModel.Start
 
         public int SelectedTabItemIndex
         {
-            get => _selectedTabItemIndex;
+            get =>  _selectedTabItemIndex;
             set => SetProperty(ref _selectedTabItemIndex, value);
+        }
+
+        public double SideMenuWidth
+        {
+            get => _sideMenuWidth;
+            set => SetProperty(ref _sideMenuWidth, value);
         }
 
         public Staff Staff { get; }
@@ -103,42 +98,13 @@ namespace SADA.ViewModel.Start
 
         public RelayCommand OpenCalculatorToolCommand { get; }
         public RelayCommand<Window> ExitFromAccountCommand { get; }
+        public RelayCommand CloseSelectedTabCommand { get; }
+        public RelayCommand SetDefaultSideMenuSizeCommand { get; }
 
 
         #endregion
 
         #region Commands implementations
-
-        //private void _OpenTabCommand(string parameter)
-        //{
-
-        //    //1. Понять, открыта ли уже текущая вкладка
-        //    int index = -1;
-        //    for (int i = 0; i < _Tabs.Count; i++)
-        //    {
-        //        if (_Tabs[i].Name == parameter)
-        //        {
-        //            index = i;
-        //            break;
-        //        }
-        //    }
-
-        //    if (index != -1)
-        //    {
-        //        SelectedTabItemIndex = index;
-        //    }
-        //    else
-        //    {
-        //        if (_menuMap.TryGetValue(parameter, out TypeWrapper<TabObservableObject> typeWrapper))
-        //        {
-        //            var tabVm = App.Current.Services.GetService(typeWrapper.TypeDerived) as TabObservableObject;
-        //            tabVm.Name = parameter;
-        //            Tabs.Add(tabVm);
-
-        //            SelectedTabItemIndex = _Tabs.Count - 1;
-        //        }
-        //    }
-        //}
 
         private void _OpenDialogCommand(string parameter)
         {
@@ -168,9 +134,23 @@ namespace SADA.ViewModel.Start
            // result.InputBindings.AddRange(dialog.InputBindings);
         }
 
+        private void _CloseSelectedTabCommand()
+        {
+            if(_Tabs.Count  == 0)
+            {
+                return;
+            }
+            _Tabs[_selectedTabItemIndex].CloseCommand?.Execute(null);
+        }
+
         private void _OpenCalculatorToolCommand()
         {
             Process.Start("calc.exe");
+        }
+
+        private void _SetDefaultSideMenuSizeCommand()
+        {
+            SideMenuWidth = _sideMenuWidthBase;
         }
 
         private void _ExitFromAccountCommand(Window window)
@@ -190,9 +170,14 @@ namespace SADA.ViewModel.Start
             }
         }
 
+
+
+        #endregion
+        #region Other
+
         public void Receive(DialogTabChangedMessage message)
         {
-            if(_currentDialog != null)
+            if (_currentDialog != null)
             {
                 Tabs.Add(message.Value);
                 SelectedTabItemIndex = Tabs.Count - 1;
@@ -200,8 +185,24 @@ namespace SADA.ViewModel.Start
             }
         }
 
-        #endregion
-        #region Other
+        private void _Tabs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            ITab tab;
+
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    tab = (ITab)e.NewItems[0];
+                    tab.CloseRequested += Tab_CloseRequested;
+                    
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    tab = (ITab)e.OldItems[0];
+                    tab.CloseRequested -= Tab_CloseRequested;
+                    //if(SelectedTabItemIndex == _Tabs.Count - 2)
+                    break;
+            }
+        }
 
         #endregion
     }

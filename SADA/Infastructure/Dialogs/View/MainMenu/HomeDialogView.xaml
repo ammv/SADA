@@ -35,12 +35,12 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding CarExpenseCommand}">
                             <TextBlock Text="Расходы на авто" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding GeneralExpenseCommand}">
                             <TextBlock Text="Общие расходы" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -58,12 +58,12 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding ProductSaleIncomeCommand}">
                             <TextBlock Text="Доходы от продажи товаров" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding CarSaleIncomeCommand}">
                             <TextBlock Text="Доходы от продажи автомобилей" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -81,12 +81,12 @@
                          BorderThickness="0"
                          FontSize="16">
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding CounteragentCommand}">
                             <TextBlock Text="Контрагенты" />
                         </Hyperlink>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Hyperlink>
+                        <Hyperlink Command="{Binding InteractionWithCounteragentCommand}">
                             <TextBlock Text="Взаимодействие с контрагентами" />
                         </Hyperlink>
                     </ListBoxItem>
@@ -96,6 +96,7 @@
 
         <Button Width="22"
                 Height="22"
+                ToolTip="Esc"
                 Command="hc:ControlCommands.Close"
                 Style="{StaticResource ButtonIcon}"
                 Foreground="{DynamicResource PrimaryBrush}"

@@ -25,6 +25,9 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         public AdministrationDialogViewModel() : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
+            EventJournalCommand = new RelayCommand(_EventJournalCommand);
+            UsersCommand = new RelayCommand(_UsersCommand);
+            UserRoleManagementCommand = new RelayCommand(_UserRoleManagementCommand);
         }
 
         #endregion
@@ -35,6 +38,9 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         #region Commands
 
         public RelayCommand TestCommand { get; }
+        public RelayCommand EventJournalCommand { get; }
+        public RelayCommand UsersCommand { get; }
+        public RelayCommand UserRoleManagementCommand { get; }
 
         #endregion
 
@@ -48,6 +54,34 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
             WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
         }
+
+        private void _EventJournalCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "Журнал событий";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
+        private void _UsersCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "Пользователи";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
+        private void _UserRoleManagementCommand()
+        {
+            var testVm = App.Current.GetService<TestViewModel>();
+
+            testVm.Name = "Управление ролями пользователей";
+
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+        }
+
 
         #endregion
 

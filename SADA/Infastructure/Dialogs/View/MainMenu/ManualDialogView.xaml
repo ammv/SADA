@@ -96,6 +96,7 @@
 
         <Button Width="22"
                 Height="22"
+                ToolTip="Esc"
                 Command="hc:ControlCommands.Close"
                 Style="{StaticResource ButtonIcon}"
                 Foreground="{DynamicResource PrimaryBrush}"

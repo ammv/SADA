@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.ViewModel.MainMenu.Car.Other
+namespace SADA.ViewModel.MainMenu.Car.Salon
 {
-    class EquipmentViewModel
+    class CarInSalonViewModel
     {
         #region Fields
         #endregion

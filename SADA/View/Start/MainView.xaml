@@ -28,9 +28,15 @@
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
         <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
+        <conv:LongToShortStringConverter x:Key="LongToShortStringConverter" MaxLength="25"/>
 
 
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Delete"
+                    Command="{Binding CloseSelectedTabCommand}" />
+    </Window.InputBindings>
+    
 
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
 
@@ -144,22 +150,30 @@
             <!--Нижний весь контент-->
             <Grid Grid.Row="1"
                   Grid.RowSpan="2"
+                  
                   Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="50"
-                                      Width="240" />
+                                      Width="{Binding SideMenuWidth}" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <!--Разделитель-->
                 <GridSplitter Grid.Column="1"
-                              ToolTip="Drag left-right to resize"
+                              ToolTip="Drag left-right to resize. Double click to default size"
                               ShowsPreview="True"
+                              
                               Width="5"
                               Background="{DynamicResource PrimaryBackgroundBrush}"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Stretch" />
+                              VerticalAlignment="Stretch">
+                    <intr:Interaction.Triggers>
+                        <intr:EventTrigger EventName="MouseDoubleClick">
+                            <intr:InvokeCommandAction Command="{Binding SetDefaultSideMenuSizeCommand}" />
+                        </intr:EventTrigger>
+                    </intr:Interaction.Triggers>
+                </GridSplitter>
 
                 <!--Вкладки-->
                 <hc:TabControl IsDraggable="True"
@@ -167,11 +181,9 @@
                                Grid.Column="2"
                                ItemsSource="{Binding Tabs}"
                                Style="{StaticResource TabControlStyleCustom}">
-                    
-
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type core:ITab}">
-                            <Grid>
+                            <Grid ToolTip="{Binding Name}">
                                 <Grid.Resources>
                                     <Style TargetType="Button"
                                            BasedOn="{StaticResource TransparentButton}">
@@ -179,7 +191,7 @@
                                         
                                     </Style>
                                 </Grid.Resources>
-                                <TextBlock Text="{Binding Name}"
+                                <TextBlock Text="{Binding Name, Converter={StaticResource LongToShortStringConverter}}"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Center" />
                                 <Button Command="{Binding CloseCommand}"
@@ -194,7 +206,7 @@
                                                                     Height="12"
                                                                     Width="12" />
                                 </Button>
-                                
+
                             </Grid>
                             <DataTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" 

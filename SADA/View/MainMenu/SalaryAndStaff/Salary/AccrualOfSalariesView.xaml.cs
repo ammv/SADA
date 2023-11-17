@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SADA.View.MainMenu.Car.Salon
+namespace SADA.View.MainMenu.SalaryAndStaff.Salary
 {
     /// <summary>
-    /// Логика взаимодействия для CarInSalonView.xaml
+    /// Логика взаимодействия для AccrualOfSalariesView.xaml
     /// </summary>
-    public partial class CarInSalonView : UserControl
+    public partial class AccrualOfSalariesView : UserControl
     {
-        public CarInSalonView()
+        public AccrualOfSalariesView()
         {
             InitializeComponent();
         }

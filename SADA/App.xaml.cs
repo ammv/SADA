@@ -5,11 +5,11 @@ using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using SADA.Infastructure.Messages;
 using SADA.Services;
-using SADA.ViewModel.Start;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SADA
 {
@@ -29,6 +29,9 @@ namespace SADA
             ShutdownMode = ShutdownMode.OnLastWindowClose;
 
             RegisterMessages();
+
+            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(UIElement),
+            new FrameworkPropertyMetadata(1000));
 
             this.InitializeComponent();
         }
@@ -70,27 +73,27 @@ namespace SADA
             var services = new ServiceCollection();
 
             ConfigureOtherServices(services);
-            ConfigureView(services);
-            ConfigureViewModel(services);
+            ConfigureStart(services);
+            ConfigureDialogs(services);
 
             return services.BuildServiceProvider();
         }
 
-        private static void ConfigureView(ServiceCollection services)
+        private static void ConfigureStart(ServiceCollection services)
         {
             services.AddTransient<View.Start.MainView>();
             services.AddTransient<View.Start.AuthView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MenuDialogView>();
+            services.AddTransient<View.Start.TestView>();
+            services.AddTransient<View.Start.WelcomeTabView>();
 
-        }
-
-        private static void ConfigureViewModel(ServiceCollection services)
-        {
             services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
+            services.AddTransient<ViewModel.Start.WelcomeTestViewModel>();
+        }
 
-
+        private static void ConfigureDialogs(ServiceCollection services)
+        {
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>();
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.CarDialogView>();
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.HomeDialogView>();

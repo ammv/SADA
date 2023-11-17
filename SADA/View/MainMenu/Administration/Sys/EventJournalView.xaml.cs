@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SADA.View.MainMenu.Car.Salon
+namespace SADA.View.MainMenu.Administration.Sys
 {
     /// <summary>
-    /// Логика взаимодействия для CarInSalonView.xaml
+    /// Логика взаимодействия для EventJournalView.xaml
     /// </summary>
-    public partial class CarInSalonView : UserControl
+    public partial class EventJournalView : UserControl
     {
-        public CarInSalonView()
+        public EventJournalView()
         {
             InitializeComponent();
         }
