@@ -89,7 +89,7 @@ namespace SADA
             services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
-            services.AddTransient<ViewModel.Start.WelcomeTestViewModel>();
+            services.AddTransient<ViewModel.Start.WelcomeTabViewModel>();
         }
 
         private static void ConfigureDialogs(ServiceCollection services)

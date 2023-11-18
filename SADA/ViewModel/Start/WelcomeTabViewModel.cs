@@ -8,12 +8,13 @@ using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    class WelcomeTestViewModel : TabObservableObject
+    class WelcomeTabViewModel : TabObservableObject
     {
 
-        public WelcomeTestViewModel()
+        public WelcomeTabViewModel()
         {
             CloseCommand = new RelayCommand(_OnClose);
+            Name = "Приветствие";
         }
 
         private void _OnClose()

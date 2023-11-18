@@ -6,4 +6,9 @@
     <DataTemplate DataType="{x:Type vm:TestViewModel}">
         <view:TestView />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:WelcomeTabViewModel}">
+        <view:WelcomeTabView />
+    </DataTemplate>
+    
 </ResourceDictionary>

@@ -33,11 +33,11 @@ namespace SADA.ViewModel.Start
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
             CloseSelectedTabCommand = new RelayCommand(_CloseSelectedTabCommand);
-            SetDefaultSideMenuSizeCommand = new RelayCommand(_SetDefaultSideMenuSizeCommand);
+            ChangeSideMenuWidth = new RelayCommand(_ChangeSideMenuWidth);
 
             _Tabs.CollectionChanged += _Tabs_CollectionChanged;
 
-            //_Tabs.Add(App.Current.GetService<WelcomeTabView>() as ITab);
+            _Tabs.Add(App.Current.GetService<WelcomeTabViewModel>());
 
             using (var ctx = new SADAEntities())
             {
@@ -64,6 +64,7 @@ namespace SADA.ViewModel.Start
         private readonly WindowFadeChanger _windowFadeChanger;
         private Dialog _currentDialog = null;
         private const double _sideMenuWidthBase = 240;
+        private const double _sideMenuWidthMinimum = 50;
         private double _sideMenuWidth = _sideMenuWidthBase;
 
         #endregion
@@ -88,6 +89,17 @@ namespace SADA.ViewModel.Start
             set => SetProperty(ref _sideMenuWidth, value);
         }
 
+        public double SideMenuWidthMinimum
+        {
+            get => _sideMenuWidth;
+            set => SetProperty(ref _sideMenuWidth, value);
+        }
+
+        public double SideMenuWidthDefault
+        {
+            get => _sideMenuWidthBase;
+        }
+
         public Staff Staff { get; }
 
         #endregion
@@ -99,7 +111,7 @@ namespace SADA.ViewModel.Start
         public RelayCommand OpenCalculatorToolCommand { get; }
         public RelayCommand<Window> ExitFromAccountCommand { get; }
         public RelayCommand CloseSelectedTabCommand { get; }
-        public RelayCommand SetDefaultSideMenuSizeCommand { get; }
+        public RelayCommand ChangeSideMenuWidth { get; }
 
 
         #endregion
@@ -148,9 +160,20 @@ namespace SADA.ViewModel.Start
             Process.Start("calc.exe");
         }
 
-        private void _SetDefaultSideMenuSizeCommand()
+        private void _ChangeSideMenuWidth()
         {
-            SideMenuWidth = _sideMenuWidthBase;
+            if(_sideMenuWidth > _sideMenuWidthBase)
+            {
+                SideMenuWidth = _sideMenuWidthBase;
+            }
+            else if(_sideMenuWidth == _sideMenuWidthBase)
+            {
+                SideMenuWidth = _sideMenuWidthMinimum;
+            }
+            else
+            {
+                SideMenuWidth = _sideMenuWidthBase;
+            }
         }
 
         private void _ExitFromAccountCommand(Window window)
@@ -169,9 +192,6 @@ namespace SADA.ViewModel.Start
                 _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
             }
         }
-
-
-
         #endregion
         #region Other
 
@@ -180,7 +200,7 @@ namespace SADA.ViewModel.Start
             if (_currentDialog != null)
             {
                 Tabs.Add(message.Value);
-                SelectedTabItemIndex = Tabs.Count - 1;
+                //SelectedTabItemIndex = Tabs.Count - 1;
                 _currentDialog.Close();
             }
         }
@@ -194,6 +214,7 @@ namespace SADA.ViewModel.Start
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     tab = (ITab)e.NewItems[0];
                     tab.CloseRequested += Tab_CloseRequested;
+                    SelectedTabItemIndex = _Tabs.Count - 1;
                     
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:

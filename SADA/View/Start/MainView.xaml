@@ -28,7 +28,9 @@
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
         <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
-        <conv:LongToShortStringConverter x:Key="LongToShortStringConverter" MaxLength="25"/>
+        <conv:LongToShortStringConverter x:Key="LongToShortStringConverter"
+                                         MaxLength="20" />
+        <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
 
 
     </Window.Resources>
@@ -36,7 +38,7 @@
         <KeyBinding Key="Delete"
                     Command="{Binding CloseSelectedTabCommand}" />
     </Window.InputBindings>
-    
+
 
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
 
@@ -87,6 +89,7 @@
                                                             Width="24"
                                                             VerticalAlignment="Center"
                                                             Foreground="Black" />
+                            
                         </Button>
 
                         <Button Style="{DynamicResource TransparentButton}"
@@ -150,11 +153,12 @@
             <!--Нижний весь контент-->
             <Grid Grid.Row="1"
                   Grid.RowSpan="2"
-                  
                   Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="50"
-                                      Width="{Binding SideMenuWidth}" />
+                    <ColumnDefinition MinWidth="{Binding SideMenuWidthMinimum, Mode=OneTime,
+                        Converter={StaticResource DoubleToGridLengthConverter}}"
+                                      Width="{Binding SideMenuWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                        Converter={StaticResource DoubleToGridLengthConverter}}" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
@@ -163,32 +167,32 @@
                 <GridSplitter Grid.Column="1"
                               ToolTip="Drag left-right to resize. Double click to default size"
                               ShowsPreview="True"
-                              
                               Width="5"
                               Background="{DynamicResource PrimaryBackgroundBrush}"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Stretch">
                     <intr:Interaction.Triggers>
                         <intr:EventTrigger EventName="MouseDoubleClick">
-                            <intr:InvokeCommandAction Command="{Binding SetDefaultSideMenuSizeCommand}" />
+                            <intr:InvokeCommandAction Command="{Binding ChangeSideMenuWidth}" />
                         </intr:EventTrigger>
                     </intr:Interaction.Triggers>
                 </GridSplitter>
 
                 <!--Вкладки-->
                 <hc:TabControl IsDraggable="True"
-                               SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged}"
+                               SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                Grid.Column="2"
                                ItemsSource="{Binding Tabs}"
                                Style="{StaticResource TabControlStyleCustom}">
+                    
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type core:ITab}">
-                            <Grid ToolTip="{Binding Name}">
+                            <Grid hc:Poptip.Content="{Binding Name}" hc:Poptip.Placement="BottomLeft">
                                 <Grid.Resources>
                                     <Style TargetType="Button"
                                            BasedOn="{StaticResource TransparentButton}">
 
-                                        
+
                                     </Style>
                                 </Grid.Resources>
                                 <TextBlock Text="{Binding Name, Converter={StaticResource LongToShortStringConverter}}"
@@ -199,8 +203,7 @@
                                         x:Name="btn"
                                         VerticalAlignment="Center"
                                         TextElement.Foreground="Black"
-                                        Margin="0 0 16 0"
-                                        >
+                                        Margin="0 0 16 0">
                                     <mahicon:PackIconBootstrapIcons Kind="X"
                                                                     x:Name="icon"
                                                                     Height="12"
@@ -209,11 +212,11 @@
 
                             </Grid>
                             <DataTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" 
+                                <Trigger Property="IsMouseOver"
                                          SourceName="btn"
-                                        
                                          Value="True">
-                                    <Setter Property="TextElement.Foreground" TargetName="icon"
+                                    <Setter Property="TextElement.Foreground"
+                                            TargetName="icon"
                                             Value="{DynamicResource PrimaryGrayColor}" />
                                 </Trigger>
                             </DataTemplate.Triggers>
@@ -259,7 +262,7 @@
                                 <hc:SideMenuItem.Icon>
                                     <mahicon:PackIconVaadinIcons Kind="Car"
                                                                  Height="24"
-                                                                 Width="24"/>
+                                                                 Width="24" />
                                 </hc:SideMenuItem.Icon>
 
                             </hc:SideMenuItem>
@@ -320,7 +323,7 @@
 
                             </hc:SideMenuItem>
 
-                            
+
                         </hc:SideMenu>
 
                         <Button Content="Выйти из системы"

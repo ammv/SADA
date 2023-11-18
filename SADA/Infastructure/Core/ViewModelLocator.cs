@@ -61,18 +61,6 @@ namespace SADA.Infastructure.Core
             }
         }
 
-        public MenuDialogViewModel MenuDialog
-        {
-            get
-            {
-                if (IsInDesignMode())
-                {
-                    return new MenuDialogViewModel();
-                }
-                return App.Current.GetService<MenuDialogViewModel>();
-            }
-        }
-
         private bool IsInDesignMode()
         {
             return DesignerProperties.GetIsInDesignMode(dummy);
