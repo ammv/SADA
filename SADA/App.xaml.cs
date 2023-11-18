@@ -75,6 +75,7 @@ namespace SADA
             ConfigureOtherServices(services);
             ConfigureStart(services);
             ConfigureDialogs(services);
+            ConfigureUtils(services);
 
             return services.BuildServiceProvider();
         }
@@ -90,6 +91,13 @@ namespace SADA
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
             services.AddTransient<ViewModel.Start.WelcomeTabViewModel>();
+        }
+
+        private static void ConfigureUtils(ServiceCollection services)
+        {
+            services.AddSingleton<View.Utils.WindowTopButtonsView>();
+
+            services.AddTransient<ViewModel.Utils.WindowTopButtonsViewModel>();
         }
 
         private static void ConfigureDialogs(ServiceCollection services)

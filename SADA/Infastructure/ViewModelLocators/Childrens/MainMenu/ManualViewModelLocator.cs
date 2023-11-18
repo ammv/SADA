@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu
 {
     class ManualViewModelLocator: ViewModelLocatorBase
     {

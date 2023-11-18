@@ -1,27 +1,27 @@
 ﻿using SADA.Infastructure.Core;
-using SADA.ViewModel.MainMenu.Product.Sales;
+using SADA.ViewModel.MainMenu.Product.Income;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.Product
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Product
 {
-    class SalesViewModelLocator: ViewModelLocatorBase
+    class IncomeViewModelLocator: ViewModelLocatorBase
     {
 
-        public ProductSaleViewModel ProductSale
+        public ProductIncomeViewModel ProductIncome
         {
             get
             {
                 if (IsInDesignMode())
                 {
-                    return new ProductSaleViewModel();
+                    return new ProductIncomeViewModel();
                 }
                 else
                 {
-                    return App.Current.GetService<ProductSaleViewModel>();
+                    return App.Current.GetService<ProductIncomeViewModel>();
                 }
             }
         }

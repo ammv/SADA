@@ -1,43 +1,43 @@
 ﻿using SADA.Infastructure.Core;
-using SADA.ViewModel.MainMenu.Administration.Login;
+using SADA.ViewModel.MainMenu.Home.Expense;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.Administration
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
 {
-    class SystemViewModelLocator: ViewModelLocatorBase
+    class ExpenseViewModelLocator: ViewModelLocatorBase
     {
 
-        public UserRoleManagementViewModel UserRoleManagement
+        public CarExpenseViewModel CarExpense
         {
             get
             {
                 if (IsInDesignMode())
                 {
-                    return new UserRoleManagementViewModel();
+                    return new CarExpenseViewModel();
                 }
                 else
                 {
-                    return App.Current.GetService<UserRoleManagementViewModel>();
+                    return App.Current.GetService<CarExpenseViewModel>();
                 }
             }
         }
 
 
-        public UsersViewModel Users
+        public GeneralExpenseViewModel GeneralExpense
         {
             get
             {
                 if (IsInDesignMode())
                 {
-                    return new UsersViewModel();
+                    return new GeneralExpenseViewModel();
                 }
                 else
                 {
-                    return App.Current.GetService<UsersViewModel>();
+                    return App.Current.GetService<GeneralExpenseViewModel>();
                 }
             }
         }

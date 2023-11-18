@@ -9,10 +9,10 @@ namespace SADA.ViewModel.Utils
     {
         #region Fields
 
-        WindowState _windowState = WindowState.Maximized;
-        bool _isCloseEnabled = true;
-        bool _isRecoverOrUnwrapEnabled = true;
-        bool _isWrapEnabled = true;
+        private WindowState _windowState = WindowState.Maximized;
+        private bool _isCloseEnabled = true;
+        private bool _isRecoverOrUnwrapEnabled = true;
+        private bool _isWrapEnabled = true;
 
         #endregion
 
@@ -78,8 +78,6 @@ namespace SADA.ViewModel.Utils
                 }
             }
         }
-
-
 
         private void _recoverOrUnwrapWindowCommand(Window window)
         {

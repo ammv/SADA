@@ -1,27 +1,27 @@
 ﻿using SADA.Infastructure.Core;
-using SADA.ViewModel.MainMenu.Car.Other;
+using SADA.ViewModel.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.Car
+namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    class OtherViewModelLocator: ViewModelLocatorBase
+    class UtilsViewModelLocator: ViewModelLocatorBase
     {
 
-        public EquipmentViewModel Equipment
+        public WindowTopButtonsViewModel WindowTopButtons
         {
             get
             {
                 if (IsInDesignMode())
                 {
-                    return new EquipmentViewModel();
+                    return new WindowTopButtonsViewModel();
                 }
                 else
                 {
-                    return App.Current.GetService<EquipmentViewModel>();
+                    return App.Current.GetService<WindowTopButtonsViewModel>();
                 }
             }
         }

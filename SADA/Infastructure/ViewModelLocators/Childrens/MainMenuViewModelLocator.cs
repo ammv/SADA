@@ -1,12 +1,12 @@
 ﻿using SADA.Infastructure.Core;
-using SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu;
+using SADA.Infastructure.ViewModelLocators.Childrens.MainMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators
+namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
     class MainMenuViewModelLocator: ViewModelLocatorBase
     {

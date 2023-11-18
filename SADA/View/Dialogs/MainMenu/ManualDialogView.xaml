@@ -5,7 +5,7 @@
              xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
              Width="1280"
              Height="720"
-             DataContext="{Binding Path=Dialogs.ManualDialog, Source={StaticResource viewModelLocator}}"
+             DataContext="{Binding Path=DialogsVml.MainMenuVml.ManualDialog, Source={StaticResource mainViewModelLocator}}"
              Background="{DynamicResource RegionBrush}">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">

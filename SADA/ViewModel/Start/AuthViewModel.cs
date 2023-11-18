@@ -4,6 +4,7 @@ using DataLayer;
 using FadeWpf;
 using SADA.Services;
 using SADA.View.Start;
+using SADA.ViewModel.Utils;
 using System.Windows;
 
 
@@ -18,7 +19,6 @@ namespace SADA.ViewModel.Start
             AuthCommand = new RelayCommand(_AuthCommand, _AuthCommandCanExecute);
             this._windowFadeChanger = windowFadeChanger;
             this._userService = userService;
-            
         }
 
         #endregion

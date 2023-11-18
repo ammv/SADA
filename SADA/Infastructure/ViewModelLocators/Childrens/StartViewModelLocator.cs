@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators
+namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
     class StartViewModelLocator: ViewModelLocatorBase
     {

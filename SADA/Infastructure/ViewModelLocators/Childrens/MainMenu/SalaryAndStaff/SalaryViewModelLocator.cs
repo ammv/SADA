@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.SalaryAndStaff
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
 {
     class SalaryViewModelLocator: ViewModelLocatorBase
     {

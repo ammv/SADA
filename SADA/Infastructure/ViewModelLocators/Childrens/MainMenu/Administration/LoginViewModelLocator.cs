@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.Administration
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Administration
 {
     class LoginViewModelLocator: ViewModelLocatorBase
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.ViewModelLocators.ViewModelLocators.MainMenu.Home
+namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
 {
     class CounteragentViewModelLocator: ViewModelLocatorBase
     {
