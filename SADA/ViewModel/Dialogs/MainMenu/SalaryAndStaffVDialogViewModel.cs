@@ -7,11 +7,11 @@ using System;
 
 namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
-    internal class SalaryAndStaffViewModel : DialogBase
+    internal class SalaryAndStaffDialogViewModel : DialogBase
     {
         #region Constructor
 
-        public SalaryAndStaffViewModel() : base()
+        public SalaryAndStaffDialogViewModel() : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
             AccrualOfSalariesCommand = new RelayCommand(_AccrualOfSalariesCommand);

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SADA.Services;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,6 +14,7 @@ namespace SADA.ViewModel.Utils
         private bool _isRecoverOrUnwrapEnabled = true;
         private bool _isWrapEnabled = true;
         private WindowState _windowState = WindowState.Maximized;
+        private readonly IDialogService _dialogService;
 
         #endregion Fields
 
@@ -51,12 +53,16 @@ namespace SADA.ViewModel.Utils
 
         #region Constructor
 
-        public WindowTopButtonsViewModel()
+        public WindowTopButtonsViewModel(IDialogService dialogService)
         {
             CloseWindowCommand = new RelayCommand<Window>(_closeWindowCommand);
             WrapWindowCommand = new RelayCommand<Window>(_wrapWindowCommand);
             RecoverOrUnwrapWindowCommand = new RelayCommand<Window>(_recoverOrUnwrapWindowCommand);
+
+            _dialogService = dialogService;
         }
+
+        protected internal WindowTopButtonsViewModel() { }
 
         #endregion Constructor
 
@@ -76,7 +82,7 @@ namespace SADA.ViewModel.Utils
         {
             if (window != null)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Вопрос", MessageBoxButton.YesNo);
+                var result = _dialogService.ShowMessageBox("Вопрос", "Вы уверены что хотите выйти?",  MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     window.Close();

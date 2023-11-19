@@ -135,15 +135,15 @@ namespace SADA.Infastructure.Core
                 }
             }
 
-            public Dialogs.ViewModel.MainMenu.SalaryAndStaffViewModel SalaryAndStaff
+            public Dialogs.ViewModel.MainMenu.SalaryAndStaffDialogViewModel SalaryAndStaff
             {
                 get
                 {
                     if (IsInDesignMode())
                     {
-                        return new Dialogs.ViewModel.MainMenu.SalaryAndStaffViewModel();
+                        return new Dialogs.ViewModel.MainMenu.SalaryAndStaffDialogViewModel();
                     }
-                    return App.Current.GetService<Dialogs.ViewModel.MainMenu.SalaryAndStaffViewModel>();
+                    return App.Current.GetService<Dialogs.ViewModel.MainMenu.SalaryAndStaffDialogViewModel>();
                 }
             }
         }

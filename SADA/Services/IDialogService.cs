@@ -1,6 +1,9 @@
-﻿namespace SADA.Services
+﻿using System.Windows;
+
+namespace SADA.Services
 {
-    internal interface IDialogService
+    public interface IDialogService
     {
+        MessageBoxResult ShowMessageBox(string caption, string message, MessageBoxButton messageBoxButton);
     }
 }

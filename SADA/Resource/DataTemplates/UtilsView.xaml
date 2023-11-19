@@ -5,4 +5,5 @@
     <DataTemplate DataType="{x:Type vm:WindowTopButtonsViewModel}">
         <view:WindowTopButtonsView />
     </DataTemplate>
+    
 </ResourceDictionary>

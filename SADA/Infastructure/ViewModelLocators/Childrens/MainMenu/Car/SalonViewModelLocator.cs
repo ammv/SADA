@@ -11,7 +11,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
             {
                 if (IsInDesignMode())
                 {
-                    return new CarInSalonViewModel();
+                    return new MockCarInSalonViewModel();
                 }
                 else
                 {

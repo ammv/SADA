@@ -18,7 +18,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Main, Source={StaticResource viewModelLocator}}"
+        DataContext="{Binding StartVml.Main, Source={StaticResource mainViewModelLocator}}"
         Title="AuthView"
         MinHeight="720"
         ResizeMode="CanResize"

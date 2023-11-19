@@ -8,7 +8,6 @@
     <Application.Resources>
 
         <ResourceDictionary>
-            <core:ViewModelLocator x:Key="viewModelLocator" />
             <vmls:MainViewModelLocator x:Key="mainViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources />

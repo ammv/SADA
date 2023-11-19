@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Images/SVG.xaml" />
-        <ResourceDictionary Source="DataTemplates/Include.xaml" />
+        <!--<ResourceDictionary Source="DataTemplates/Include.xaml" />-->
         <ResourceDictionary Source="Icons/Include.xaml" />
         <ResourceDictionary Source="Style/Include.xaml" />
     </ResourceDictionary.MergedDictionaries>

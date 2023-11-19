@@ -80,17 +80,17 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-        public SalaryAndStaffViewModel SalaryAndStaff
+        public SalaryAndStaffDialogViewModel SalaryAndStaff
         {
             get
             {
                 if (IsInDesignMode())
                 {
-                    return new SalaryAndStaffViewModel();
+                    return new SalaryAndStaffDialogViewModel();
                 }
                 else
                 {
-                    return App.Current.GetService<SalaryAndStaffViewModel>();
+                    return App.Current.GetService<SalaryAndStaffDialogViewModel>();
                 }
             }
         }

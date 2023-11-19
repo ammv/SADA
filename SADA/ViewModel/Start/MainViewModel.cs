@@ -7,6 +7,7 @@ using HandyControl.Controls;
 using HandyControl.Data;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.Services;
 using SADA.View.Start;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,9 @@ namespace SADA.ViewModel.Start
 
         private ObservableCollection<ITab> _Tabs = new ObservableCollection<ITab>();
         private int _selectedTabItemIndex = -1;
-        private Dictionary<string, TypeWrapper<TabObservableObject>> _menuMap = new Dictionary<string, TypeWrapper<TabObservableObject>>();
         private readonly WindowFadeChanger _windowFadeChanger;
+        private readonly IWindowService _windowService;
+        private readonly IDialogService _dialogService;
         private Dialog _currentDialog = null;
         private const double _sideMenuWidthBase = 240;
         private const double _sideMenuWidthMinimum = 50;
@@ -37,10 +39,11 @@ namespace SADA.ViewModel.Start
 
         #region Constructor
 
-        public MainViewModel(WindowFadeChanger windowFadeChanger = null)
+        public MainViewModel(WindowFadeChanger windowFadeChanger, IWindowService windowService, IDialogService dialogService)
         {
-            this._windowFadeChanger = windowFadeChanger;
-
+            _windowFadeChanger = windowFadeChanger;
+            _windowService = windowService;
+            _dialogService = dialogService;
             OpenTabCommand = new RelayCommand<string>(_OpenDialogCommand);
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
@@ -68,6 +71,12 @@ namespace SADA.ViewModel.Start
             };
 
             WeakReferenceMessenger.Default.Register(this);
+        }
+
+        // For Mock
+        protected MainViewModel()
+        {
+
         }
 
         private void Tab_CloseRequested(object sender, EventArgs e)
@@ -166,18 +175,13 @@ namespace SADA.ViewModel.Start
 
         private void _ExitFromAccountCommand(Window window)
         {
-            var result = MessageBox.Show(new MessageBoxInfo
-            {
-                Message = "Вы уверены, что хотите выйти из аккаунта?",
-                Caption = "Выход из аккаунта",
-                Button = System.Windows.MessageBoxButton.YesNo,
-                YesContent = "Да",
-                NoContent = "Нет"
-            });
+            var result = _dialogService.ShowMessageBox("Вопрос", "Вы уверены что хотите выйти из системы?", System.Windows.MessageBoxButton.YesNo);
 
             if (result == System.Windows.MessageBoxResult.Yes)
             {
-                _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
+                // _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
+                _windowService.ShowAndCloseWindow<AuthView>(_windowService.LastOpenedWindow);
+                
             }
         }
 
@@ -204,14 +208,11 @@ namespace SADA.ViewModel.Start
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     tab = (ITab)e.NewItems[0];
                     tab.CloseRequested += Tab_CloseRequested;
-                   // SelectedTabItemIndex = _Tabs.Count - 1;
-
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     tab = (ITab)e.OldItems[0];
                     tab.CloseRequested -= Tab_CloseRequested;
-                    //if(SelectedTabItemIndex == _Tabs.Count - 2)
                     break;
             }
         }

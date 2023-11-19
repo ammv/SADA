@@ -1,10 +1,16 @@
 ﻿using DataLayer;
 using FadeWpf;
 using Microsoft.Extensions.DependencyInjection;
+using SADA.Infastructure.Core;
 using SADA.Services;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace SADA
 {
@@ -13,34 +19,28 @@ namespace SADA
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        #region Fields
+
         private System.Threading.Mutex mutex;
-        public static User CurrentUser { get; set; }
+
+        #endregion Fields
+
+        #region Constructor
 
         public App()
         {
+            this.InitializeComponent();
+
             Services = ConfigureServices();
 
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
-
-            ShutdownMode = ShutdownMode.OnLastWindowClose;
-
-            RegisterMessages();
-
-            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(UIElement),
-            new FrameworkPropertyMetadata(1000));
-
-            this.InitializeComponent();
+            Idle();
         }
 
-        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show(e.Exception.Message, "Непредвиденная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        #endregion Constructor
 
-        private void RegisterMessages()
-        {
-            //WeakReferenceMessenger.Default.Register<MainViewModel, OpenTabFromDialogMessage>();
-        }
+        #region Properties
+
+        public static User CurrentUser { get; set; }
 
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
@@ -52,7 +52,75 @@ namespace SADA
         /// </summary>
         public IServiceProvider Services { get; }
 
+        #endregion Properties
+
+        #region Other
+
+        private void RegisterMessages()
+        {
+            //WeakReferenceMessenger.Default.Register<MainViewModel, OpenTabFromDialogMessage>();
+        }
+
+        #endregion Other
+
+        #region App
+
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Непредвиденная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //base.OnStartup(e);
+
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+
+            ShutdownMode = ShutdownMode.OnLastWindowClose;
+
+            new DataTemplateManager().RegisterDataTemplateAuto();
+
+            RegisterMessages();
+
+            ShutdownAppCopy();
+            
+            IWindowService windowService = Services.GetService<IWindowService>();
+
+            windowService.ShowWindow<View.Start.MainView>();
+        }
+
+        DispatcherTimer mIdle;
+        private const long cIdleSeconds = 3;
+        private void Idle()
+        {
+            InputManager.Current.PreProcessInput += Current_PreProcessInput;
+            mIdle = new DispatcherTimer();
+            //mIdle.Interval = new TimeSpan(cIdleSeconds * 1000 * 10000);
+            mIdle.Interval = TimeSpan.FromSeconds(5);
+            mIdle.IsEnabled = true;
+            mIdle.Tick += Idle_Tick;
+        }
+
+        private void Idle_Tick(object sender, EventArgs e)
+        {
+            IWindowService windowService = Services.GetService<IWindowService>();
+            IDialogService dialogService = Services.GetService<IDialogService>();
+
+            if (windowService.LastOpenedWindow.GetType() == typeof(View.Start.AuthView)) return;
+
+            windowService.ShowAndCloseWindow<View.Start.AuthView>(windowService.LastOpenedWindow);
+
+
+            dialogService.ShowMessageBox("Сессия", "Сессия прекращена из за длительного бездействия", MessageBoxButton.OK);
+        }
+
+        private void Current_PreProcessInput(object sender, PreProcessInputEventArgs e)
+        {
+            mIdle.IsEnabled = false;
+            mIdle.IsEnabled = true;
+        }
+
+        private void ShutdownAppCopy()
         {
             bool createdNew;
             string mutName = "Приложение";
@@ -61,11 +129,11 @@ namespace SADA
             {
                 this.Shutdown();
             }
-            var view = Services.GetService<View.Start.MainView>();
-            view.Show();
         }
 
-        private static IServiceProvider ConfigureServices()
+        #endregion App
+
+        private IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
 
@@ -77,27 +145,20 @@ namespace SADA
             return services.BuildServiceProvider();
         }
 
-        private static void ConfigureStart(ServiceCollection services)
+        private void ConfigureStart(ServiceCollection services)
         {
-            services.AddTransient<View.Start.MainView>();
-            services.AddTransient<View.Start.AuthView>();
-            services.AddTransient<View.Start.TestView>();
-            services.AddTransient<View.Start.WelcomeTabView>();
-
             services.AddTransient<ViewModel.Start.MainViewModel>();
             services.AddTransient<ViewModel.Start.AuthViewModel>();
             services.AddTransient<ViewModel.Start.TestViewModel>();
             services.AddTransient<ViewModel.Start.WelcomeTabViewModel>();
         }
 
-        private static void ConfigureUtils(ServiceCollection services)
+        private void ConfigureUtils(ServiceCollection services)
         {
-            services.AddSingleton<View.Utils.WindowTopButtonsView>();
-
             services.AddTransient<ViewModel.Utils.WindowTopButtonsViewModel>();
         }
 
-        private static void ConfigureDialogs(ServiceCollection services)
+        private void ConfigureDialogs(ServiceCollection services)
         {
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>();
             services.AddSingleton<Infastructure.Dialogs.View.MainMenu.CarDialogView>();
@@ -117,27 +178,24 @@ namespace SADA
             services.AddSingleton<Infastructure.Dialogs.ViewModel
                 .MainMenu.ProductDialogViewModel>();
             services.AddSingleton<Infastructure.Dialogs.ViewModel
-                .MainMenu.SalaryAndStaffViewModel>();
+                .MainMenu.SalaryAndStaffDialogViewModel>();
         }
 
-        private static void ConfigureOtherServices(ServiceCollection services)
+        private void ConfigureOtherServices(ServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<IWindowService, WindowService>();
             services.AddSingleton<WindowFadeChanger>();
-            //services.AddSingleton<IDataGridService, DataGridService>();
+            services.AddSingleton<IDataGridService, DataGridService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            //services.AddSingleton<IDatabaseTableService>(
-            //    provider => new DatabaseTableService(new SADAEntities()));
+            services.AddSingleton<IDatabaseTableService>(
+                provider => new DatabaseTableService(new SADAEntities()));
         }
 
         public T GetService<T>()
         {
             return Services.GetService<T>();
-        }
-
-        public Window LastOpenedWindow()
-        {
-            return Windows[Windows.Count - 1];
         }
     }
 }

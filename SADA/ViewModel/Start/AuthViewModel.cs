@@ -12,11 +12,18 @@ namespace SADA.ViewModel.Start
     {
         #region Constructor
 
-        public AuthViewModel(WindowFadeChanger windowFadeChanger, IUserService userService)
+        public AuthViewModel(WindowFadeChanger windowFadeChanger, IUserService userService, IWindowService windowService)
         {
             AuthCommand = new RelayCommand(_AuthCommand, _AuthCommandCanExecute);
             this._windowFadeChanger = windowFadeChanger;
             this._userService = userService;
+            this._windowService = windowService;
+        }
+
+        // For mock
+        protected AuthViewModel()
+        {
+
         }
 
         #endregion Constructor
@@ -27,6 +34,7 @@ namespace SADA.ViewModel.Start
         private string _login;
         private readonly WindowFadeChanger _windowFadeChanger;
         private readonly IUserService _userService;
+        private readonly IWindowService _windowService;
 
         #endregion Fields
 
@@ -88,8 +96,9 @@ namespace SADA.ViewModel.Start
 
             App.CurrentUser = user;
 
-            _windowFadeChanger.Change(App.Current.MainWindow,
-                App.Current.Services.GetService(typeof(MainView)) as MainView);
+            //_windowFadeChanger.Change(App.Current.MainWindow,
+            //    App.Current.Services.GetService(typeof(MainView)) as MainView);
+            _windowService.ShowAndCloseWindow<MainView>(_windowService.LastOpenedWindow);
         }
 
         private bool _AuthCommandCanExecute()

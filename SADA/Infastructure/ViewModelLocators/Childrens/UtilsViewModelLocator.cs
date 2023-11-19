@@ -11,7 +11,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens
             {
                 if (IsInDesignMode())
                 {
-                    return new WindowTopButtonsViewModel();
+                    return new MockWindowTopButtonsViewModel();
                 }
                 else
                 {

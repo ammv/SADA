@@ -214,6 +214,7 @@
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
+    <Compile Include="Infastructure\Core\DataTemplateManager.cs" />
     <Compile Include="Infastructure\Core\DialogBase.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
@@ -221,7 +222,7 @@
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
-    <Compile Include="Infastructure\Core\ViewModelLocator.cs" />
+    <None Include="Infastructure\Core\ViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocatorBase.cs" />
     <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
     <Compile Include="Infastructure\ViewModelLocators\MainViewModelLocator.cs" />
@@ -251,15 +252,18 @@
     <Compile Include="Infastructure\ViewModelLocators\Childrens\UtilsViewModelLocator.cs" />
     <Compile Include="Services\DatabaseTableService.cs" />
     <Compile Include="Services\DataGridService.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\IDatabaseTableService.cs" />
     <Compile Include="Services\IDataGridService.cs" />
     <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="Services\IWindowService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\AdministrationDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\CarDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\HomeDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\ManualDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\ProductDialogViewModel.cs" />
-    <Compile Include="ViewModel\Dialogs\MainMenu\SalaryAndStaffViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\MainMenu\SalaryAndStaffVDialogViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UserRoleManagementViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UsersViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\System\EventJournalViewModel.cs" />
@@ -267,6 +271,7 @@
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\CounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\InteractionWithCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Expense\CarExpenseViewModel.cs" />
@@ -285,6 +290,7 @@
     <Compile Include="Infastructure\Core\TabItemInfo.cs" />
     <Compile Include="ViewModel\Start\WelcomeTabViewModel.cs" />
     <Compile Include="ViewModel\Start\TestViewModel.cs" />
+    <Compile Include="ViewModel\Utils\MockWindowTopButtonsViewModel.cs" />
     <Compile Include="ViewModel\Utils\WindowTopButtonsViewModel.cs" />
     <Compile Include="Infastructure\Messages\AuthMessage.cs" />
     <Compile Include="Services\INavigationService.cs" />
@@ -396,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\VerticalSeparator1c.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\DataTemplates\AllDataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
