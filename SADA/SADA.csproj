@@ -635,6 +635,10 @@
       <Project>{B6D4FEB5-F9AC-43B0-ADF7-91CF4D567773}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WpfUtils\WpfUtils.csproj">
+      <Project>{C289B1CB-CFD4-41EC-BB01-F182F403BE40}</Project>
+      <Name>WpfUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="Resource\Images\logo.png" />

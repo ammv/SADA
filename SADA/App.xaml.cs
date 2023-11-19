@@ -4,13 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SADA.Infastructure.Core;
 using SADA.Services;
 using System;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Threading;
+using WpfUtils;
 
 namespace SADA
 {
@@ -23,6 +18,8 @@ namespace SADA
 
         private System.Threading.Mutex mutex;
 
+        private IdleDetector _idleDetector = new IdleDetector(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
+
         #endregion Fields
 
         #region Constructor
@@ -32,8 +29,6 @@ namespace SADA
             this.InitializeComponent();
 
             Services = ConfigureServices();
-
-            Idle();
         }
 
         #endregion Constructor
@@ -78,30 +73,22 @@ namespace SADA
 
             ShutdownMode = ShutdownMode.OnLastWindowClose;
 
+            _idleDetector.IdleDetect += IdleDetect_Handler;
+
             new DataTemplateManager().RegisterDataTemplateAuto();
 
             RegisterMessages();
 
             ShutdownAppCopy();
-            
+
             IWindowService windowService = Services.GetService<IWindowService>();
 
             windowService.ShowWindow<View.Start.MainView>();
+
+            _idleDetector.Start();
         }
 
-        DispatcherTimer mIdle;
-        private const long cIdleSeconds = 3;
-        private void Idle()
-        {
-            InputManager.Current.PreProcessInput += Current_PreProcessInput;
-            mIdle = new DispatcherTimer();
-            //mIdle.Interval = new TimeSpan(cIdleSeconds * 1000 * 10000);
-            mIdle.Interval = TimeSpan.FromSeconds(5);
-            mIdle.IsEnabled = true;
-            mIdle.Tick += Idle_Tick;
-        }
-
-        private void Idle_Tick(object sender, EventArgs e)
+        private void IdleDetect_Handler(IdleDetector sender, IdleTimeInfo idleTimeInfo)
         {
             IWindowService windowService = Services.GetService<IWindowService>();
             IDialogService dialogService = Services.GetService<IDialogService>();
@@ -110,14 +97,9 @@ namespace SADA
 
             windowService.ShowAndCloseWindow<View.Start.AuthView>(windowService.LastOpenedWindow);
 
-
-            dialogService.ShowMessageBox("Сессия", "Сессия прекращена из за длительного бездействия", MessageBoxButton.OK);
-        }
-
-        private void Current_PreProcessInput(object sender, PreProcessInputEventArgs e)
-        {
-            mIdle.IsEnabled = false;
-            mIdle.IsEnabled = true;
+            dialogService.ShowMessageBox("Сессия прекращена",
+                $"Сессия прекращена из за длительного бездействия в течении {idleTimeInfo.IdleTime}",
+                MessageBoxButton.OK);
         }
 
         private void ShutdownAppCopy()
