@@ -9,7 +9,7 @@ namespace SADA.Infastructure.Core
     /// <summary>
     /// Finds the ViewModel for the View using System.Reflection and naming conventions in MVVM using the attached AutoWireViewModelProperty dependency property in the XAML markup of the View
     /// </summary>
-    class AutoViewModelLocator
+    internal class AutoViewModelLocator
     {
         public static DependencyProperty AutoWireViewModelProperty = DependencyProperty.RegisterAttached("AutoWireViewModel", typeof(bool),
         typeof(AutoViewModelLocator), new PropertyMetadata(false, AutoWireViewModelChanged));
@@ -39,7 +39,6 @@ namespace SADA.Infastructure.Core
                 viewName = viewType.FullName
                     .Replace("Page", string.Empty);
             }
-
 
             var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
             var viewModelName = string.Format(CultureInfo.InvariantCulture, "{0}, {1}", viewName.Replace("View", "ViewModel"), viewAssemblyName);

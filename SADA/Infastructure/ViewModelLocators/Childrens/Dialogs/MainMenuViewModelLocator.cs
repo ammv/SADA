@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.Infastructure.Dialogs.ViewModel.MainMenu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
 {
-    class MainMenuViewModelLocator: ViewModelLocatorBase
+    internal class MainMenuViewModelLocator : ViewModelLocatorBase
     {
-
         public AdministrationDialogViewModel AdministrationDialog
         {
             get
@@ -25,7 +19,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
                 }
             }
         }
-
 
         public CarDialogViewModel CarDialog
         {
@@ -42,7 +35,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-
         public HomeDialogViewModel Home
         {
             get
@@ -57,7 +49,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
                 }
             }
         }
-
 
         public ManualDialogViewModel ManualDialog
         {
@@ -74,7 +65,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-
         public ProductDialogViewModel ProductDialog
         {
             get
@@ -90,7 +80,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-
         public SalaryAndStaffViewModel SalaryAndStaff
         {
             get
@@ -105,7 +94,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
                 }
             }
         }
-
-
     }
 }

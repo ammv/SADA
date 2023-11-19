@@ -65,7 +65,6 @@
             </StackPanel>
         </WrapPanel>
 
-
         <Button Width="22"
                 Height="22"
                 ToolTip="Esc"

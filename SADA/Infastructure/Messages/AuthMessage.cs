@@ -1,6 +1,6 @@
 ﻿namespace SADA.Infastructure.Messages
 {
-    class AuthMessage
+    internal class AuthMessage
     {
     }
 }

@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.SalaryAndStaff.Salary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
 {
-    class SalaryViewModelLocator: ViewModelLocatorBase
+    internal class SalaryViewModelLocator : ViewModelLocatorBase
     {
-
         public AccrualOfSalariesViewModel AccrualOfSalaries
         {
             get
@@ -26,7 +20,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
             }
         }
 
-
         public SalaryReportViewModel SalaryReport
         {
             get
@@ -41,6 +34,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
                 }
             }
         }
-
     }
 }

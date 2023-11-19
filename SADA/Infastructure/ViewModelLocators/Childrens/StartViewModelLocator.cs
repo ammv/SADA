@@ -1,14 +1,9 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.Start;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    class StartViewModelLocator: ViewModelLocatorBase
+    internal class StartViewModelLocator : ViewModelLocatorBase
     {
         public AuthViewModel Auth
         {
@@ -39,7 +34,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens
                 }
             }
         }
-
 
         public TestViewModel Test
         {

@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    class UtilsViewModelLocator: ViewModelLocatorBase
+    internal class UtilsViewModelLocator : ViewModelLocatorBase
     {
-
         public WindowTopButtonsViewModel WindowTopButtons
         {
             get
@@ -25,6 +19,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens
                 }
             }
         }
-
     }
 }

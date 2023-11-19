@@ -10,5 +10,4 @@
     <DataTemplate DataType="{x:Type vm:WelcomeTabViewModel}">
         <view:WelcomeTabView />
     </DataTemplate>
-    
 </ResourceDictionary>

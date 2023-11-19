@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Home.Expense;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
 {
-    class ExpenseViewModelLocator: ViewModelLocatorBase
+    internal class ExpenseViewModelLocator : ViewModelLocatorBase
     {
-
         public CarExpenseViewModel CarExpense
         {
             get
@@ -26,7 +20,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
             }
         }
 
-
         public GeneralExpenseViewModel GeneralExpense
         {
             get
@@ -41,7 +34,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
                 }
             }
         }
-
-
     }
 }

@@ -1,13 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using DataLayer;
+﻿using DataLayer;
 using FadeWpf;
-using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
-using SADA.Infastructure.Messages;
 using SADA.Services;
 using System;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,8 +13,9 @@ namespace SADA
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        System.Threading.Mutex mutex;
+        private System.Threading.Mutex mutex;
         public static User CurrentUser { get; set; }
+
         public App()
         {
             Services = ConfigureServices();
@@ -55,6 +51,7 @@ namespace SADA
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
         /// </summary>
         public IServiceProvider Services { get; }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             bool createdNew;
@@ -142,6 +139,5 @@ namespace SADA
         {
             return Windows[Windows.Count - 1];
         }
-
     }
 }

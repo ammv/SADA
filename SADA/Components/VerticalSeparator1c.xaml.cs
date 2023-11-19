@@ -11,8 +11,5 @@ namespace SADA.Components
         {
             InitializeComponent();
         }
-
-
-
     }
 }

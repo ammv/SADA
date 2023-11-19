@@ -1,31 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADA.ViewModel.MainMenu.Administration.Login
+﻿namespace SADA.ViewModel.MainMenu.Administration.Login
 {
-    class UserRoleManagementViewModel
+    internal class UserRoleManagementViewModel
     {
-
-        #region Fields
-        #endregion
-
-        #region Constructor
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Commands
-        #endregion
-
-        #region Command implementation
-        #endregion
-
-        #region Other
-        #endregion
-            
     }
 }

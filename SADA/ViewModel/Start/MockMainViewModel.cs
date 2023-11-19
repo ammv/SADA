@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.Start
 {
-    class MockMainViewModel : MainViewModel
+    internal class MockMainViewModel : MainViewModel
     {
         public MockMainViewModel() : base()
         {

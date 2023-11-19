@@ -72,8 +72,6 @@
                   Grid.Column="1"
                   Fill="{DynamicResource PrimaryBrush}" />
 
-
-
             <TextBlock Text="Войдите в систему"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
@@ -99,8 +97,6 @@
                     HorizontalAlignment="Stretch"
                     Grid.Column="1"
                     Style="{DynamicResource ButtonPrimary}" />
-
         </Grid>
     </hc:Card>
-
 </Window>

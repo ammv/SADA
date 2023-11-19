@@ -1,5 +1,4 @@
-﻿using SADA.Infastructure.Dialogs.ViewModel;
-using SADA.ViewModel.Start;
+﻿using SADA.ViewModel.Start;
 using SADA.ViewModel.Utils;
 using System.ComponentModel;
 using System.Windows;
@@ -11,6 +10,7 @@ namespace SADA.Infastructure.Core
         private DependencyObject dummy = new DependencyObject();
         private _Dialogs _dialogs = new _Dialogs();
         public _Dialogs Dialogs { get => _dialogs; }
+
         public AuthViewModel Auth
         {
             get
@@ -68,8 +68,8 @@ namespace SADA.Infastructure.Core
 
         internal class _Dialogs
         {
-
             private DependencyObject dummy = new DependencyObject();
+
             private bool IsInDesignMode()
             {
                 return DesignerProperties.GetIsInDesignMode(dummy);

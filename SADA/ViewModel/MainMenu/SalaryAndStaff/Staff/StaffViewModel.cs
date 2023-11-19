@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
+﻿namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 {
-    class StaffViewModel
+    internal class StaffViewModel
     {
     }
 }

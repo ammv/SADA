@@ -6,8 +6,6 @@ using FadeWpf;
 using HandyControl.Controls;
 using HandyControl.Data;
 using SADA.Infastructure.Core;
-using SADA.Infastructure.Dialogs;
-using SADA.Infastructure.Dialogs.View;
 using SADA.Infastructure.Messages;
 using SADA.View.Start;
 using System;
@@ -20,10 +18,10 @@ using Window = System.Windows.Window;
 
 namespace SADA.ViewModel.Start
 {
-    partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
+    internal partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
     {
-
         #region Constructor
+
         public MainViewModel(WindowFadeChanger windowFadeChanger = null)
         {
             this._windowFadeChanger = windowFadeChanger;
@@ -46,7 +44,6 @@ namespace SADA.ViewModel.Start
             }
 
             WeakReferenceMessenger.Default.Register(this);
-
         }
 
         private void Tab_CloseRequested(object sender, EventArgs e)
@@ -54,7 +51,7 @@ namespace SADA.ViewModel.Start
             Tabs.Remove((ITab)sender);
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Fields
 
@@ -67,7 +64,7 @@ namespace SADA.ViewModel.Start
         private const double _sideMenuWidthMinimum = 50;
         private double _sideMenuWidth = _sideMenuWidthBase;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -79,7 +76,7 @@ namespace SADA.ViewModel.Start
 
         public int SelectedTabItemIndex
         {
-            get =>  _selectedTabItemIndex;
+            get => _selectedTabItemIndex;
             set => SetProperty(ref _selectedTabItemIndex, value);
         }
 
@@ -102,7 +99,7 @@ namespace SADA.ViewModel.Start
 
         public Staff Staff { get; }
 
-        #endregion
+        #endregion Properties
 
         #region Commands
 
@@ -113,42 +110,46 @@ namespace SADA.ViewModel.Start
         public RelayCommand CloseSelectedTabCommand { get; }
         public RelayCommand ChangeSideMenuWidth { get; }
 
-
-        #endregion
+        #endregion Commands
 
         #region Commands implementations
 
         private void _OpenDialogCommand(string parameter)
         {
             //var dialog = ;
-            switch(parameter)
+            switch (parameter)
             {
                 case "Главное":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.HomeDialogView>());
                     break;
+
                 case "Администрирование":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>());
                     break;
+
                 case "Автомобили":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.CarDialogView>());
                     break;
+
                 case "Зарплата и кадры":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>());
                     break;
+
                 case "Справочники":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ManualDialogView>());
                     break;
+
                 case "Товары":
                     _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ProductDialogView>());
                     break;
             }
-            
-           // result.InputBindings.AddRange(dialog.InputBindings);
+
+            // result.InputBindings.AddRange(dialog.InputBindings);
         }
 
         private void _CloseSelectedTabCommand()
         {
-            if(_Tabs.Count  == 0)
+            if (_Tabs.Count == 0)
             {
                 return;
             }
@@ -162,11 +163,11 @@ namespace SADA.ViewModel.Start
 
         private void _ChangeSideMenuWidth()
         {
-            if(_sideMenuWidth > _sideMenuWidthBase)
+            if (_sideMenuWidth > _sideMenuWidthBase)
             {
                 SideMenuWidth = _sideMenuWidthBase;
             }
-            else if(_sideMenuWidth == _sideMenuWidthBase)
+            else if (_sideMenuWidth == _sideMenuWidthBase)
             {
                 SideMenuWidth = _sideMenuWidthMinimum;
             }
@@ -192,7 +193,9 @@ namespace SADA.ViewModel.Start
                 _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
             }
         }
-        #endregion
+
+        #endregion Commands implementations
+
         #region Other
 
         public void Receive(DialogTabChangedMessage message)
@@ -215,8 +218,9 @@ namespace SADA.ViewModel.Start
                     tab = (ITab)e.NewItems[0];
                     tab.CloseRequested += Tab_CloseRequested;
                     SelectedTabItemIndex = _Tabs.Count - 1;
-                    
+
                     break;
+
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     tab = (ITab)e.OldItems[0];
                     tab.CloseRequested -= Tab_CloseRequested;
@@ -225,6 +229,6 @@ namespace SADA.ViewModel.Start
             }
         }
 
-        #endregion
+        #endregion Other
     }
 }

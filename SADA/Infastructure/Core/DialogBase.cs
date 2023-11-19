@@ -1,20 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SADA.Infastructure.Core
 {
-    class DialogBase: ObservableObject
+    internal class DialogBase : ObservableObject
     {
-        #region Fields
-        #endregion
-
         #region Constructor
 
         public DialogBase()
@@ -22,16 +14,15 @@ namespace SADA.Infastructure.Core
             LoadedCommand = new RelayCommand<UserControl>(_loadedCommand);
         }
 
-        #endregion
+        #endregion Constructor
 
-        #region Properties
-        #endregion
+
 
         #region Commands
 
         public RelayCommand<UserControl> LoadedCommand { get; }
 
-        #endregion
+        #endregion Commands
 
         #region Commands implementations
 
@@ -42,9 +33,6 @@ namespace SADA.Infastructure.Core
             Keyboard.Focus(uc);
         }
 
-        #endregion
-
-        #region Other
-        #endregion
+        #endregion Commands implementations
     }
 }

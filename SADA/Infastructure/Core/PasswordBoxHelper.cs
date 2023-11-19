@@ -18,7 +18,6 @@ namespace SADA.Infastructure.Core
             DependencyProperty.RegisterAttached("IsUpdating", typeof(bool),
             typeof(PasswordBoxHelper));
 
-
         public static void SetAttach(DependencyObject dp, bool value)
         {
             dp.SetValue(AttachProperty, value);

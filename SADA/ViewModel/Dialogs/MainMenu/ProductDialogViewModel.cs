@@ -1,25 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using HandyControl.Controls;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.ViewModel.Start;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
-    class ProductDialogViewModel : DialogBase
+    internal class ProductDialogViewModel : DialogBase
     {
-        #region Fields
-        #endregion
-
         #region Constructor
 
         public ProductDialogViewModel() : base()
@@ -31,10 +19,9 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
             ProductRemainsCommand = new RelayCommand(_ProductRemainsCommand);
         }
 
-        #endregion
+        #endregion Constructor
 
-        #region Properties
-        #endregion
+
 
         #region Commands
 
@@ -47,7 +34,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         public RelayCommand PriceListCommand { get; }
         public RelayCommand ProductRemainsCommand { get; }
 
-        #endregion
+        #endregion Commands
 
         #region Commands implementations
 
@@ -59,6 +46,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
             WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
         }
+
         private void _ProductIncomeCommand()
         {
             var testVm = App.Current.GetService<TestViewModel>();
@@ -95,9 +83,6 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
             WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
         }
 
-        #endregion
-
-        #region Other
-        #endregion
+        #endregion Commands implementations
     }
 }

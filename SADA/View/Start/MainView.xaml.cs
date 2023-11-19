@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using HandyControl.Data;
-using SADA.Infastructure.Core;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace SADA.View.Start
 {
@@ -12,11 +7,9 @@ namespace SADA.View.Start
     /// </summary>
     public partial class MainView : Window
     {
-
         public MainView()
         {
             InitializeComponent();
         }
     }
-
 }

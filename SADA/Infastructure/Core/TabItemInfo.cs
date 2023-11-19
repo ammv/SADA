@@ -1,9 +1,7 @@
-﻿using SADA.Infastructure.Core;
-using System;
+﻿using System;
 
 namespace SADA.Infastructure.Core
 {
-
     public class TabItemInfo
     {
         public TabItemInfo(string name, TabObservableObject viewModel)

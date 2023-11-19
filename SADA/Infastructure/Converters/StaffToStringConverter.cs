@@ -1,21 +1,18 @@
 ﻿using DataLayer;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace SADA.Infastructure.Converters
 {
-    class StaffToStringConverter : IValueConverter
+    internal class StaffToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is Staff staff)
+            if (value is Staff staff)
             {
-                if(staff.Passport == null)
+                if (staff.Passport == null)
                 {
                     return "Неизвестно";
                 }
@@ -24,7 +21,7 @@ namespace SADA.Infastructure.Converters
                 sb.Append(" ");
                 sb.Append(staff.Passport.Name);
                 sb.Append(" ");
-                if(!string.IsNullOrEmpty(staff.Passport.Patronymic))
+                if (!string.IsNullOrEmpty(staff.Passport.Patronymic))
                 {
                     sb.Append(staff.Passport.Patronymic);
                     sb.Append(" ");
@@ -37,7 +34,6 @@ namespace SADA.Infastructure.Converters
                 {
                     sb.Append($"({staff.StaffPost.Name})");
                 }
-                
 
                 return sb.ToString();
             }

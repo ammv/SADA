@@ -9,19 +9,19 @@ namespace SADA.ViewModel.Utils
     {
         #region Fields
 
-        private WindowState _windowState = WindowState.Maximized;
         private bool _isCloseEnabled = true;
         private bool _isRecoverOrUnwrapEnabled = true;
         private bool _isWrapEnabled = true;
+        private WindowState _windowState = WindowState.Maximized;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
-        public WindowState WindowState
+        public bool IsCloseEnabled
         {
-            get => _windowState;
-            set => SetProperty(ref _windowState, value);
+            get => _isCloseEnabled;
+            set => SetProperty(ref _isCloseEnabled, value);
         }
 
         public bool IsMaximized
@@ -29,23 +29,27 @@ namespace SADA.ViewModel.Utils
             get => _windowState == WindowState.Maximized;
         }
 
-        public bool IsCloseEnabled
-        {
-            get => _isCloseEnabled;
-            set => SetProperty(ref _isCloseEnabled, value);
-        }
         public bool IsRecoverOrUnwrapEnabled
         {
             get => _isRecoverOrUnwrapEnabled;
             set => SetProperty(ref _isRecoverOrUnwrapEnabled, value);
         }
+
         public bool IsWrapEnabled
         {
             get => _isWrapEnabled;
             set => SetProperty(ref _isWrapEnabled, value);
         }
 
-        #endregion
+        public WindowState WindowState
+        {
+            get => _windowState;
+            set => SetProperty(ref _windowState, value);
+        }
+
+        #endregion Properties
+
+        #region Constructor
 
         public WindowTopButtonsViewModel()
         {
@@ -53,6 +57,8 @@ namespace SADA.ViewModel.Utils
             WrapWindowCommand = new RelayCommand<Window>(_wrapWindowCommand);
             RecoverOrUnwrapWindowCommand = new RelayCommand<Window>(_recoverOrUnwrapWindowCommand);
         }
+
+        #endregion Constructor
 
         #region Commands
 
@@ -62,8 +68,7 @@ namespace SADA.ViewModel.Utils
 
         public ICommand WrapWindowCommand { get; }
 
-
-        #endregion
+        #endregion Commands
 
         #region Commands implementations
 
@@ -102,6 +107,6 @@ namespace SADA.ViewModel.Utils
             window.WindowState = WindowState.Minimized;
         }
 
-        #endregion
+        #endregion Commands implementations
     }
 }

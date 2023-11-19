@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="SADA.View.MainMenu.Car.Salon.CarInSalonView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SADA.View.MainMenu.Car.Salon"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d"
@@ -13,7 +13,6 @@
                   RowHeaderWidth="60"
                   AutoGenerateColumns="True"
                   ItemsSource="{Binding Cars}">
-            
         </DataGrid>
     </Grid>
 </UserControl>

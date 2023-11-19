@@ -9,10 +9,10 @@ using System.Windows.Controls;
 
 namespace SADA.ViewModel.Start
 {
-    class MainViewModel_Old : ObservableObject
+    internal class MainViewModel_Old : ObservableObject
     {
-
         #region Constructor
+
         public MainViewModel_Old(IDatabaseTableService databaseTableService, IDataGridService dataGridService)
         {
             _databaseTableService = databaseTableService;
@@ -21,7 +21,7 @@ namespace SADA.ViewModel.Start
             LoadTablePropertiesMap();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Fields
 
@@ -32,10 +32,9 @@ namespace SADA.ViewModel.Start
         private ObservableCollection<DataGridColumn> _columnCollection = new ObservableCollection<DataGridColumn>();
         private Dictionary<string, Dictionary<string, string>> _tablePropertiesMap = new Dictionary<string, Dictionary<string, string>>();
 
-        #endregion
+        #endregion Fields
 
         #region Properties
-
 
         public ObservableCollection<DataGridColumn> ColumnCollection
         {
@@ -55,14 +54,13 @@ namespace SADA.ViewModel.Start
             set => SetProperty(ref _findTableCommandIsEnabled, value);
         }
 
-        #endregion
+        #endregion Properties
 
         #region Commands
 
         public RelayCommand<string> FindTableCommand { get; }
 
-
-        #endregion
+        #endregion Commands
 
         #region Commands implementations
 
@@ -96,7 +94,7 @@ namespace SADA.ViewModel.Start
             }
         }
 
-        #endregion
+        #endregion Commands implementations
 
         #region Other
 
@@ -115,6 +113,6 @@ namespace SADA.ViewModel.Start
             _tablePropertiesMap.Add("CarDrive", carDrivePropertiesMap);
         }
 
-        #endregion
+        #endregion Other
     }
 }

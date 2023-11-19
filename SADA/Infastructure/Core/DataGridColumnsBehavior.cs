@@ -12,6 +12,7 @@ namespace SADA.Infastructure.Core
                                                 typeof(ObservableCollection<DataGridColumn>),
                                                 typeof(DataGridColumnsBehavior),
                                                 new UIPropertyMetadata(null, BindableColumnsPropertyChanged));
+
         private static void BindableColumnsPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             DataGrid dataGrid = source as DataGrid;
@@ -69,10 +70,12 @@ namespace SADA.Infastructure.Core
                 }
             };
         }
+
         public static void SetBindableColumns(DependencyObject element, ObservableCollection<DataGridColumn> value)
         {
             element.SetValue(BindableColumnsProperty, value);
         }
+
         public static ObservableCollection<DataGridColumn> GetBindableColumns(DependencyObject element)
         {
             return (ObservableCollection<DataGridColumn>)element.GetValue(BindableColumnsProperty);

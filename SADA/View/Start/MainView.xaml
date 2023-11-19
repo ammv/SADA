@@ -31,17 +31,13 @@
         <conv:LongToShortStringConverter x:Key="LongToShortStringConverter"
                                          MaxLength="20" />
         <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
-
-
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Delete"
                     Command="{Binding CloseSelectedTabCommand}" />
     </Window.InputBindings>
 
-
     <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
-
 
         <Grid>
             <Grid.RowDefinitions>
@@ -55,7 +51,6 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="24" />
             </Grid.ColumnDefinitions>
-
 
             <!--Верхнее меню-->
             <Border Background="{DynamicResource PrimaryBackgroundBrush}"
@@ -89,7 +84,6 @@
                                                             Width="24"
                                                             VerticalAlignment="Center"
                                                             Foreground="Black" />
-                            
                         </Button>
 
                         <Button Style="{DynamicResource TransparentButton}"
@@ -110,12 +104,8 @@
                                                         Margin="0 0 8 0"
                                                         Width="1" />
 
-
                         <ContentControl Content="{StaticResource WindowTopButtonsViewModel}"
                                         Margin="-8 0 4 0" />
-
-
-
                     </StackPanel>
 
                     <StackPanel HorizontalAlignment="Left"
@@ -143,10 +133,7 @@
 
                             <TextBlock Text="{Binding Staff, Converter={StaticResource StaffToStringConverter}}" />
                         </StackPanel>
-
-
                     </StackPanel>
-
                 </Grid>
             </Border>
 
@@ -184,15 +171,13 @@
                                Grid.Column="2"
                                ItemsSource="{Binding Tabs}"
                                Style="{StaticResource TabControlStyleCustom}">
-                    
+
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type core:ITab}">
                             <Grid hc:Poptip.Content="{Binding Name}" hc:Poptip.Placement="BottomLeft">
                                 <Grid.Resources>
                                     <Style TargetType="Button"
                                            BasedOn="{StaticResource TransparentButton}">
-
-
                                     </Style>
                                 </Grid.Resources>
                                 <TextBlock Text="{Binding Name, Converter={StaticResource LongToShortStringConverter}}"
@@ -209,7 +194,6 @@
                                                                     Height="12"
                                                                     Width="12" />
                                 </Button>
-
                             </Grid>
                             <DataTemplate.Triggers>
                                 <Trigger Property="IsMouseOver"
@@ -223,8 +207,6 @@
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>
                 </hc:TabControl>
-
-
 
                 <!--Боковое меню-->
                 <Border Background="{DynamicResource PrimaryBackgroundBrush}"
@@ -250,7 +232,6 @@
                                                                     Height="24"
                                                                     Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
 
                             <hc:SideMenuItem Header="Автомобили"
@@ -264,7 +245,6 @@
                                                                  Height="24"
                                                                  Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
 
                             <hc:SideMenuItem Header="Зарплата и кадры"
@@ -278,7 +258,6 @@
                                                                     Height="24"
                                                                     Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
 
                             <hc:SideMenuItem Header="Товары"
@@ -292,7 +271,6 @@
                                                                     Height="24"
                                                                     Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
 
                             <hc:SideMenuItem Header="Администрирование"
@@ -306,7 +284,6 @@
                                                                     Height="24"
                                                                     Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
 
                             <hc:SideMenuItem Header="Справочники"
@@ -320,10 +297,7 @@
                                                                     Height="24"
                                                                     Width="24" />
                                 </hc:SideMenuItem.Icon>
-
                             </hc:SideMenuItem>
-
-
                         </hc:SideMenu>
 
                         <Button Content="Выйти из системы"
@@ -335,12 +309,7 @@
                                 Grid.Row="1" />
                     </Grid>
                 </Border>
-
             </Grid>
-
-
-
-
         </Grid>
     </hc:Card>
 </Window>

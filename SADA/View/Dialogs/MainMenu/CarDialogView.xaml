@@ -85,7 +85,6 @@
             </StackPanel>
         </WrapPanel>
 
-
         <Button Width="22"
                 Height="22"
                 ToolTip="Esc"
@@ -99,4 +98,3 @@
                 Margin="0,4,4,0" />
     </hc:SimplePanel>
 </UserControl>
-

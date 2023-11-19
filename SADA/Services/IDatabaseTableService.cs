@@ -2,10 +2,12 @@
 
 namespace SADA.Services
 {
-    interface IDatabaseTableService
+    internal interface IDatabaseTableService
     {
         bool ContainsTable(string tableName);
+
         List<object> GetTableEntities(string tableName);
+
         List<T> GetTableEntities<T>() where T : class;
     }
 }

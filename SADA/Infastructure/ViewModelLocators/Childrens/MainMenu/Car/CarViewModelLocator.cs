@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Car.Car;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
-    class CarViewModelLocator: ViewModelLocatorBase
+    internal class CarViewModelLocator : ViewModelLocatorBase
     {
-
         public PayToCounteragentViewModel PayToCounteragent
         {
             get
@@ -26,7 +20,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
             }
         }
 
-
         public PurchaseFromCounteragentViewModel PurchaseFromCounteragent
         {
             get
@@ -41,7 +34,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
                 }
             }
         }
-
-
     }
 }

@@ -4,9 +4,7 @@ using DataLayer;
 using FadeWpf;
 using SADA.Services;
 using SADA.View.Start;
-using SADA.ViewModel.Utils;
 using System.Windows;
-
 
 namespace SADA.ViewModel.Start
 {
@@ -21,7 +19,7 @@ namespace SADA.ViewModel.Start
             this._userService = userService;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Fields
 
@@ -30,7 +28,7 @@ namespace SADA.ViewModel.Start
         private readonly WindowFadeChanger _windowFadeChanger;
         private readonly IUserService _userService;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -58,13 +56,13 @@ namespace SADA.ViewModel.Start
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Commands
 
         public RelayCommand AuthCommand { get; }
 
-        #endregion
+        #endregion Commands
 
         #region Command implementations8
 
@@ -99,6 +97,6 @@ namespace SADA.ViewModel.Start
             return !string.IsNullOrEmpty(_login) && !string.IsNullOrEmpty(_password);
         }
 
-        #endregion
+        #endregion Command implementations8
     }
 }

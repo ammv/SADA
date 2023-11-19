@@ -1,16 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using HandyControl.Controls;
-using HandyControl.Data;
+﻿using CommunityToolkit.Mvvm.Input;
 using SADA.Infastructure.Core;
-using System;
 using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    class WelcomeTabViewModel : TabObservableObject
+    internal class WelcomeTabViewModel : TabObservableObject
     {
-
         public WelcomeTabViewModel()
         {
             CloseCommand = new RelayCommand(_OnClose);
@@ -20,10 +15,10 @@ namespace SADA.ViewModel.Start
         private void _OnClose()
         {
             var result = HandyControl.Controls.MessageBox.Show($"Закрыть вкладку {Name}?", "Question", MessageBoxButton.YesNo);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 _RaiseCloseEvent();
-            }   
+            }
         }
     }
 }

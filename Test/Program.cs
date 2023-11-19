@@ -4,33 +4,36 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Test
 {
-    
-    class Program
+    internal class Program
     {
         public static IQueryable<T> Cast<T>(object o)
         {
             return (IQueryable<T>)o;
         }
-        static void Main(string[] args)
+
+        private static Type GetDbSetType<T>(DbSet<T> data) where T : class
+        {
+            return typeof(T);
+        }
+
+        private static void Main(string[] args)
         {
             DbSet<User> dummy;
-            
-            using(var ctx = new SADAEntities())
+
+            using (var ctx = new SADAEntities())
             {
                 var property = ctx.GetType().GetProperty("User");
-                
+
                 Type type = property.PropertyType;
 
                 dynamic dbset = property.GetValue(ctx);
 
                 MethodInfo mi = typeof(Enumerable).GetMethod("ToList").MakeGenericMethod(GetDbSetType(dbset));
 
-                dynamic list = mi.Invoke(null, new object[] {dbset});
+                dynamic list = mi.Invoke(null, new object[] { dbset });
 
                 List<User> dummy2 = new List<User>();
 
@@ -43,12 +46,6 @@ namespace Test
 
             Console.Read();
         }
-
-        private static Type GetDbSetType<T>(DbSet<T> data) where T: class
-        {
-            return typeof(T);
-        }
-
         //private static void TestViewModelTT()
         //{
         //    string nspace = "Test";
@@ -104,7 +101,7 @@ namespace Test
 
         //    for (int i = 0; i < viewFolders.Count; i++)
         //    {
-        //        var m = viewFolders[viewKeys[i]]; //viewModelFolderFull[i]#> 
+        //        var m = viewFolders[viewKeys[i]]; //viewModelFolderFull[i]#>
         //    }
 
         //    Dictionary<string, string> viewViewModels = new Dictionary<string, string>();
@@ -118,7 +115,6 @@ namespace Test
         //        }
 
         //        var views = viewFolder.Value;
-
 
         //        foreach (var viewModel in viewModelFolders[viewModelFolder])
         //        {

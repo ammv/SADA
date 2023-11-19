@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace SADA.Infastructure.Core
 {
-    abstract class ViewModelLocatorBase
+    internal abstract class ViewModelLocatorBase
     {
         private DependencyObject dummy = new DependencyObject();
 

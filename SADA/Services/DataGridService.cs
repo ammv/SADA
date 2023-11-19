@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace SADA.Services
 {
-    class DataGridService : IDataGridService
+    internal class DataGridService : IDataGridService
     {
         public void FillDataTable(DataTable dataTable, ICollection<DataGridColumn> columns, List<object> entities, Dictionary<string, string> propertyMap)
         {
@@ -38,7 +38,6 @@ namespace SADA.Services
                 {
                     propertiesInfo = propertiesInfo.Where(t => !t.GetGetMethod().IsVirtual).ToList();
                 }
-
             }
 
             foreach (var prop in propertiesInfo)
@@ -87,7 +86,6 @@ namespace SADA.Services
                 }
                 dataTable.Rows.Add(row);
             }
-
         }
     }
 }

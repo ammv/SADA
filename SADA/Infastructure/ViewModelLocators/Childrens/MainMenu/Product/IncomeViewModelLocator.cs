@@ -1,16 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Product.Income;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Product
 {
-    class IncomeViewModelLocator: ViewModelLocatorBase
+    internal class IncomeViewModelLocator : ViewModelLocatorBase
     {
-
         public ProductIncomeViewModel ProductIncome
         {
             get
@@ -25,6 +19,5 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Product
                 }
             }
         }
-
     }
 }

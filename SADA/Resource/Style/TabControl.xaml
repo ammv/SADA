@@ -46,7 +46,7 @@
                                         <mahicon:PackIconBootstrapIcons Kind="X"
                                                                         VerticalAlignment="Center"
                                                                         Height="12"
-                                                                        Width="12"/>
+                                                                        Width="12" />
                                     </MenuItem.Icon>
                                 </MenuItem>
                                 <MenuItem Command="hc:ControlCommands.CloseAll"

@@ -1,14 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using HandyControl.Controls;
-using HandyControl.Data;
+﻿using CommunityToolkit.Mvvm.Input;
 using SADA.Infastructure.Core;
 using System;
 using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    class TestViewModel : TabObservableObject
+    internal class TestViewModel : TabObservableObject
     {
         private string _buttonText;
 
@@ -21,11 +18,10 @@ namespace SADA.ViewModel.Start
         private void _OnClose()
         {
             var result = HandyControl.Controls.MessageBox.Show($"Закрыть вкладку {Name}?", "Question", MessageBoxButton.YesNo);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 _RaiseCloseEvent();
             }
-            
         }
 
         public string ButtonText

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADA.ViewModel.MainMenu.Home.Income
+﻿namespace SADA.ViewModel.MainMenu.Home.Income
 {
-    class CarSaleIncomeViewModel
+    internal class CarSaleIncomeViewModel
     {
     }
 }

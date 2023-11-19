@@ -5,9 +5,8 @@ using System.Linq;
 
 namespace SADA.Services
 {
-    class DatabaseTableService : IDatabaseTableService, IDisposable
+    internal class DatabaseTableService : IDatabaseTableService, IDisposable
     {
-
         private readonly Type[] _entitiesTypes;
         private readonly DbContext _ctx;
 
