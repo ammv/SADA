@@ -167,7 +167,7 @@
 
                 <!--Вкладки-->
                 <hc:TabControl IsDraggable="True"
-                               SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                Grid.Column="2"
                                ItemsSource="{Binding Tabs}"
                                Style="{StaticResource TabControlStyleCustom}">

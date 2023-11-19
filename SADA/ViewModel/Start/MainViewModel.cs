@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Controls;
 using MessageBox = HandyControl.Controls.MessageBox;
 using Window = System.Windows.Window;
 
@@ -20,13 +21,26 @@ namespace SADA.ViewModel.Start
 {
     internal partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
     {
+        #region Fields
+
+        private ObservableCollection<ITab> _Tabs = new ObservableCollection<ITab>();
+        private int _selectedTabItemIndex = -1;
+        private Dictionary<string, TypeWrapper<TabObservableObject>> _menuMap = new Dictionary<string, TypeWrapper<TabObservableObject>>();
+        private readonly WindowFadeChanger _windowFadeChanger;
+        private Dialog _currentDialog = null;
+        private const double _sideMenuWidthBase = 240;
+        private const double _sideMenuWidthMinimum = 50;
+        private double _sideMenuWidth = _sideMenuWidthBase;
+        private Dictionary<string, Type> _dialogMappings;
+
+        #endregion Fields
+
         #region Constructor
 
         public MainViewModel(WindowFadeChanger windowFadeChanger = null)
         {
             this._windowFadeChanger = windowFadeChanger;
 
-            //OpenTabCommand = new RelayCommand<string>(_OpenTabCommand);
             OpenTabCommand = new RelayCommand<string>(_OpenDialogCommand);
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
@@ -43,6 +57,16 @@ namespace SADA.ViewModel.Start
                 Staff = ctx.Staff.Include("Passport").Include("StaffPost").FirstOrDefault(s => s.UserID == 1);
             }
 
+            _dialogMappings = new Dictionary<string, Type>
+            {
+                { "Главное", typeof(Infastructure.Dialogs.View.MainMenu.HomeDialogView) },
+                { "Администрирование", typeof(Infastructure.Dialogs.View.MainMenu.AdministrationDialogView) },
+                { "Автомобили", typeof(Infastructure.Dialogs.View.MainMenu.CarDialogView) },
+                { "Зарплата и кадры", typeof(Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView) },
+                { "Справочники", typeof(Infastructure.Dialogs.View.MainMenu.ManualDialogView) },
+                { "Товары", typeof(Infastructure.Dialogs.View.MainMenu.ProductDialogView) }
+            };
+
             WeakReferenceMessenger.Default.Register(this);
         }
 
@@ -52,19 +76,6 @@ namespace SADA.ViewModel.Start
         }
 
         #endregion Constructor
-
-        #region Fields
-
-        private ObservableCollection<ITab> _Tabs = new ObservableCollection<ITab>();
-        private int _selectedTabItemIndex;
-        private Dictionary<string, TypeWrapper<TabObservableObject>> _menuMap = new Dictionary<string, TypeWrapper<TabObservableObject>>();
-        private readonly WindowFadeChanger _windowFadeChanger;
-        private Dialog _currentDialog = null;
-        private const double _sideMenuWidthBase = 240;
-        private const double _sideMenuWidthMinimum = 50;
-        private double _sideMenuWidth = _sideMenuWidthBase;
-
-        #endregion Fields
 
         #region Properties
 
@@ -77,7 +88,7 @@ namespace SADA.ViewModel.Start
         public int SelectedTabItemIndex
         {
             get => _selectedTabItemIndex;
-            set => SetProperty(ref _selectedTabItemIndex, value);
+            set => SetProperty(ref _selectedTabItemIndex, value == -1 ? _Tabs.Count - 1: value);
         }
 
         public double SideMenuWidth
@@ -116,35 +127,11 @@ namespace SADA.ViewModel.Start
 
         private void _OpenDialogCommand(string parameter)
         {
-            //var dialog = ;
-            switch (parameter)
+            if (_dialogMappings.TryGetValue(parameter, out Type dialogType))
             {
-                case "Главное":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.HomeDialogView>());
-                    break;
-
-                case "Администрирование":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>());
-                    break;
-
-                case "Автомобили":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.CarDialogView>());
-                    break;
-
-                case "Зарплата и кадры":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>());
-                    break;
-
-                case "Справочники":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ManualDialogView>());
-                    break;
-
-                case "Товары":
-                    _currentDialog = Dialog.Show(App.Current.GetService<Infastructure.Dialogs.View.MainMenu.ProductDialogView>());
-                    break;
+                UserControl uc = App.Current.Services.GetService(dialogType) as UserControl;
+                _currentDialog = Dialog.Show(uc);
             }
-
-            // result.InputBindings.AddRange(dialog.InputBindings);
         }
 
         private void _CloseSelectedTabCommand()
@@ -203,7 +190,7 @@ namespace SADA.ViewModel.Start
             if (_currentDialog != null)
             {
                 Tabs.Add(message.Value);
-                //SelectedTabItemIndex = Tabs.Count - 1;
+                SelectedTabItemIndex = Tabs.Count - 1;
                 _currentDialog.Close();
             }
         }
@@ -217,7 +204,7 @@ namespace SADA.ViewModel.Start
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     tab = (ITab)e.NewItems[0];
                     tab.CloseRequested += Tab_CloseRequested;
-                    SelectedTabItemIndex = _Tabs.Count - 1;
+                   // SelectedTabItemIndex = _Tabs.Count - 1;
 
                     break;
 
