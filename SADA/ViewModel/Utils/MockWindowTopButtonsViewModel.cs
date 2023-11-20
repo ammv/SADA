@@ -8,7 +8,7 @@ namespace SADA.ViewModel.Utils
 {
     class MockWindowTopButtonsViewModel: WindowTopButtonsViewModel
     {
-        public MockWindowTopButtonsViewModel()
+        public MockWindowTopButtonsViewModel(): base(null)
         {
 
         }

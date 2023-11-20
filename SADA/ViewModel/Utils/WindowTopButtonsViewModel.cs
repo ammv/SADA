@@ -62,7 +62,7 @@ namespace SADA.ViewModel.Utils
             _dialogService = dialogService;
         }
 
-        protected internal WindowTopButtonsViewModel() { }
+        //protected internal WindowTopButtonsViewModel() { }
 
         #endregion Constructor
 

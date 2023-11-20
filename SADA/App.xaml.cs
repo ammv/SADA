@@ -18,7 +18,7 @@ namespace SADA
 
         private System.Threading.Mutex mutex;
 
-        private IdleDetector _idleDetector = new IdleDetector(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
+        private IdleDetector _idleDetector = new IdleDetector(TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
 
         #endregion Fields
 
