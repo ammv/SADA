@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.ViewModel.MainMenu.Car.Salon;
 using SADA.ViewModel.Start;
 using System;
 
@@ -67,11 +68,11 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _CarInSalonCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
+            var vm = App.Current.GetService<CarInSalonViewModel>();
 
-            testVm.Name = "_CarInSalonCommand";
+            vm.Name = "Автомобили в салоне";
 
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(vm));
         }
 
         private void _EquipmentCommand()

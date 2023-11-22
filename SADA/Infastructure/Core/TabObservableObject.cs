@@ -14,6 +14,11 @@ namespace SADA.Infastructure.Core
             set => SetProperty(ref _name, value);
         }
 
+        public object ViewModel
+        {
+            get => this;
+        }
+
         public ICommand CloseCommand { get; protected set; }
 
         protected void _RaiseCloseEvent()

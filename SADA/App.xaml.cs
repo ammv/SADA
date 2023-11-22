@@ -1,5 +1,6 @@
 ﻿using DataLayer;
 using FadeWpf;
+using HandyControl.Themes;
 using Microsoft.Extensions.DependencyInjection;
 using SADA.Infastructure.Core;
 using SADA.Services;
@@ -28,7 +29,24 @@ namespace SADA
         {
             this.InitializeComponent();
 
+            ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+
+            ThemeManager.Current.ActualApplicationThemeChanged += Current_SystemThemeChanged;
+
             Services = ConfigureServices();
+        }
+
+        private void Current_SystemThemeChanged(ThemeManager themeManager, object @object)
+        {
+            if(themeManager.ActualApplicationTheme == ApplicationTheme.Dark)
+            {
+                Application.Current.Resources["CurrentThemeIcon"] = Application.Current.Resources["SunIcon"];
+            }
+            else
+            {
+                Application.Current.Resources["CurrentThemeIcon"] = Application.Current.Resources["MoonIcon"];
+            }
+            
         }
 
         #endregion Constructor
@@ -83,7 +101,7 @@ namespace SADA
 
             IWindowService windowService = Services.GetService<IWindowService>();
 
-            windowService.ShowWindow<View.Start.MainView>();
+            windowService.ShowWindow<View.Start.LoadingView>();
 
             _idleDetector.Start();
         }
@@ -123,8 +141,25 @@ namespace SADA
             ConfigureStart(services);
             ConfigureDialogs(services);
             ConfigureUtils(services);
+            СonfigureMainMenu(services);
 
             return services.BuildServiceProvider();
+        }
+
+        private void СonfigureMainMenu(ServiceCollection services)
+        {
+            СonfigureMainMenu_Car(services);
+        }
+
+        private void СonfigureMainMenu_Car(ServiceCollection services)
+        {
+            СonfigureMainMenu_Car_Salon(services);
+            
+        }
+
+        private void СonfigureMainMenu_Car_Salon(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonViewModel>();
         }
 
         private void ConfigureStart(ServiceCollection services)

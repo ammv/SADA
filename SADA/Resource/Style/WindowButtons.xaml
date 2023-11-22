@@ -1,13 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:SADA.Infastructure.Converters">
 
+    <conv:ThemeUriConverter x:Key="ThemeUriConverter" />
     <Style x:Key="windowCloseButton"
            TargetType="{x:Type Button}">
 
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush Stretch="Uniform"
-                            ImageSource="../Images/wnd_close_passive_btn.png" />
+                            ImageSource="{Binding Converter={StaticResource ThemeUriConverter}, ConverterParameter='Resource/Images/wnd_btns/light/wnd_close_btn.png'}" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -35,7 +37,7 @@
                                     TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush Stretch="Uniform"
-                                                ImageSource="../Images/wnd_close_activate_btn.png" />
+                                    ImageSource="{Binding Converter={StaticResource ThemeUriConverter}, ConverterParameter='Resource/Images/wnd_btns/light/wnd_close_activate_btn.png'}" />
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Background"
@@ -52,7 +54,7 @@
            TargetType="{x:Type Button}">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="../Images/wnd_wrap_btn.png" />
+                <ImageBrush ImageSource="{Binding Converter={StaticResource ThemeUriConverter}, ConverterParameter='Resource/Images/wnd_btns/light/wnd_wrap_btn.png'}" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -78,7 +80,7 @@
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Background"
-                                    Value="#2d2d2d"
+                                    Value="#acacac"
                                     TargetName="bg" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -112,7 +114,7 @@
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Background"
-                                    Value="#2d2d2d"
+                                    Value="#acacac"
                                     TargetName="bg" />
                         </Trigger>
                         <Trigger Property="IsChecked"
@@ -121,7 +123,7 @@
                                     TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush Stretch="Uniform"
-                                                ImageSource="../Images/wnd_unwrap_btn.png" />
+                                                ImageSource="{Binding Converter={StaticResource ThemeUriConverter}, ConverterParameter='Resource/Images/wnd_btns/light/wnd_unwrap_btn.png'}" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -131,7 +133,7 @@
                                     TargetName="border">
                                 <Setter.Value>
                                     <ImageBrush Stretch="Uniform"
-                                                ImageSource="../Images/wnd_recover_btn.png" />
+                                                ImageSource="{Binding Converter={StaticResource ThemeUriConverter}, ConverterParameter='Resource/Images/wnd_btns/light/wnd_recover_btn.png'}" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

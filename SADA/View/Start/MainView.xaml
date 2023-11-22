@@ -30,14 +30,16 @@
         <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
         <conv:LongToShortStringConverter x:Key="LongToShortStringConverter"
                                          MaxLength="20" />
+        <conv:ThemeIconConverter x:Key="ThemeIconConverter" />
         <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
+        <conv:IconToGeometryConverter x:Key="IconToGeometryConverter" />
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Delete"
                     Command="{Binding CloseSelectedTabCommand}" />
     </Window.InputBindings>
 
-    <hc:Card Background="{DynamicResource PrimaryBackgroundColor}">
+    <hc:Card Background="{DynamicResource RegionBrush}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -53,7 +55,7 @@
             </Grid.ColumnDefinitions>
 
             <!--Верхнее меню-->
-            <Border Background="{DynamicResource PrimaryBackgroundBrush}"
+            <Border Background="{DynamicResource RegionBrush}"
                     Grid.Row="0"
                     Padding="0 4 0 0"
                     CornerRadius="3.5 3.5 0 0"
@@ -67,48 +69,14 @@
                 </intr:Interaction.Triggers>
 
                 <Grid>
-                    <StackPanel HorizontalAlignment="Right"
-                                Margin="0 0 4 0"
-                                Orientation="Horizontal">
 
-                        <Button Style="{DynamicResource TransparentButton}"
-                                Width="24"
-                                Command="{Binding OpenCalculatorToolCommand}"
-                                Background="Transparent"
-                                Padding="0"
-                                Margin="0 0 8 0">
-                            <mahicon:PackIconBootstrapIcons Kind="Calculator"
-                                                            Height="24"
-                                                            Padding="4"
-                                                            Style="{DynamicResource ItemIcon}"
-                                                            Width="24"
-                                                            VerticalAlignment="Center"
-                                                            Foreground="Black" />
-                        </Button>
-
-                        <Button Style="{DynamicResource TransparentButton}"
-                                Width="24"
-                                Background="Transparent"
-                                Padding="0"
-                                Margin="0 0 8 0">
-                            <mahicon:PackIconBootstrapIcons Kind="Calendar2Date"
-                                                            Height="24"
-                                                            Padding="4"
-                                                            Style="{DynamicResource ItemIcon}"
-                                                            Width="24"
-                                                            VerticalAlignment="Center"
-                                                            Foreground="Black" />
-                        </Button>
-
-                        <components:VerticalSeparator1c Height="26"
-                                                        Margin="0 0 8 0"
-                                                        Width="1" />
+                    
 
                         <ContentControl Content="{StaticResource WindowTopButtonsViewModel}"
+                                        HorizontalAlignment="Right"
                                         Margin="-8 0 4 0" />
-                    </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Left"
+                        <StackPanel HorizontalAlignment="Left"
                                 Orientation="Horizontal"
                                 Margin="16 0 0 0">
                         <!--Лого-->
@@ -155,18 +123,19 @@
                               ToolTip="Drag left-right to resize. Double click to default size"
                               ShowsPreview="True"
                               Width="5"
-                              Background="{DynamicResource PrimaryBackgroundBrush}"
+                              Background="{DynamicResource RegionBrush}"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Stretch">
                     <intr:Interaction.Triggers>
                         <intr:EventTrigger EventName="MouseDoubleClick">
-                            <intr:InvokeCommandAction Command="{Binding ChangeSideMenuWidth}" />
+                            <intr:InvokeCommandAction Command="{Binding ChangeSideMenuWidthCommand}" />
                         </intr:EventTrigger>
                     </intr:Interaction.Triggers>
                 </GridSplitter>
 
                 <!--Вкладки-->
                 <hc:TabControl IsDraggable="True"
+                               core:TabContent.IsCached="True"
                                SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                Grid.Column="2"
                                ItemsSource="{Binding Tabs}"
@@ -174,7 +143,8 @@
 
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type core:ITab}">
-                            <Grid hc:Poptip.Content="{Binding Name}" hc:Poptip.Placement="BottomLeft">
+                            <Grid hc:Poptip.Content="{Binding Name}"
+                                  hc:Poptip.Placement="BottomLeft">
                                 <Grid.Resources>
                                     <Style TargetType="Button"
                                            BasedOn="{StaticResource TransparentButton}">
@@ -187,7 +157,7 @@
                                         HorizontalAlignment="Right"
                                         x:Name="btn"
                                         VerticalAlignment="Center"
-                                        TextElement.Foreground="Black"
+                                        TextElement.Foreground="{StaticResource RegionBrush}"
                                         Margin="0 0 16 0">
                                     <mahicon:PackIconBootstrapIcons Kind="X"
                                                                     x:Name="icon"
@@ -206,12 +176,22 @@
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>
+                    <core:TabContent.Template>
+                        <DataTemplate DataType="{x:Type core:ITab}">
+                            <ContentControl Content="{Binding ViewModel}" />
+                        </DataTemplate>
+                    </core:TabContent.Template>
+                    <!--<hc:TabControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type core:ITab}">
+                            <ContentControl Content="{Binding ViewModel}" />
+                        </DataTemplate>
+                    </hc:TabControl.ContentTemplate>-->
                 </hc:TabControl>
 
                 <!--Боковое меню-->
-                <Border Background="{DynamicResource PrimaryBackgroundBrush}"
+                <Border Background="{DynamicResource RegionBrush}"
                         CornerRadius="0 0 0 3.5">
-                    <Grid>
+                    <Grid Background="{DynamicResource RegionBrush}">
                         <Grid.RowDefinitions>
                             <!--Место под лого тип-->
                             <RowDefinition Height="*" />

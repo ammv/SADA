@@ -5,14 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SADA.View.MainMenu.Car.Salon"
              xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
              mc:Ignorable="d"
-             DataContext="{Binding Main, Source={StaticResource viewModelLocator}}"
+             DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalon, Source={StaticResource mainViewModelLocator}}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+    </UserControl.Resources>
     <Grid>
-        <DataGrid HeadersVisibility="All"
-                  RowHeaderWidth="60"
-                  AutoGenerateColumns="True"
-                  ItemsSource="{Binding Cars}">
-        </DataGrid>
+        <Grid VerticalAlignment="Center"
+              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <hc:LoadingCircle DotSpeed="3" />
+                <TextBlock Text="Подождите, данные загружаются" 
+                           Margin="0 10 0 0"
+                           Style="{StaticResource TextBlockDefault}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}">
+            <DataGrid HeadersVisibility="All"
+                      RowHeaderWidth="60"
+                      AutoGenerateColumns="True"
+                      ItemsSource="{Binding Cars}" />
+        </Grid>
+        
+
     </Grid>
 </UserControl>

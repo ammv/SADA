@@ -6,15 +6,106 @@
              xmlns:local="clr-namespace:SADA.View.Utils"
              xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
              xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:components="clr-namespace:SADA.Components"
+             xmlns:mahicon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
-             d:DesignHeight="100" d:DesignWidth="150">
+             d:DesignHeight="1280"
+             d:DesignWidth="720">
     <UserControl.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <sys:Double x:Key="buttonWidth">32</sys:Double>
     </UserControl.Resources>
-    <StackPanel
-                HorizontalAlignment="Right"
+    <StackPanel HorizontalAlignment="Right"
                 Orientation="Horizontal">
-        <Button Style="{DynamicResource windowTopButton}"
+
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Padding="4"
+                hc:IconElement.Width="24"
+                Width="{StaticResource buttonWidth}"
+                Visibility="{Binding IsCalculatorEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding OpenCalculatorToolCommand}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{StaticResource CalculatorIcon}" />
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Padding="4"
+                hc:IconElement.Width="24"
+                Width="{StaticResource buttonWidth}"
+                Visibility="{Binding IsCalendarEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding OpenCalculatorToolCommand}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{StaticResource CalendarDateIcon}" />
+
+        <Grid Visibility="{Binding IsOtherSeparatorEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            <components:VerticalSeparator1c Height="26"
+                                            Width="1"
+                                            Margin="0 0 8 0" />
+        </Grid>
+
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Padding="4"
+                hc:IconElement.Width="24"
+                Width="{StaticResource buttonWidth}"
+                Visibility="{Binding IsThemeChangerEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding ChangeThemeCommand}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{DynamicResource CurrentThemeIcon}" />
+
+        <Grid Visibility="{Binding IsThemeChangerSeparatorEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            <components:VerticalSeparator1c Height="26"
+                                            
+                                            Margin="0 0 8 0"
+                                            Width="1" />
+        </Grid>
+        
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Width="{StaticResource buttonWidth}"
+                
+                hc:IconElement.Height="1.5"
+                hc:IconElement.Width="12"
+                Command="{Binding WrapWindowCommand}"
+                Visibility="{Binding IsWrapEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                CommandParameter="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{StaticResource WndMinimizeIcon}" />
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Width="{StaticResource buttonWidth}"
+                hc:IconElement.Height="16"
+                Tag="{Binding IsMaximized, Mode=OneWay}"
+                Visibility="{Binding IsRecoverOrUnwrapEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding RecoverOrUnwrapWindowCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{StaticResource WndRestoreIcon}" />
+
+        <Button Style="{StaticResource ButtonIconGood}"
+                Margin="0 0 8 0"
+                Width="{StaticResource buttonWidth}"
+                hc:IconElement.Height="16"
+                Visibility="{Binding IsCloseEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding CloseWindowCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}"
+                Foreground="{DynamicResource PrimaryTextBrush}"
+                hc:IconElement.Geometry="{StaticResource WndCloseButton}" />
+
+        <!--<Button Style="{DynamicResource windowTopButton}"
                 Visibility="{Binding IsWrapEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
                 Margin="0 0 5 0">
             <intr:Interaction.Triggers>
@@ -45,6 +136,6 @@
                                                       AncestorType=Window}}" />
                 </intr:EventTrigger>
             </intr:Interaction.Triggers>
-        </Button>
+        </Button>-->
     </StackPanel>
 </UserControl>

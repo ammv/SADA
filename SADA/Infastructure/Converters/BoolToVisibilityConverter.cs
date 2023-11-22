@@ -9,7 +9,13 @@ namespace SADA.Infastructure.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value == true)
+            bool? inverseEnabled = (bool?)parameter;
+            bool val = (bool)value;
+            if(inverseEnabled == true)
+            {
+                val = !val;
+            }
+            if (val == true)
             {
                 return Visibility.Visible;
             }

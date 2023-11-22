@@ -20,6 +20,11 @@
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel"
                                          IsRecoverOrUnwrapEnabled="False"
+                                         IsThemeChangerEnabled="False"
+                                         IsCalculatorEnabled="False"
+                                         IsCalendarEnabled="False"
+                                         IsOtherSeparatorEnabled="False"
+                                         IsThemeChangerSeparatorEnabled="False"
                                          WindowState="Normal" />
     </Window.Resources>
 

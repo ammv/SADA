@@ -211,13 +211,18 @@
     </Compile>
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
+    <Compile Include="Infastructure\Converters\IconToGeometryConverter.cs" />
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
+    <Compile Include="Infastructure\Converters\ThemeIconConverter.cs" />
+    <Compile Include="Infastructure\Converters\ThemeUriConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\DataTemplateManager.cs" />
     <Compile Include="Infastructure\Core\DialogBase.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
+    <Compile Include="Infastructure\Core\EntityFrameworkExtensions.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
+    <Compile Include="Infastructure\Core\TabContent.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
@@ -380,6 +385,9 @@
     </Compile>
     <Compile Include="View\Start\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Start\LoadingView.xaml.cs">
+      <DependentUpon>LoadingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Start\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -577,6 +585,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Start\LoadingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Start\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -641,14 +653,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Resource\Images\logo.png" />
+    <None Include="Resource\Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\Images\wnd_close_activate_btn.png" />
-    <Resource Include="Resource\Images\wnd_close_passive_btn.png" />
-    <Resource Include="Resource\Images\wnd_recover_btn.png" />
-    <Resource Include="Resource\Images\wnd_unwrap_btn.png" />
-    <Resource Include="Resource\Images\wnd_wrap_btn.png" />
+    <Content Include="Resource\Images\wnd_btns\light\wnd_close_activate_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\light\wnd_close_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\light\wnd_recover_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\light\wnd_unwrap_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\light\wnd_wrap_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Images\wnd_btns\dark\wnd_close_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\dark\wnd_recover_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\dark\wnd_unwrap_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Images\wnd_btns\dark\wnd_wrap_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Images\wnd_btns\dark\wnd_close_activate_btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

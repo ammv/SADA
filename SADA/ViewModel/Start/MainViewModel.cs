@@ -5,6 +5,7 @@ using DataLayer;
 using FadeWpf;
 using HandyControl.Controls;
 using HandyControl.Data;
+using HandyControl.Themes;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
@@ -48,7 +49,8 @@ namespace SADA.ViewModel.Start
             OpenCalculatorToolCommand = new RelayCommand(_OpenCalculatorToolCommand);
             ExitFromAccountCommand = new RelayCommand<Window>(_ExitFromAccountCommand);
             CloseSelectedTabCommand = new RelayCommand(_CloseSelectedTabCommand);
-            ChangeSideMenuWidth = new RelayCommand(_ChangeSideMenuWidth);
+            ChangeSideMenuWidthCommand = new RelayCommand(_ChangeSideMenuWidthCommand);
+            ChangeThemeCommand = new RelayCommand(_ChangeThemeCommand);
 
             _Tabs.CollectionChanged += _Tabs_CollectionChanged;
 
@@ -79,11 +81,6 @@ namespace SADA.ViewModel.Start
 
         }
 
-        private void Tab_CloseRequested(object sender, EventArgs e)
-        {
-            Tabs.Remove((ITab)sender);
-        }
-
         #endregion Constructor
 
         #region Properties
@@ -97,7 +94,8 @@ namespace SADA.ViewModel.Start
         public int SelectedTabItemIndex
         {
             get => _selectedTabItemIndex;
-            set => SetProperty(ref _selectedTabItemIndex, value == -1 ? _Tabs.Count - 1: value);
+            //set => SetProperty(ref _selectedTabItemIndex, value == -1 ? _Tabs.Count - 1: value);
+            set => SetProperty(ref _selectedTabItemIndex, value);
         }
 
         public double SideMenuWidth
@@ -124,15 +122,20 @@ namespace SADA.ViewModel.Start
         #region Commands
 
         public RelayCommand<string> OpenTabCommand { get; }
-
-        public RelayCommand OpenCalculatorToolCommand { get; }
         public RelayCommand<Window> ExitFromAccountCommand { get; }
         public RelayCommand CloseSelectedTabCommand { get; }
-        public RelayCommand ChangeSideMenuWidth { get; }
+        public RelayCommand ChangeSideMenuWidthCommand { get; }
+        public RelayCommand ChangeThemeCommand { get; }
+        public RelayCommand OpenCalculatorToolCommand { get; }
 
         #endregion Commands
 
         #region Commands implementations
+
+        private void _ChangeThemeCommand()
+        {
+            ThemeManager.Current.ApplicationTheme = ThemeManager.Current.ApplicationTheme == ApplicationTheme.Light ? ApplicationTheme.Dark : ApplicationTheme.Light;
+        }
 
         private void _OpenDialogCommand(string parameter)
         {
@@ -157,7 +160,7 @@ namespace SADA.ViewModel.Start
             Process.Start("calc.exe");
         }
 
-        private void _ChangeSideMenuWidth()
+        private void _ChangeSideMenuWidthCommand()
         {
             if (_sideMenuWidth > _sideMenuWidthBase)
             {
@@ -179,7 +182,6 @@ namespace SADA.ViewModel.Start
 
             if (result == System.Windows.MessageBoxResult.Yes)
             {
-                // _windowFadeChanger.Change(window, App.Current.GetService<AuthView>());
                 _windowService.ShowAndCloseWindow<AuthView>(_windowService.LastOpenedWindow);
                 
             }
@@ -215,6 +217,18 @@ namespace SADA.ViewModel.Start
                     tab.CloseRequested -= Tab_CloseRequested;
                     break;
             }
+        }
+
+        private void Tab_CloseRequested(object sender, EventArgs e)
+        {
+            //int currentTabCount = _Tabs.Count;
+            Tabs.Remove((ITab)sender);
+            //if(Sele)
+            //SelectedTabItemIndex = 0;
+            
+
+            //if(SelectedTabItemIndex = )
+            
         }
 
         #endregion Other

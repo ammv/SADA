@@ -9,5 +9,7 @@ namespace SADA.Infastructure.Core
         ICommand CloseCommand { get; }
 
         event EventHandler CloseRequested;
+
+        object ViewModel { get; }
     }
 }
