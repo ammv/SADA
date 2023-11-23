@@ -1,4 +1,5 @@
 ﻿using HandyControl.Controls;
+using SADA.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,9 @@ namespace SADA.View.Start
                 timer.Tick += (p1, p2) =>
                 {
 
-                    Hide();
-                    new AuthView().Show();
-                    Close();
+                    IWindowService windowService = App.Current.GetService<IWindowService>();
+
+                    windowService.ShowAndCloseWindow<View.Start.AuthView>(this);
                 };
 
                 timer.Start();

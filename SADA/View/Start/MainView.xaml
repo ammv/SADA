@@ -152,40 +152,26 @@
                                 </Grid.Resources>
                                 <TextBlock Text="{Binding Name, Converter={StaticResource LongToShortStringConverter}}"
                                            HorizontalAlignment="Left"
+                                           Style="{DynamicResource TextBlockDefault}"
                                            VerticalAlignment="Center" />
-                                <Button Command="{Binding CloseCommand}"
-                                        HorizontalAlignment="Right"
+                                <Button Style="{DynamicResource ButtonIcon}"
+                                        Command="{Binding CloseCommand}"
                                         x:Name="btn"
+                                        Panel.ZIndex="1"
+                                        hc:IconElement.Geometry="{StaticResource WndCloseButton}"
+                                        hc:IconElement.Height="12"
+                                        hc:IconElement.Width="12"
                                         VerticalAlignment="Center"
-                                        TextElement.Foreground="{StaticResource RegionBrush}"
-                                        Margin="0 0 16 0">
-                                    <mahicon:PackIconBootstrapIcons Kind="X"
-                                                                    x:Name="icon"
-                                                                    Height="12"
-                                                                    Width="12" />
-                                </Button>
+                                        HorizontalAlignment="Right" />
                             </Grid>
-                            <DataTemplate.Triggers>
-                                <Trigger Property="IsMouseOver"
-                                         SourceName="btn"
-                                         Value="True">
-                                    <Setter Property="TextElement.Foreground"
-                                            TargetName="icon"
-                                            Value="{DynamicResource PrimaryGrayColor}" />
-                                </Trigger>
-                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>
                     <core:TabContent.Template>
                         <DataTemplate DataType="{x:Type core:ITab}">
-                            <ContentControl Content="{Binding ViewModel}" />
+                            <ContentControl Content="{Binding ViewModel}"
+                                            Margin="0" />
                         </DataTemplate>
                     </core:TabContent.Template>
-                    <!--<hc:TabControl.ContentTemplate>
-                        <DataTemplate DataType="{x:Type core:ITab}">
-                            <ContentControl Content="{Binding ViewModel}" />
-                        </DataTemplate>
-                    </hc:TabControl.ContentTemplate>-->
                 </hc:TabControl>
 
                 <!--Боковое меню-->

@@ -11,6 +11,8 @@ namespace SADA.Infastructure.Core
 {
     class DataTemplateManager
     {
+        private static string _projectName = Assembly.GetEntryAssembly().GetName().Name;
+        private static Assembly _executingAssebly = Assembly.GetExecutingAssembly();
         public void RegisterDataTemplate<TView, TViewModel>()
         {
             var dataTemplate = _CreateDataTemplate(typeof(TView), typeof(TViewModel));
@@ -19,17 +21,17 @@ namespace SADA.Infastructure.Core
 
         public void RegisterDataTemplateAuto()
         {
-            string projectName = Assembly.GetEntryAssembly().GetName().Name;
+            var viewModels = _executingAssebly.GetTypes()
+                .Where(
+                    type => type.Namespace != null &&
+                    type.Namespace.StartsWith($"{_projectName}.ViewModel") &&
+                    !type.Name.StartsWith("Mock") &&
+                    !type.Name.StartsWith("<"));
 
-            var viewModelAssembly = Assembly.GetExecutingAssembly();
-
-            var viewModels = viewModelAssembly.GetTypes()
-                .Where(type => type.Namespace != null && type.Namespace.StartsWith($"{projectName}.ViewModel"));
-            var views = viewModelAssembly.GetTypes()
-                .Where(type => type.Namespace != null && type.Namespace.StartsWith($"{projectName}.View"));
+            var views = _executingAssebly.GetTypes()
+                .Where(type => type.Namespace != null && type.Namespace.StartsWith($"{_projectName}.View"));
             foreach (var viewModelType in viewModels)
             {
-                if (viewModelType.Name.StartsWith("Mock") || viewModelType.Name.StartsWith("<>")) continue;
                 var viewName = viewModelType.Name.Replace("ViewModel", "View");
                 var viewType = views.FirstOrDefault(type => type.Name == viewName);
                 if (viewType != null)

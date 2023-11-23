@@ -16,8 +16,6 @@ namespace SADA.Infastructure.Core
 
         #endregion Constructor
 
-
-
         #region Commands
 
         public RelayCommand<UserControl> LoadedCommand { get; }

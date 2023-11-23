@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.Services;
 using SADA.ViewModel.Start;
 using System;
 
@@ -9,11 +10,13 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
     internal class ManualDialogViewModel : DialogBase
     {
+        private readonly ITabService _tabService;
         #region Constructor
 
-        public ManualDialogViewModel() : base()
+        public ManualDialogViewModel(ITabService tabService = null) : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
+            _tabService = tabService;
         }
 
         #endregion Constructor
@@ -30,11 +33,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _TestCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = DateTime.Now.ToLongDateString();
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         #endregion Commands implementations

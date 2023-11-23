@@ -30,8 +30,8 @@ namespace SADA.ViewModel.Start
 
         #region Fields
 
-        private string _password;
-        private string _login;
+        private string _password = "admin";
+        private string _login = "admin";
         private readonly WindowFadeChanger _windowFadeChanger;
         private readonly IUserService _userService;
         private readonly IWindowService _windowService;

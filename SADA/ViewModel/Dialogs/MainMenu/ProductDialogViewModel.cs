@@ -2,21 +2,24 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.Services;
 using SADA.ViewModel.Start;
 
 namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
     internal class ProductDialogViewModel : DialogBase
     {
+        private readonly ITabService _tabService;
         #region Constructor
 
-        public ProductDialogViewModel() : base()
+        public ProductDialogViewModel(ITabService tabService = null) : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
             ProductIncomeCommand = new RelayCommand(_ProductIncomeCommand);
             ProductSaleCommand = new RelayCommand(_ProductSaleCommand);
             PriceListCommand = new RelayCommand(_PriceListCommand);
             ProductRemainsCommand = new RelayCommand(_ProductRemainsCommand);
+            _tabService = tabService;
         }
 
         #endregion Constructor
@@ -40,47 +43,27 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _TestCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_TestCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _ProductIncomeCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_ProductIncomeCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _ProductSaleCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_ProductSaleCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _PriceListCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_PriceListCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _ProductRemainsCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_ProductRemainsCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         #endregion Commands implementations

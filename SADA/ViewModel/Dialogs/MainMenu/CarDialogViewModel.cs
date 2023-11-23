@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.Services;
 using SADA.ViewModel.MainMenu.Car.Salon;
 using SADA.ViewModel.Start;
 using System;
@@ -10,20 +11,20 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
     internal class CarDialogViewModel : DialogBase
     {
+        private readonly ITabService _tabService;
         #region Constructor
 
-        public CarDialogViewModel() : base()
+        public CarDialogViewModel(ITabService tabService = null) : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
             PayToCounteragentCommand = new RelayCommand(_PayToCounteragentCommand);
             PurchaseFromCounteragentCommand = new RelayCommand(_PurchaseFromCounteragentCommand);
             CarInSalonCommand = new RelayCommand(_CarInSalonCommand);
             EquipmentCommand = new RelayCommand(_EquipmentCommand);
+            _tabService = tabService;
         }
 
         #endregion Constructor
-
-
 
         #region Commands
 
@@ -41,47 +42,29 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _TestCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = DateTime.Now.ToLongDateString();
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _PayToCounteragentCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "Оплата контрагентам";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _PurchaseFromCounteragentCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "PurchaseFromCounteragentCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _CarInSalonCommand()
         {
-            var vm = App.Current.GetService<CarInSalonViewModel>();
+            
 
-            vm.Name = "Автомобили в салоне";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(vm));
+            _tabService.OpenTab<CarInSalonViewModel>("Автомобили в салоне");
         }
 
         private void _EquipmentCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "_EquipmentCommand";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         #endregion Commands implementations

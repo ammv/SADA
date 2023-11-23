@@ -19,5 +19,20 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
                 }
             }
         }
+
+        public CarInSalonFormViewModel CarInSalonForm
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockCarInSalonFormViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<CarInSalonFormViewModel>();
+                }
+            }
+        }
     }
 }

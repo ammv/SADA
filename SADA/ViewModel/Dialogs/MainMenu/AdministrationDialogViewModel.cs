@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
+using SADA.Services;
 using SADA.ViewModel.Start;
 using System;
 
@@ -9,19 +10,19 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 {
     internal class AdministrationDialogViewModel : DialogBase
     {
+        private readonly ITabService _tabService;
         #region Constructor
 
-        public AdministrationDialogViewModel() : base()
+        public AdministrationDialogViewModel(ITabService tabService = null) : base()
         {
             TestCommand = new RelayCommand(_TestCommand);
             EventJournalCommand = new RelayCommand(_EventJournalCommand);
             UsersCommand = new RelayCommand(_UsersCommand);
             UserRoleManagementCommand = new RelayCommand(_UserRoleManagementCommand);
+            _tabService = tabService;
         }
 
         #endregion Constructor
-
-
 
         #region Commands
 
@@ -36,38 +37,23 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _TestCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = DateTime.Now.ToLongDateString();
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            //var testVm = App.Current.GetService<TestViewModel>();
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _EventJournalCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "Журнал событий";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _UsersCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "Пользователи";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         private void _UserRoleManagementCommand()
         {
-            var testVm = App.Current.GetService<TestViewModel>();
-
-            testVm.Name = "Управление ролями пользователей";
-
-            WeakReferenceMessenger.Default.Send(new DialogTabChangedMessage(testVm));
+            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
 
         #endregion Commands implementations

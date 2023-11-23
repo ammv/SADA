@@ -11,7 +11,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             {
                 if (IsInDesignMode())
                 {
-                    return new AdministrationDialogViewModel();
+                    return new AdministrationDialogViewModel(null);
                 }
                 else
                 {
@@ -26,7 +26,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             {
                 if (IsInDesignMode())
                 {
-                    return new CarDialogViewModel();
+                    return new CarDialogViewModel(null);
                 }
                 else
                 {

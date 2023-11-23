@@ -38,6 +38,9 @@
     <PathGeometry x:Key="CurrentThemeIcon"
                   Figures="{Binding Source={StaticResource SunIcon}, Path=Figures}" />
 
+    <PathGeometry x:Key="FilterIcon"
+                  Figures="M 22,3 H 2 l 8,9.46 V 19 l 4,2 v -8.54 z" />
+
 
 
 

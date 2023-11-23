@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SADA.Infastructure.Core;
 using SADA.Services;
 using System;
+using System.Linq;
 using System.Windows;
 using WpfUtils;
 
@@ -29,9 +30,16 @@ namespace SADA
         {
             this.InitializeComponent();
 
-            ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-
             ThemeManager.Current.ActualApplicationThemeChanged += Current_SystemThemeChanged;
+
+            if (DateTime.Now.Hour > 18 || 8 > DateTime.Now.Hour)
+            {
+                ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+            }
+            else
+            {
+                ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+            }
 
             Services = ConfigureServices();
         }
@@ -111,7 +119,11 @@ namespace SADA
             IWindowService windowService = Services.GetService<IWindowService>();
             IDialogService dialogService = Services.GetService<IDialogService>();
 
-            if (windowService.LastOpenedWindow.GetType() == typeof(View.Start.AuthView)) return;
+            Type[] typeBlackList = { 
+                typeof(View.Start.AuthView),
+                typeof(View.Start.LoadingView)
+            };
+            if (typeBlackList.Contains(windowService.LastOpenedWindow.GetType())) return;
 
             windowService.ShowAndCloseWindow<View.Start.AuthView>(windowService.LastOpenedWindow);
 
@@ -160,6 +172,7 @@ namespace SADA
         private void СonfigureMainMenu_Car_Salon(ServiceCollection services)
         {
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonFormViewModel>();
         }
 
         private void ConfigureStart(ServiceCollection services)
@@ -201,6 +214,7 @@ namespace SADA
         private void ConfigureOtherServices(ServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ITabService, TabService>();
             services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<IWindowService, WindowService>();
             services.AddSingleton<WindowFadeChanger>();

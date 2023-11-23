@@ -113,151 +113,6 @@
                                                       RecognizesAccessKey="True"
                                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                       VerticalAlignment="Center" />
-                                    <Border x:Name="BorderMask"
-                                            Background="{TemplateBinding Background}"
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,0,1,1"
-                                            Width="20">
-                                        <Border.OpacityMask>
-                                            <LinearGradientBrush EndPoint="1,0"
-                                                                 StartPoint="0,0">
-                                                <GradientStop Color="White"
-                                                              Offset="1" />
-                                                <GradientStop Offset="0" />
-                                            </LinearGradientBrush>
-                                        </Border.OpacityMask>
-                                    </Border>
-                                    <Button Background="Transparent"
-                                            Grid.Column="2"
-                                            Command="hc:ControlCommands.Close"
-                                            Focusable="False"
-                                            Width="28">
-                                        <Button.Style>
-                                            <Style TargetType="{x:Type Button}">
-                                                <Setter Property="Background"
-                                                        Value="{x:Null}" />
-                                                <Setter Property="HorizontalContentAlignment"
-                                                        Value="Center" />
-                                                <Setter Property="VerticalContentAlignment"
-                                                        Value="Center" />
-                                                <Setter Property="Padding"
-                                                        Value="0" />
-                                                <Setter Property="BorderThickness"
-                                                        Value="0" />
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border x:Name="Chrome"
-                                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                                    Background="{TemplateBinding Background}"
-                                                                    CornerRadius="{Binding (hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
-                                                                    SnapsToDevicePixels="True">
-                                                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                                  Content="{TemplateBinding Content}"
-                                                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                                  Margin="{TemplateBinding Padding}"
-                                                                                  RecognizesAccessKey="True"
-                                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                                            </Border>
-                                                            <ControlTemplate.Triggers>
-                                                                <Trigger Property="IsMouseOver"
-                                                                         Value="True">
-                                                                    <Setter Property="Opacity"
-                                                                            Value="0.9" />
-                                                                    <Setter Property="Background"
-                                                                            TargetName="Chrome"
-                                                                            Value="{Binding (hc:BackgroundSwitchElement.MouseHoverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
-                                                                </Trigger>
-                                                                <Trigger Property="IsPressed"
-                                                                         Value="True">
-                                                                    <Setter Property="Opacity"
-                                                                            Value="0.6" />
-                                                                    <Setter Property="Background"
-                                                                            TargetName="Chrome"
-                                                                            Value="{Binding (hc:BackgroundSwitchElement.MouseDownBackground), RelativeSource={RelativeSource TemplatedParent}}" />
-                                                                </Trigger>
-                                                                <Trigger Property="IsEnabled"
-                                                                         Value="False">
-                                                                    <Setter Property="Opacity"
-                                                                            Value="0.4" />
-                                                                </Trigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.BasedOn>
-                                                    <Style TargetType="{x:Type Control}">
-                                                        <Setter Property="Foreground"
-                                                                Value="{DynamicResource PrimaryTextBrush}" />
-                                                        <Setter Property="FontSize"
-                                                                Value="12" />
-                                                        <Setter Property="FocusVisualStyle">
-                                                            <Setter.Value>
-                                                                <Style>
-                                                                    <Setter Property="Control.Template">
-                                                                        <Setter.Value>
-                                                                            <ControlTemplate>
-                                                                                <Rectangle RadiusY="4"
-                                                                                           RadiusX="4">
-                                                                                    <Rectangle.Style>
-                                                                                        <Style TargetType="{x:Type Rectangle}">
-                                                                                            <Setter Property="Margin"
-                                                                                                    Value="-2" />
-                                                                                            <Setter Property="Opacity"
-                                                                                                    Value="0.6" />
-                                                                                            <Setter Property="SnapsToDevicePixels"
-                                                                                                    Value="True" />
-                                                                                            <Setter Property="Stroke"
-                                                                                                    Value="{DynamicResource SecondaryBorderBrush}" />
-                                                                                            <Setter Property="StrokeThickness"
-                                                                                                    Value="2" />
-                                                                                            <Setter Property="StrokeDashArray"
-                                                                                                    Value="1 1" />
-                                                                                        </Style>
-                                                                                    </Rectangle.Style>
-                                                                                </Rectangle>
-                                                                            </ControlTemplate>
-                                                                        </Setter.Value>
-                                                                    </Setter>
-                                                                </Style>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Style>
-                                                </Style.BasedOn>
-                                            </Style>
-                                        </Button.Style>
-                                        <Button.Visibility>
-                                            <TemplateBinding Property="ShowCloseButton">
-                                                <TemplateBinding.Converter>
-                                                    <BooleanToVisibilityConverter />
-                                                </TemplateBinding.Converter>
-                                            </TemplateBinding>
-                                        </Button.Visibility>
-                                        <Path Fill="{DynamicResource PrimaryTextBrush}"
-                                              Height="8"
-                                              Width="8">
-                                            <Path.Style>
-                                                <Style TargetType="{x:Type Path}">
-                                                    <Setter Property="Data"
-                                                            Value="M0.7,0L5,4.3 9.3,0 10,0.7 5.7,5 10,9.3 9.3,10 5,5.7 0.7,10 0,9.3 4.3,5 0,0.7z" />
-                                                    <Style.BasedOn>
-                                                        <Style TargetType="{x:Type Path}">
-                                                            <Setter Property="Stretch"
-                                                                    Value="Uniform" />
-                                                            <Setter Property="SnapsToDevicePixels"
-                                                                    Value="True" />
-                                                            <Setter Property="FlowDirection"
-                                                                    Value="LeftToRight" />
-                                                        </Style>
-                                                    </Style.BasedOn>
-                                                </Style>
-                                            </Path.Style>
-                                        </Path>
-                                    </Button>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected"
@@ -267,9 +122,6 @@
                                         <Setter Property="Visibility"
                                                 TargetName="innerBorder"
                                                 Value="Visible" />
-                                        <Setter Property="Background"
-                                                TargetName="BorderMask"
-                                                Value="{DynamicResource RegionBrush}" />
                                     </Trigger>
                                     <Trigger Property="hc:IconElement.Geometry"
                                              Value="{x:Null}">
@@ -277,12 +129,7 @@
                                                 TargetName="PathMain"
                                                 Value="Collapsed" />
                                     </Trigger>
-                                    <Trigger Property="ShowCloseButton"
-                                             Value="True">
-                                        <Setter Property="Margin"
-                                                TargetName="BorderMask"
-                                                Value="0,0,0,1" />
-                                    </Trigger>
+
                                     <Trigger Property="IsEnabled"
                                              Value="False">
                                         <Setter Property="Opacity"
