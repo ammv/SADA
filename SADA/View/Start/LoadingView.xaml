@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SADA.View.Start"
         xmlns:hc="https://handyorg.github.io/handycontrol"
+        ShowInTaskbar="False"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Style="{DynamicResource WindowStyle}"
         WindowStartupLocation="CenterScreen"
         Title="LoadingView" Height="450" Width="800">
-    <Grid>
+    <Grid
+        MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <hc:AnimationPath Data="{DynamicResource logo}"
                           x:Name="animationPath"
                           Duration="00:00:05"

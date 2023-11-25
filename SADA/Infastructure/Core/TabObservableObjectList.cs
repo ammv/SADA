@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SADA.Infastructure.Core
 {
-    public abstract class TabObservableObjectPagination<T>: TabObservableObjectWithLoading
+    public abstract class TabObservableObjectList<T>: TabObservableObjectWithLoading
         where T: class, new()
     {
 
@@ -18,6 +18,9 @@ namespace SADA.Infastructure.Core
         protected int _dataCountPerPage = 20;
         protected int _maxPage = 0;
         protected T _selectedEntity = null;
+        protected ListMode _listMode = ListMode.Default;
+
+        private AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>> _pageUpdateCommand;
 
         //protected abstract IQueryable<T> _defaultQuery { get; }
         //protected IQueryable<T> _currentQuery { get; }
@@ -52,6 +55,12 @@ namespace SADA.Infastructure.Core
             set { SetProperty(ref _maxPage, value); }
         }
 
+        public virtual ListMode ListMode
+        {
+            get { return _listMode; }
+            set { SetProperty(ref _listMode, value); }
+        }
+
         public virtual T SelectedEntity
         {
             get { return _selectedEntity; }
@@ -64,15 +73,15 @@ namespace SADA.Infastructure.Core
         {
             get
             {
-                if(PageUpdateCommand == null)
+                if(_pageUpdateCommand == null)
                 {
-                    PageUpdateCommand = new AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>>(_PageUpdateCommand);
+                    SetProperty(ref _pageUpdateCommand, new AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>>(_PageUpdateCommand));
                 }
-                return PageUpdateCommand;
+                return _pageUpdateCommand;
             }
             protected set
             {
-                PageUpdateCommand = value;
+                SetProperty(ref _pageUpdateCommand, value);
             }
         }
 

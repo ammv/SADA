@@ -5,7 +5,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
     internal class SalonViewModelLocator : ViewModelLocatorBase
     {
-        public CarInSalonListViewModel CarInSalon
+        public CarInSalonListViewModel CarInSalonList
         {
             get
             {
@@ -20,7 +20,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
             }
         }
 
-        public CarInSalonViewModel CarInSalonForm
+        public CarInSalonViewModel CarInSalon
         {
             get
             {

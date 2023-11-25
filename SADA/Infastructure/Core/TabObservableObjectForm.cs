@@ -16,7 +16,7 @@ namespace SADA.Infastructure.Core
         protected FormMode _formMode = FormMode.Add;
         protected T _entity = null;
         
-        public FormMode FormMode
+        public virtual FormMode FormMode
         {
             get => _formMode;
             set => SetProperty(ref _formMode, value);

@@ -9,7 +9,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d"
-             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalon, Source={StaticResource mainViewModelLocator}}"
+             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalonList, Source={StaticResource mainViewModelLocator}}"
              d:DesignHeight="1040"
              d:DesignWidth="1600">
     <intr:Interaction.Triggers>
@@ -175,10 +175,10 @@
                       Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
                       Grid.Row="1"
                       Margin="0 0 0 8"
-                      SelectedItem="{Binding SelectedCar}"
+                      SelectedItem="{Binding SelectedEntity}"
                       RowHeaderWidth="60"
                       AutoGenerateColumns="True"
-                      ItemsSource="{Binding Cars}">
+                      ItemsSource="{Binding Entities}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="MouseDoubleClick">
                         <intr:InvokeCommandAction Command="{Binding OpenCarFormCommand}"

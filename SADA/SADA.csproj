@@ -229,7 +229,7 @@
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
     <Compile Include="Infastructure\Core\TabObservableObjectForm.cs" />
-    <Compile Include="Infastructure\Core\TabObservableObjectPagination.cs" />
+    <Compile Include="Infastructure\Core\TabObservableObjectList.cs" />
     <Compile Include="Infastructure\Core\TabObservableObjectWithLoading.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <None Include="Infastructure\Core\ViewModelLocator.cs" />

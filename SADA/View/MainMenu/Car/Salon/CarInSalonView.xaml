@@ -11,7 +11,7 @@
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
              mc:Ignorable="d"
-             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalonForm, Source={StaticResource mainViewModelLocator}}"
+             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalon, Source={StaticResource mainViewModelLocator}}"
              d:DesignHeight="1040"
              d:DesignWidth="1600">
     <intr:Interaction.Triggers>
@@ -106,7 +106,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 CommandParameter="{x:Type dataLayer:CarEquipment}"
-                                Command="{Binding OpenChoiceCounteragentDialogCommand}"
+                                Command="{Binding OpenTypeListCommand}"
                                 hc:IconElement.Geometry="{DynamicResource SearchIcon}"
                                 Style="{DynamicResource ButtonDefaultIconGood2}" />
                     </Grid>
@@ -142,7 +142,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 CommandParameter="{x:Type dataLayer:Counteragent}"
-                                Command="{Binding OpenChoiceCounteragentDialogCommand}"
+                                Command="{Binding OpenTypeListCommand}"
                                 hc:IconElement.Geometry="{DynamicResource SearchIcon}"
                                 Style="{DynamicResource ButtonDefaultIconGood2}" />
                     </Grid>
@@ -174,7 +174,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 CommandParameter="{x:Type dataLayer:CarEquipment}"
-                                Command="{Binding OpenChoiceCounteragentDialogCommand}"
+                                Command="{Binding OpenTypeListCommand}"
                                 hc:IconElement.Geometry="{DynamicResource SearchIcon}"
                                 Style="{DynamicResource ButtonDefaultIconGood2}" />
                     </Grid>
@@ -228,7 +228,8 @@
                         <Button Grid.Column="2"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding OpenChoiceCounteragentDialogCommand}"
+                                Command="{Binding OpenTypeListCommand}"
+                                CommandParameter="{x:Type dataLayer:Counteragent}"
                                 hc:IconElement.Geometry="{DynamicResource SearchIcon}"
                                 Style="{DynamicResource ButtonDefaultIconGood2}" />
                     </Grid>

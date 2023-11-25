@@ -16,6 +16,7 @@ namespace SADA.Infastructure.Core
         #region Fields
         private bool _isLoading = false;
         private bool _isLoaded = false;
+        private AsyncRelayCommand _loadedCommand;
 
         #endregion
 
@@ -35,22 +36,22 @@ namespace SADA.Infastructure.Core
         {
             get
             {
-                if(LoadedCommand == null)
+                if(_loadedCommand == null)
                 {
-                    LoadedCommand = new AsyncRelayCommand(() => Task.Run(_LoadedCommand));
+                    _loadedCommand = new AsyncRelayCommand(() => Task.Run(_LoadedCommand));
                 }
-                return LoadedCommand;
+                return _loadedCommand;
             }
             private set
             {
-                LoadedCommand = value;
+                _loadedCommand = value;
             }
         }
         #endregion
 
         #region Command implementation
 
-        protected virtual void _LoadedCommand()
+        protected void _LoadedCommand()
         {
             if (_isLoaded)
             {

@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace SADA.ViewModel.MainMenu.Car.Salon
 {
-    internal class CarInSalonListViewModel : TabObservableObjectPagination<DataLayer.Car>
+    internal class CarInSalonListViewModel : TabObservableObjectList<DataLayer.Car>
     {
         #region Fields
 
@@ -130,12 +130,13 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             {
                 var query = _AttachFilters(ctx.Car);
                 MaxPage = query.Count() / _dataCountPerPage;
-                Entities = new ObservableCollection<DataLayer.Car>(await query.Skip((e.Info - 1) * 10).Take(10).IncludeAll().ToListAsync());
+                Entities = new ObservableCollection<DataLayer.Car>(await query.Skip((e.Info - 1) * _dataCountPerPage).Take(_dataCountPerPage).IncludeAll().ToListAsync());
             }
         }
 
         protected override void LoadedInner()
         {
+            Thread.Sleep(3000);
             using (var ctx = new SADAEntities())
             {
                 Entities = new ObservableCollection<DataLayer.Car>(ctx.Car.IncludeAll().ToList());

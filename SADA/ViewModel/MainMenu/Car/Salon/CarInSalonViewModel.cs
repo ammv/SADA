@@ -71,6 +71,23 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             
         }
 
+        public override FormMode FormMode 
+        { 
+            get => _formMode;
+            set
+            {
+                if(SetProperty(ref _formMode, value))
+                {
+                    switch(value)
+                    {
+                        case FormMode.Add:
+                            Entity = new DataLayer.Car();
+                            break;
+                    }
+                }
+            }
+        }
+
         #endregion
 
     }
