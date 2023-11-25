@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace SADA.Infastructure.Core
 {
+    /// <summary>
+    /// Представляет вкладку представляющию форму для работы с конкретной сущностью
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     abstract class TabObservableObjectForm<T>: TabObservableObjectWithLoading
         where T: class
     {

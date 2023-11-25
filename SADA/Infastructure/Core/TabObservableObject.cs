@@ -4,6 +4,9 @@ using System.Windows.Input;
 
 namespace SADA.Infastructure.Core
 {
+    /// <summary>
+    /// Представляет простую вкладку с возможностью закрытия
+    /// </summary>
     public abstract class TabObservableObject : ObservableObject, ITab
     {
         private string _name;

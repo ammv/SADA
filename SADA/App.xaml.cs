@@ -171,8 +171,8 @@ namespace SADA
 
         private void СonfigureMainMenu_Car_Salon(ServiceCollection services)
         {
+            services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonListViewModel>();
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonViewModel>();
-            services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonFormViewModel>();
         }
 
         private void ConfigureStart(ServiceCollection services)

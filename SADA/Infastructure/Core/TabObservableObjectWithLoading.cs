@@ -7,26 +7,15 @@ using System.Threading.Tasks;
 
 namespace SADA.Infastructure.Core
 {
+    /// <summary>
+    /// Представляет вкладку с загрузкой данных
+    /// </summary>
     public abstract class TabObservableObjectWithLoading: TabObservableObject
     {
 
         #region Fields
         private bool _isLoading = false;
         private bool _isLoaded = false;
-        private Action _loadedInnerAction = null;
-
-        #endregion
-
-        #region Constructor
-
-        public TabObservableObjectWithLoading(Action loadedInnerAction = null)
-        {
-            LoadedCommand = new AsyncRelayCommand(() => Task.Run(_LoadedCommand));
-            if(loadedInnerAction != null)
-            {
-                _loadedInnerAction = loadedInnerAction;
-            }
-        }
 
         #endregion
 
@@ -37,16 +26,26 @@ namespace SADA.Infastructure.Core
             set { SetProperty(ref _isLoading, value); }
         }
 
-        public Action LoadedInnerAction 
-        { 
-            get => _loadedInnerAction;
-            set => _loadedInnerAction = value; 
-        }
+        protected abstract void LoadedInner();
 
         #endregion
 
         #region Commands
-        public AsyncRelayCommand LoadedCommand { get; }
+        public AsyncRelayCommand LoadedCommand
+        {
+            get
+            {
+                if(LoadedCommand == null)
+                {
+                    LoadedCommand = new AsyncRelayCommand(() => Task.Run(_LoadedCommand));
+                }
+                return LoadedCommand;
+            }
+            private set
+            {
+                LoadedCommand = value;
+            }
+        }
         #endregion
 
         #region Command implementation
@@ -59,7 +58,7 @@ namespace SADA.Infastructure.Core
             }
             IsLoading = true;
 
-            _loadedInnerAction?.Invoke();
+            LoadedInner();
 
             IsLoading = false;
             _isLoaded = true;

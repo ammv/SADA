@@ -1,84 +1,44 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using DataLayer;
 using SADA.Infastructure.Core;
-using SADA.Infastructure.Messages;
 using SADA.Services;
-using SADA.ViewModel.Start;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace SADA.ViewModel.MainMenu.Car.Salon
 {
-    internal class CarInSalonViewModel : TabObservableObjectWithLoading
+    class CarInSalonViewModel: TabObservableObjectForm<DataLayer.Car>
     {
         #region Fields
 
         private readonly IDialogService _dialogService;
-        private readonly IWindowService _windowService;
         private readonly ITabService _tabService;
-        private ObservableCollection<DataLayer.Car> _cars;
-        private int _dataCountPerPage = 20;
-        private int _maxPage = 0;
-        private DataLayer.Car _selectedCar = null;
 
-        #endregion Fields
+        #endregion
 
         #region Constructor
-
-        public CarInSalonViewModel(IDialogService dialogService, IWindowService windowService, ITabService tabService): base()
+        public CarInSalonViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose); 
-            PageUpdateCommand = new AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>>(_PageUpdateCommand);
-            OpenCarFormCommand = new RelayCommand<FormMode>(_OpenCarFormCommand);
+            CloseCommand = new RelayCommand(_OnClose);
+            OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
             _dialogService = dialogService;
-            _windowService = windowService;
             _tabService = tabService;
-
-            base.LoadedInnerAction = _LoadedInnerAction;
         }
-        protected CarInSalonViewModel()
-        { }
 
-        #endregion Constructor
+        protected CarInSalonViewModel() { }
+
+        #endregion
 
         #region Properties
-
-        public ObservableCollection<DataLayer.Car> Cars
-        {
-            get { return _cars; }
-            set { SetProperty(ref _cars, value); }
-        }
-
-        public int DataCountPerPage
-        {
-            get { return _dataCountPerPage; }
-            set { SetProperty(ref _dataCountPerPage, value); }
-        }
-
-        public int MaxPage
-        {
-            get { return _maxPage; }
-            set { SetProperty(ref _maxPage, value); }
-        }
-
-        public DataLayer.Car SelectedCar
-        {
-            get { return _selectedCar; }
-            set { SetProperty(ref _selectedCar, value); }
-        }
-
-        #endregion Properties
+        #endregion
 
         #region Commands
 
-        public AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>> PageUpdateCommand { get; }
-        public RelayCommand<FormMode> OpenCarFormCommand { get; }
+        public AsyncRelayCommand<Type> OpenTypeListCommand { get; }
 
         #endregion
 
@@ -90,61 +50,28 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             if (result == MessageBoxResult.Yes)
             {
                 _RaiseCloseEvent();
-                
+
             }
         }
 
-        private void _OpenCarFormCommand(FormMode parameter)
+        private async Task _OpenTypeListCommand(Type type)
         {
-            if (parameter == FormMode.Edit)
+            switch(type.Name)
             {
-                var vm = App.Current.GetService<CarInSalonFormViewModel>();
-                vm.Name = "Изменение автомобиля";
-                vm.Entity = SelectedCar;
-                vm.FormMode = FormMode.Edit;
-                _tabService.OpenTab(vm);
-            }
-            else
-            {
-                var vm = App.Current.GetService<CarInSalonFormViewModel>();
-                vm.Name = "Добавление автомобиля";
-                vm.FormMode = FormMode.Add;
-                _tabService.OpenTab(vm);
+                case nameof(DataLayer.Car):
+                    break;
             }
         }
 
-        private async Task _PageUpdateCommand(HandyControl.Data.FunctionEventArgs<int> e)
-        {
-            using (var ctx = new SADAEntities())
-            {
-                var query = _AttachFilters(ctx.Car);
-                MaxPage = query.Count() / _dataCountPerPage;
-                Cars = new ObservableCollection<DataLayer.Car>(await query.Skip((e.Info - 1) * 10).Take(10).IncludeAll().ToListAsync());
-            }
-        }
-
-        private void _LoadedInnerAction()
-        {
-            using (var ctx = new SADAEntities())
-            {
-                Cars = new ObservableCollection<DataLayer.Car>(ctx.Car.IncludeAll().ToList());
-                for (int i = 0; i < 100; i++)
-                {
-                    Cars.Add(Cars[i]);
-                }
-                MaxPage = Cars.Count() / _dataCountPerPage + 1;
-            }
-        }
-
-        #endregion Command implementation
+        #endregion
 
         #region Other
-
-        private IQueryable<T> _AttachFilters<T>(DbSet<T> dbset) where T: class
+        protected override void LoadedInner()
         {
-            return dbset.AsQueryable<T>();
+            
         }
 
-        #endregion Other
+        #endregion
+
     }
 }

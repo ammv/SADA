@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate x:Key="StaffItemTemplate" DataType="{x:Type DataLayer:Staff}">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1} {2} ({3})">
+                    <Binding Path="Passport.Surname" />
+                    <Binding Path="Passport.Name" />
+                    <Binding Path="Passport.Patronymic"
+                             TargetNullValue="" />
+                    <Binding Path="StaffPost.Name"
+                             TargetNullValue="Неизвестно" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+</ResourceDictionary>

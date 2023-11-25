@@ -2,5 +2,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="StartView.xaml" />
         <ResourceDictionary Source="UtilsView.xaml" />
+        <ResourceDictionary Source="Entities.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

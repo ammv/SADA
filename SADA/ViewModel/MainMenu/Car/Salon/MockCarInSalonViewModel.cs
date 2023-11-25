@@ -10,20 +10,9 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
     {
         public MockCarInSalonViewModel(): base()
         {
-            Cars = new System.Collections.ObjectModel.ObservableCollection<DataLayer.Car>
+            Entity = new DataLayer.Car
             {
-                new DataLayer.Car
-                {
-                    YearOfRelease = 2024
-                },
-                new DataLayer.Car
-                {
-                    YearOfRelease = 2021
-                },
-                new DataLayer.Car
-                {
-                    YearOfRelease = 2026
-                }
+                VIN = "13r2fe3fwefwr"
             };
         }
     }

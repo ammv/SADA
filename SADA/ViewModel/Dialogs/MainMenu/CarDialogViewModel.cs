@@ -59,7 +59,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         {
             
 
-            _tabService.OpenTab<CarInSalonViewModel>("Автомобили в салоне");
+            _tabService.OpenTab<CarInSalonListViewModel>("Автомобили в салоне");
         }
 
         private void _EquipmentCommand()

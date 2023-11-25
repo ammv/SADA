@@ -1,0 +1,216 @@
+﻿<UserControl x:Class="SADA.View.MainMenu.Car.Salon.CarInSalonListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
+             xmlns:core="clr-namespace:SADA.Infastructure.Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d"
+             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalon, Source={StaticResource mainViewModelLocator}}"
+             d:DesignHeight="1040"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid Background="{DynamicResource RegionBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <hc:UniformSpacingPanel Orientation="Horizontal"
+                                    HorizontalSpacing="32"
+                                    ItemVerticalAlignment="Bottom"
+                                    Margin="0 8 0 8">
+                <!--Блок 1-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        HorizontalSpacing="16"
+                                        ItemVerticalAlignment="Bottom">
+                    <Button Content="Создать"
+                            CommandParameter="{x:Static core:FormMode.Add}"
+                            Command="{Binding OpenCarFormCommand}"
+                            ToolTip="Создать новую запись Автомобиль" />
+
+                </hc:UniformSpacingPanel>
+
+                <!--Блок 2-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        HorizontalSpacing="16"
+                                        ItemVerticalAlignment="Bottom">
+                    <hc:TextBox hc:InfoElement.Placeholder="VIN, модель, марка"
+                                Width="300"
+                                hc:InfoElement.Title="Поиск" />
+
+                    <Button Content="Искать"
+                            Style="{DynamicResource ButtonPrimary }"
+                            CommandParameter="{x:Static core:FormMode.Add}"
+                            Command="{Binding OpenCarFormCommand}"
+                            ToolTip="Создать новую запись Автомобиль" />
+                </hc:UniformSpacingPanel>
+
+
+            </hc:UniformSpacingPanel>
+
+            <!--Фильтры-->
+            <Grid Grid.Column="1"
+                  
+                  Grid.RowSpan="2"
+                  x:Name="filterGrid">
+                <hc:UniformSpacingPanel Margin="8"
+                                        Width="300"
+                                        VerticalSpacing="32"
+                                        Orientation="Vertical">
+
+                    
+
+                    <!--Сами фильтры-->
+                    <hc:UniformSpacingPanel Orientation="Vertical"
+                                            TextElement.FontSize="{StaticResource TextFontSize}"
+                                            VerticalSpacing="16">
+                        <TextBlock Text="Фильтры"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource TextBlockDefaultBold}" />
+
+                        <hc:TextBox hc:InfoElement.Placeholder="ABCD12345"
+                                    hc:InfoElement.Title="VIN" />
+                        <hc:ComboBox hc:InfoElement.Placeholder="ABCD12345"
+                                     hc:InfoElement.Title="Nissan"
+                                     IsEditable="True" />
+                        <hc:ComboBox hc:InfoElement.Placeholder="Nissan almera"
+                                     hc:InfoElement.Title="Модель"
+                                     IsEditable="True" />
+                        <hc:ComboBox hc:InfoElement.Placeholder="Алмазно-крутой"
+                                     hc:InfoElement.Title="Цвет"
+                                     IsEditable="True" />
+                        <CheckBox Content="Показывать удаленные" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Кнопки для работы с фильтрами-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            HorizontalSpacing="16">
+                        <Button Content="Применить"
+                                HorizontalAlignment="Center"
+                                Style="{DynamicResource ButtonPrimary}" />
+
+                        <Button Content="Сбросить"
+                                HorizontalAlignment="Center" />
+                    </hc:UniformSpacingPanel>
+
+
+                </hc:UniformSpacingPanel>
+            </Grid>
+
+            <ToggleButton hc:BorderElement.CornerRadius="4 0 0 4"
+                          HorizontalAlignment="Right"
+                          Width="30"
+                          Checked="filterButton_Checked"
+                          Unchecked="filterButton_Unchecked"
+                          x:Name="filterButton"
+                          ToolTip="Фильтр"
+                          Padding="0"
+                          hc:IconElement.Width="15"
+                          hc:IconElement.Geometry="{DynamicResource FilterIcon}">
+            </ToggleButton>
+
+            <Grid VerticalAlignment="Center"
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <hc:LoadingCircle DotSpeed="3" />
+                    <TextBlock Text="Подождите, данные загружаются"
+                               Margin="0 10 0 0"
+                               Style="{StaticResource TextBlockDefault}" />
+                </StackPanel>
+            </Grid>
+
+            <DataGrid HeadersVisibility="All"
+                      Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+                      Grid.Row="1"
+                      Margin="0 0 0 8"
+                      SelectedItem="{Binding SelectedCar}"
+                      RowHeaderWidth="60"
+                      AutoGenerateColumns="True"
+                      ItemsSource="{Binding Cars}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="MouseDoubleClick">
+                        <intr:InvokeCommandAction Command="{Binding OpenCarFormCommand}"
+                                                  CommandParameter="{x:Static core:FormMode.Edit}" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <hc:ContextMenuButton Content="Изменить"
+                                              Command="{Binding OpenCarFormCommand}"
+                                              CommandParameter="{x:Static core:FormMode.Edit}" />
+                        <hc:ContextMenuButton Content="Копировать данные" />
+                        <hc:ContextMenuButton Content="Сделать дупликат" />
+                        <hc:ContextMenuButton Content="Сделать дупликат и изменить" />
+                        <hc:ContextMenuButton Content="Удалить" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+
+            <hc:Pagination MaxPageCount="{Binding MaxPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           Grid.Row="2"
+                           Margin="0 0 0 8"
+                           HorizontalAlignment="Center"
+                           DataCountPerPage="{Binding DataCountPerPage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           IsJumpEnabled="True">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="Navigated">
+                        <intr:InvokeCommandAction Command="{Binding PageUpdateCommand}"
+                                                  PassEventArgsToCommand="True" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </hc:Pagination>
+        </Grid>
+    </Grid>
+</UserControl>

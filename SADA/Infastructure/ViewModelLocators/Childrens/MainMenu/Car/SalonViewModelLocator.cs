@@ -5,7 +5,22 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
     internal class SalonViewModelLocator : ViewModelLocatorBase
     {
-        public CarInSalonViewModel CarInSalon
+        public CarInSalonListViewModel CarInSalon
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockCarInSalonListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<CarInSalonListViewModel>();
+                }
+            }
+        }
+
+        public CarInSalonViewModel CarInSalonForm
         {
             get
             {
@@ -16,21 +31,6 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
                 else
                 {
                     return App.Current.GetService<CarInSalonViewModel>();
-                }
-            }
-        }
-
-        public CarInSalonFormViewModel CarInSalonForm
-        {
-            get
-            {
-                if (IsInDesignMode())
-                {
-                    return new MockCarInSalonFormViewModel();
-                }
-                else
-                {
-                    return App.Current.GetService<CarInSalonFormViewModel>();
                 }
             }
         }

@@ -210,6 +210,7 @@
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Infastructure\Converters\CounteragentToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
     <Compile Include="Infastructure\Converters\IconToGeometryConverter.cs" />
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
@@ -221,13 +222,14 @@
     <Compile Include="Infastructure\Core\DialogBase.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
     <Compile Include="Infastructure\Core\EntityFrameworkExtensions.cs" />
-    <Compile Include="Infastructure\Core\FormEnum.cs" />
+    <Compile Include="Infastructure\Core\FormMode.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
     <Compile Include="Infastructure\Core\TabContent.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxHelper.cs" />
     <Compile Include="Infastructure\Core\TabObservableObjectForm.cs" />
+    <Compile Include="Infastructure\Core\TabObservableObjectPagination.cs" />
     <Compile Include="Infastructure\Core\TabObservableObjectWithLoading.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <None Include="Infastructure\Core\ViewModelLocator.cs" />
@@ -280,10 +282,10 @@
     <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentViewModel.cs" />
-    <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonFormViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonViewModel.cs" />
-    <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonFormViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\CounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\InteractionWithCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Expense\CarExpenseViewModel.cs" />
@@ -345,11 +347,11 @@
     <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragent.xaml.cs">
       <DependentUpon>PurchaseFromCounteragent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainMenu\Car\Salon\CarInSalonFormView.xaml.cs">
-      <DependentUpon>CarInSalonFormView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainMenu\Car\Salon\CarInSalonView.xaml.cs">
       <DependentUpon>CarInSalonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Salon\CarInSalonListView.xaml.cs">
+      <DependentUpon>CarInSalonListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Car\Other\Equipment.xaml.cs">
       <DependentUpon>Equipment.xaml</DependentUpon>
@@ -424,6 +426,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resource\DataTemplates\AllDataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\DataTemplates\Entities.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -531,11 +537,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainMenu\Car\Salon\CarInSalonFormView.xaml">
+    <Page Include="View\MainMenu\Car\Salon\CarInSalonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainMenu\Car\Salon\CarInSalonView.xaml">
+    <Page Include="View\MainMenu\Car\Salon\CarInSalonListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

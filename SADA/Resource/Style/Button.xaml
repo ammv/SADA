@@ -35,6 +35,27 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="ButtonDefaultIconGood" TargetType="Button"
+           BasedOn="{StaticResource ButtonBaseStyle }">
+        <Setter Property="RenderTransformOrigin"
+                Value="0.5,0.5" />
+
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"
+                                    ScaleX="-1" />
+                    <SkewTransform AngleY="0"
+                                   AngleX="0" />
+                    <RotateTransform Angle="-180" />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
 
     <Style x:Key="WindowButtonRecoverOrMinimize"
            TargetType="Button">
@@ -64,6 +85,178 @@
                      Value="False">
                 <Setter Property="hc:IconElement.Geometry"
                         Value="{Binding Source={StaticResource WndMaximizeIcon}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ButtonDefaultIconGood2"
+           TargetType="{x:Type Button}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="RenderTransformOrigin"
+                Value="0.5,0.5" />
+
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"
+                                    ScaleX="-1" />
+                    <SkewTransform AngleY="0"
+                                   AngleX="0" />
+                    <RotateTransform Angle="-180" />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Style.BasedOn>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="Background"
+                        Value="{DynamicResource RegionBrush}" />
+                <Setter Property="hc:BorderElement.CornerRadius"
+                        Value="4" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <hc:SimplePanel>
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="{Binding (hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{Binding (hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                                    <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                Margin="{TemplateBinding Padding}"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Width="16">
+                                        <Path x:Name="PathMain"
+                                              Data="{TemplateBinding hc:IconElement.Geometry}"
+                                              Fill="{TemplateBinding Foreground}"
+                                              Height="{TemplateBinding hc:IconElement.Height}"
+                                              Stretch="Uniform"
+                                              SnapsToDevicePixels="True"
+                                              Width="{TemplateBinding hc:IconElement.Width}" />
+                                        <ContentPresenter x:Name="ContentPresenterMain"
+                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                          Content="{TemplateBinding Content}"
+                                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                          Margin="6,0,0,0"
+                                                          RecognizesAccessKey="True"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                            </hc:SimplePanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Content"
+                                         Value="{x:Null}">
+                                    <Setter Property="Visibility"
+                                            TargetName="ContentPresenterMain"
+                                            Value="Collapsed" />
+                                </Trigger>
+                                <Trigger Property="hc:IconElement.Geometry"
+                                         Value="{x:Null}">
+                                    <Setter Property="Visibility"
+                                            TargetName="PathMain"
+                                            Value="Collapsed" />
+                                    <Setter Property="Margin"
+                                            TargetName="ContentPresenterMain"
+                                            Value="0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.BasedOn>
+                    <Style TargetType="{x:Type ButtonBase}">
+                        <Setter Property="Height"
+                                Value="28" />
+                        <Setter Property="BorderBrush"
+                                Value="{DynamicResource BorderBrush}" />
+                        <Setter Property="Padding"
+                                Value="10,5" />
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource TextIconBrush}" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Center" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Center" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Center" />
+                        <Style.BasedOn>
+                            <Style TargetType="{x:Type Control}">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource PrimaryTextBrush}" />
+                                <Setter Property="FontSize"
+                                        Value="12" />
+                                <Setter Property="FocusVisualStyle">
+                                    <Setter.Value>
+                                        <Style>
+                                            <Setter Property="Control.Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Rectangle RadiusY="4"
+                                                                   RadiusX="4">
+                                                            <Rectangle.Style>
+                                                                <Style TargetType="{x:Type Rectangle}">
+                                                                    <Setter Property="Margin"
+                                                                            Value="-2" />
+                                                                    <Setter Property="Opacity"
+                                                                            Value="0.6" />
+                                                                    <Setter Property="SnapsToDevicePixels"
+                                                                            Value="True" />
+                                                                    <Setter Property="Stroke"
+                                                                            Value="{DynamicResource SecondaryBorderBrush}" />
+                                                                    <Setter Property="StrokeThickness"
+                                                                            Value="2" />
+                                                                    <Setter Property="StrokeDashArray"
+                                                                            Value="1 1" />
+                                                                </Style>
+                                                            </Rectangle.Style>
+                                                        </Rectangle>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Style.BasedOn>
+                    </Style>
+                </Style.BasedOn>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
+                             Value="True">
+                        <Setter Property="Opacity"
+                                Value="0.9" />
+                    </Trigger>
+                    <Trigger Property="IsPressed"
+                             Value="True">
+                        <Setter Property="Opacity"
+                                Value="0.6" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled"
+                             Value="False">
+                        <Setter Property="Opacity"
+                                Value="0.4" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.BasedOn>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource SecondaryRegionBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource BorderBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
