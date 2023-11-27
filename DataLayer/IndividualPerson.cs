@@ -14,7 +14,7 @@ namespace DataLayer
     
     public partial class IndividualPerson
     {
-        public Nullable<int> CounteragentID { get; set; }
+        public int CounteragentID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

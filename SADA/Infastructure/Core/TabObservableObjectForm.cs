@@ -13,13 +13,13 @@ namespace SADA.Infastructure.Core
     abstract class TabObservableObjectForm<T>: TabObservableObjectWithLoading
         where T: class
     {
-        protected FormMode _formMode = FormMode.Add;
+        protected FormMode _currentFormMode = FormMode.Add;
         protected T _entity = null;
         
-        public virtual FormMode FormMode
+        public virtual FormMode CurrentFormMode
         {
-            get => _formMode;
-            set => SetProperty(ref _formMode, value);
+            get => _currentFormMode;
+            set => SetProperty(ref _currentFormMode, value);
         }
 
         public T Entity

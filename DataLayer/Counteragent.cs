@@ -24,7 +24,6 @@ namespace DataLayer
             this.CarPaymentToCounteragent = new HashSet<CarPaymentToCounteragent>();
             this.CounteragentInteraction = new HashSet<CounteragentInteraction>();
             this.CounteragentContactPerson = new HashSet<CounteragentContactPerson>();
-            this.IndividualPerson = new HashSet<IndividualPerson>();
             this.ProductArrival = new HashSet<ProductArrival>();
             this.ProductOrder = new HashSet<ProductOrder>();
         }
@@ -55,8 +54,7 @@ namespace DataLayer
         public virtual ICollection<CounteragentContactPerson> CounteragentContactPerson { get; set; }
         public virtual CounteragentGroup CounteragentGroup { get; set; }
         public virtual CounteragentType CounteragentType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IndividualPerson> IndividualPerson { get; set; }
+        public virtual IndividualPerson IndividualPerson { get; set; }
         public virtual JuridicalPerson JuridicalPerson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductArrival> ProductArrival { get; set; }

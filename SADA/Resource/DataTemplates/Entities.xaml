@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+                    xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <conv:CounteragentToStringInfoConverter x:Key="CounteragentToStringInfoConverter2" />
     <DataTemplate x:Key="StaffItemTemplate" DataType="{x:Type DataLayer:Staff}">
         <TextBlock>
             <TextBlock.Text>
@@ -14,5 +16,22 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CarColorItemTemplate"
+                  DataType="{x:Type DataLayer:CarColor}">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} ({1})">
+                    <Binding Path="Paint" />
+                    <Binding Path="Description" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CounteragentItemTemplate"
+                  DataType="{x:Type DataLayer:Counteragent}">
+        <TextBlock Text="{Binding Converter={StaticResource CounteragentToStringInfoConverter2}}" />
     </DataTemplate>
 </ResourceDictionary>

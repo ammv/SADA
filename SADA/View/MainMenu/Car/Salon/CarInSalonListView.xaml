@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
              xmlns:core="clr-namespace:SADA.Infastructure.Core"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:hc="https://handyorg.github.io/handycontrol"
@@ -18,7 +17,7 @@
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <UserControl.Resources>
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
         <sys:Boolean x:Key="True">True</sys:Boolean>
         <sys:Boolean x:Key="False">False</sys:Boolean>
 
@@ -76,7 +75,6 @@
                             CommandParameter="{x:Static core:FormMode.Add}"
                             Command="{Binding OpenCarFormCommand}"
                             ToolTip="Создать новую запись Автомобиль" />
-
                 </hc:UniformSpacingPanel>
 
                 <!--Блок 2-->
@@ -93,21 +91,16 @@
                             Command="{Binding OpenCarFormCommand}"
                             ToolTip="Создать новую запись Автомобиль" />
                 </hc:UniformSpacingPanel>
-
-
             </hc:UniformSpacingPanel>
 
             <!--Фильтры-->
             <Grid Grid.Column="1"
-                  
                   Grid.RowSpan="2"
                   x:Name="filterGrid">
                 <hc:UniformSpacingPanel Margin="8"
                                         Width="300"
                                         VerticalSpacing="32"
                                         Orientation="Vertical">
-
-                    
 
                     <!--Сами фильтры-->
                     <hc:UniformSpacingPanel Orientation="Vertical"
@@ -142,8 +135,6 @@
                         <Button Content="Сбросить"
                                 HorizontalAlignment="Center" />
                     </hc:UniformSpacingPanel>
-
-
                 </hc:UniformSpacingPanel>
             </Grid>
 

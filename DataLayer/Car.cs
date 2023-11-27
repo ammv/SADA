@@ -33,7 +33,7 @@ namespace DataLayer
         public Nullable<int> ManufacturerID { get; set; }
         public string VIN { get; set; }
         public Nullable<decimal> AmountToOwner { get; set; }
-        public Nullable<int> Provider { get; set; }
+        public Nullable<int> ProviderID { get; set; }
         public Nullable<System.DateTime> ArrivalDate { get; set; }
         public Nullable<decimal> PurchasePrice { get; set; }
         public Nullable<int> StatusID { get; set; }

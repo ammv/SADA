@@ -1,4 +1,6 @@
 ﻿using DataLayer;
+using DataLayer.Helpers;
+using SADA.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,24 +15,32 @@ namespace SADA.Infastructure.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //var counteragent = value as Counteragent;
-            //if(counteragent.IndividualPerson.Count != 0)
-            //{
-            //    var individualPerson = counteragent.IndividualPerson.First();
-            //}
-            //else if(counteragent.JuridicalPerson.Count != 0)
-            //{
+            var counteragent = value as Counteragent;
+            if (counteragent == null) return null;
+            string text;
 
-            //}
-            //else if()
-            //{
+            switch(CounteragentTypeHelper.CounteragentTypeMap[counteragent.CounteragentType.Name])
+            {
+                case CounteragentTypeEnum.IndividualPerson:
+                    IndividualPerson individualPerson = counteragent.IndividualPerson;
+                    text = FullNameToInitialsHelper.MakeInitials(individualPerson.Name, individualPerson.Surname, individualPerson.Patronymic);
+                    break;
 
-            //}
-            //else
-            //{
-            //    return string.Empty;
-            //}
-            return value;
+                case CounteragentTypeEnum.JuridicalPerson:
+                    JuridicalPerson juridicalPerson = counteragent.JuridicalPerson;
+                    text =  juridicalPerson.ShortName;
+                    break;
+
+                case CounteragentTypeEnum.SoloTrader:
+                    SoloTrader soloTrader = counteragent.SoloTrader;
+                    text = soloTrader.ShortName;
+                    break;
+
+                default:
+                    return "Неизвестно";
+            }
+
+            return $"{text} ({counteragent.CounteragentGroup.Name})";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

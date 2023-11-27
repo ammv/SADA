@@ -10,6 +10,7 @@
              xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
+             xmlns:valid="clr-namespace:SADA.Infastructure.Validators"
              mc:Ignorable="d"
              d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalon, Source={StaticResource mainViewModelLocator}}"
              d:DesignHeight="1040"
@@ -20,7 +21,7 @@
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <UserControl.Resources>
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
         <sys:Boolean x:Key="True">True</sys:Boolean>
         <sys:Boolean x:Key="False">False</sys:Boolean>
 
@@ -74,190 +75,287 @@
                              Width="948"
                              Margin="0 8 0 0"
                              hc:ScrollViewer.IsInertiaEnabled="True">
-                <hc:UniformSpacingPanel Orientation="Horizontal"
-                                        ChildWrapping="Wrap"
-                                        ItemWidth="300"
+
+
+                <hc:UniformSpacingPanel Orientation="Vertical"
                                         HorizontalAlignment="Center"
-                                        HorizontalSpacing="16"
                                         VerticalSpacing="16">
-                    <hc:TextBox hc:TitleElement.Title="№ п/п"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                Text="{Binding Entity.ID}" />
-                    <hc:ComboBox hc:TitleElement.Title="Автосалон"
-                                 hc:InfoElement.Placeholder="Выберите автосалон"
-                                 ItemsSource="{Binding CarDealerships}"
-                                 SelectedItem="{Binding Entity.CarDealership}"
-                                 DisplayMemberPath="Name" />
+                    <GroupBox Header="Основные свойства">
+                        <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                ChildWrapping="Wrap"
+                                                ItemWidth="300"
+                                                HorizontalAlignment="Center"
+                                                HorizontalSpacing="16"
+                                                VerticalSpacing="16">
+                            <hc:TextBox hc:TitleElement.Title="№ п/п"
+                                        IsReadOnly="True"
+                                        BorderThickness="0"
+                                        hc:InfoElement.Placeholder="Еще не присвоен"
+                                        Text="{Binding Entity.ID}" />
+                            <hc:ComboBox hc:TitleElement.Title="Автосалон"
+                                         hc:InfoElement.Placeholder="Выберите автосалон"
+                                         ItemsSource="{Binding CarDealerships}"
+                                         SelectedValuePath="ID"
+                                         SelectedValue="{Binding Entity.CarDealership.ID, Mode=TwoWay}"
+                                         DisplayMemberPath="Name" />
 
-                    <Grid>
-                        <!--Add StringToDecimalConverter-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource SpaceSize}" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <hc:ComboBox hc:TitleElement.Title="Комплектация"
-                                     hc:InfoElement.Placeholder="Выберите комплектацию автомобиля"
-                                     ItemsSource="{Binding CarDealerships}"
-                                     SelectedItem="{Binding Entity.CarEquipment}"
-                                     DisplayMemberPath="Name" />
-                        <Button Grid.Column="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                CommandParameter="{x:Type dataLayer:CarEquipment}"
-                                Command="{Binding OpenTypeListCommand}"
-                                hc:IconElement.Geometry="{DynamicResource SearchIcon}"
-                                Style="{DynamicResource ButtonDefaultIconGood2}" />
-                    </Grid>
+                            <Grid>
+                                <!--Add StringToDecimalConverter-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <hc:ComboBox hc:TitleElement.Title="Комплектация"
+                                             hc:InfoElement.Placeholder="Выберите комплектацию автомобиля"
+                                             hc:InfoElement.ShowClearButton="True"
+                                             ItemsSource="{Binding CarEquipments}"
+                                             SelectedValue="{Binding Entity.CarEquipment.ID, Mode=TwoWay}"
+                                             SelectedValuePath="ID"
+                                             DisplayMemberPath="Name" />
+                                <Button Grid.Column="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        CommandParameter="{x:Type dataLayer:CarEquipment}"
+                                        Command="{Binding OpenTypeListCommand}"
+                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
+                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
+                            </Grid>
 
-                    <hc:TextBox hc:TitleElement.Title="Год выпуска"
-                                hc:InfoElement.Placeholder="Введите год выпуска"
-                                Text="{Binding Entity.YearOfRelease}" />
+                            <hc:TextBox hc:TitleElement.Title="Год выпуска"
+                                        hc:InfoElement.Placeholder="Введите год выпуска"
+                                        Text="{Binding Entity.YearOfRelease, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <hc:ComboBox hc:TitleElement.Title="Цвет"
-                                 hc:InfoElement.Placeholder="Выберите цвет"
-                                 ItemsSource="{Binding CarColors}"
-                                 SelectedItem="{Binding Entity.CarColor}"
-                                 DisplayMemberPath="Name" />
+                            <hc:ComboBox hc:TitleElement.Title="Цвет"
+                                         hc:InfoElement.Placeholder="Выберите цвет"
+                                         hc:InfoElement.ShowClearButton="True"
+                                         ItemsSource="{Binding CarColors}"
+                                         SelectedValuePath="ID"
+                                         SelectedValue="{Binding Entity.CarColor.ID, Mode=TwoWay}"
+                                         ItemTemplate="{StaticResource CarColorItemTemplate}" />
 
-                    <!--Add IntToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Пробег"
-                                hc:InfoElement.Placeholder="Введите пробег в км"
-                                Text="{Binding Entity.Mileage}" />
+                            <!--Add IntToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Пробег"
+                                        hc:InfoElement.Placeholder="Введите пробег в км">
+                                <hc:TextBox.Text>
+                                    <Binding Path="Entity.Mileage"
+                                             ValidatesOnDataErrors="True"
+                                             NotifyOnValidationError="True"
+                                             Converter="{StaticResource StringToNumberConverter}"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <valid:NumberValidationRule TargetType="{x:Type sys:Int32}"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </hc:TextBox.Text>
+                            </hc:TextBox>
 
-                    <Grid>
-                        <!--Add StringToDecimalConverter-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource SpaceSize}" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <hc:TextBox hc:TitleElement.Title="Производитель"
-                                    hc:InfoElement.Placeholder="Выберите производителя"
-                                    hc:InfoElement.ShowClearButton="True"
-                                    IsReadOnly="True"
-                                    Text="{Binding Entity.Counteragent}" />
-                        <Button Grid.Column="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                CommandParameter="{x:Type dataLayer:Counteragent}"
-                                Command="{Binding OpenTypeListCommand}"
-                                hc:IconElement.Geometry="{DynamicResource SearchIcon}"
-                                Style="{DynamicResource ButtonDefaultIconGood2}" />
-                    </Grid>
+                            <Grid>
+                                <!--Add StringToDecimalConverter-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <hc:ComboBox hc:TitleElement.Title="Производитель"
+                                             hc:InfoElement.Placeholder="Выберите производителя"
+                                             hc:InfoElement.ShowClearButton="True"
+                                             ItemsSource="{Binding Counteragents}"
+                                             SelectedValue="{Binding Entity.Counteragent.ID, Mode=TwoWay}"
+                                             ItemTemplate="{DynamicResource CounteragentItemTemplate}"
+                                             SelectedValuePath="ID"
+                                             />
+                                <Button Grid.Column="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        CommandParameter="{x:Type dataLayer:Counteragent}"
+                                        Command="{Binding OpenTypeListCommand}"
+                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
+                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
+                            </Grid>
 
-                    <hc:TextBox hc:TitleElement.Title="VIN"
-                                hc:InfoElement.Placeholder="Введите VIN"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.VIN}" />
+                            <hc:TextBox hc:TitleElement.Title="VIN"
+                                        hc:InfoElement.Placeholder="Введите VIN"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.VIN, Mode=TwoWay}" />
 
-                    <!--Add StringToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Сумма владельцу"
-                                hc:InfoElement.Placeholder="Введите сумму владельцу"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.AmountToOwner}" />
+                            <!--Add StringToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Сумма владельцу"
+                                        hc:InfoElement.Placeholder="Введите сумму владельцу"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.AmountToOwner, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <Grid>
-                        <!--Add StringToDecimalConverter-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource SpaceSize}" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <hc:TextBox hc:TitleElement.Title="Поставщик"
-                                    hc:InfoElement.Placeholder="Выберите поставщика"
-                                    hc:InfoElement.ShowClearButton="True"
-                                    IsReadOnly="True"
-                                    Text="{Binding Entity.Counteragent1}" />
-                        <Button Grid.Column="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                CommandParameter="{x:Type dataLayer:CarEquipment}"
-                                Command="{Binding OpenTypeListCommand}"
-                                hc:IconElement.Geometry="{DynamicResource SearchIcon}"
-                                Style="{DynamicResource ButtonDefaultIconGood2}" />
-                    </Grid>
+                            <Grid>
+                                <!--Add StringToDecimalConverter-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <hc:ComboBox hc:TitleElement.Title="Поставщик"
+                                             hc:InfoElement.Placeholder="Выберите поставщика"
+                                             ItemsSource="{Binding Counteragents}"
+                                             SelectedValuePath="ID"
+                                             hc:InfoElement.ShowClearButton="True"
+                                             ItemTemplate="{DynamicResource CounteragentItemTemplate}"
+                                             SelectedValue="{Binding Entity.Counteragent1.ID, Mode=TwoWay}" />
+                                <Button Grid.Column="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        CommandParameter="{x:Type dataLayer:CarEquipment}"
+                                        Command="{Binding OpenTypeListCommand}"
+                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
+                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
+                            </Grid>
 
-                    <hc:DatePicker hc:TitleElement.Title="Дата прибытия"
-                                   hc:InfoElement.Placeholder="Выберите дату прибытия"
-                                   SelectedDate="{Binding Entity.ArrivalDate}" />
+                            <hc:DatePicker hc:TitleElement.Title="Дата прибытия"
+                                           hc:InfoElement.Placeholder="Выберите дату прибытия"
+                                           SelectedDate="{Binding Entity.ArrivalDate, Mode=TwoWay}" />
 
-                    <!--Add StringToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Цена покупки у поставщика"
-                                hc:InfoElement.Placeholder="Введите цену покупки у поставщика"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.AmountToOwner}" />
+                            <!--Add StringToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Цена покупки у поставщика"
+                                        hc:InfoElement.Placeholder="Введите цену покупки у поставщика"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.AmountToOwner, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <hc:ComboBox hc:TitleElement.Title="Статус"
-                                 hc:InfoElement.Placeholder="Выберите статус"
-                                 ItemsSource="{Binding CarStatuses}"
-                                 SelectedItem="{Binding Entity.CarStatus}"
-                                 DisplayMemberPath="Name" />
+                            <hc:ComboBox hc:TitleElement.Title="Статус"
+                                         hc:InfoElement.Placeholder="Выберите статус"
+                                         ItemsSource="{Binding CarStatuses}"
+                                         SelectedValuePath="ID"
+                                         SelectedValue="{Binding Entity.CarStatus.ID, Mode=TwoWay}"
+                                         DisplayMemberPath="Name"/>
 
-                    <!--Add StringToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Цена в салоне"
-                                hc:InfoElement.Placeholder="Введите цену в салоне"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.SalonPrice}" />
+                            <!--Add StringToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Цена в салоне"
+                                        hc:InfoElement.Placeholder="Введите цену в салоне"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.SalonPrice, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <!--Add StringToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Цена продажи в салоне"
-                                hc:InfoElement.Placeholder="Введите цену продажи в салоне"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.SalePrice}" />
+                            <!--Add StringToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Цена продажи в салоне"
+                                        hc:InfoElement.Placeholder="Введите цену продажи в салоне"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.SalePrice, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <!--Add StringToDecimalConverter-->
-                    <hc:TextBox hc:TitleElement.Title="Сумма предоплаты"
-                                hc:InfoElement.Placeholder="Введите сумму предоплаты"
-                                hc:InfoElement.ShowClearButton="True"
-                                Text="{Binding Entity.SalePrice}" />
+                            <!--Add StringToDecimalConverter-->
+                            <hc:TextBox hc:TitleElement.Title="Сумма предоплаты"
+                                        hc:InfoElement.Placeholder="Введите сумму предоплаты"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.PrepaymentAmount, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                    <Grid>
-                        <!--Add StringToDecimalConverter-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource SpaceSize}" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <hc:TextBox hc:TitleElement.Title="Покупатель"
-                                    hc:InfoElement.Placeholder="Введите покупателя"
-                                    hc:InfoElement.ShowClearButton="True"
-                                    IsReadOnly="True"
-                                    Text="{Binding Entity.Counteragent1}" />
-                        <Button Grid.Column="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Command="{Binding OpenTypeListCommand}"
-                                CommandParameter="{x:Type dataLayer:Counteragent}"
-                                hc:IconElement.Geometry="{DynamicResource SearchIcon}"
-                                Style="{DynamicResource ButtonDefaultIconGood2}" />
-                    </Grid>
+                            <Grid>
+                                <!--Add StringToDecimalConverter-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <hc:ComboBox hc:TitleElement.Title="Покупатель"
+                                             hc:InfoElement.Placeholder="Выберите покупателя"
+                                             hc:InfoElement.ShowClearButton="True"
+                                             SelectedValuePath="ID"
+                                             ItemsSource="{Binding Counteragents}"
+                                             ItemTemplate="{DynamicResource CounteragentItemTemplate}" 
+                                             SelectedValue="{Binding Entity.Counteragent2.ID, Mode=TwoWay}" />
+                                <Button Grid.Column="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding OpenTypeListCommand}"
+                                        CommandParameter="{x:Type dataLayer:Counteragent}"
+                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
+                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
+                            </Grid>
 
-                    <hc:DatePicker hc:TitleElement.Title="Дата продажи"
-                                   hc:InfoElement.Placeholder="Выберите дату прибытия"
-                                   SelectedDate="{Binding Entity.ArrivalDate}" />
+                            <hc:DatePicker hc:TitleElement.Title="Дата продажи"
+                                           hc:InfoElement.Placeholder="Выберите дату прибытия"
+                                           SelectedDate="{Binding Entity.ArrivalDate, Mode=TwoWay}" />
 
-                    <hc:ComboBox hc:TitleElement.Title="Тип оплаты"
-                                 hc:InfoElement.Placeholder="Выберите тип оплаты"
-                                 ItemsSource="{Binding PaymentTypes}"
-                                 SelectedItem="{Binding Entity.PaymentType}"
-                                 DisplayMemberPath="Name" />
+                            <hc:ComboBox hc:TitleElement.Title="Тип оплаты"
+                                         hc:InfoElement.Placeholder="Выберите тип оплаты"
+                                         hc:InfoElement.ShowClearButton="True"
+                                         SelectedValuePath="ID"
+                                         ItemsSource="{Binding PaymentTypes}"
+                                         SelectedValue="{Binding Entity.PaymentType.ID, Mode=TwoWay}"
+                                         DisplayMemberPath="Name" />
 
-                    <hc:ComboBox hc:TitleElement.Title="Менеджер который купил"
-                                 hc:InfoElement.Placeholder="Выберите менеджера"
-                                 ItemsSource="{Binding Staffs}"
-                                 SelectedItem="{Binding Entity.ManagerBuyout}"
-                                 DisplayMemberPath="Name" />
+                            <hc:ComboBox hc:TitleElement.Title="Менеджер который купил"
+                                         hc:InfoElement.Placeholder="Выберите менеджера"
+                                         hc:InfoElement.ShowClearButton="True"
+                                         SelectedValuePath="ID"
+                                         ItemsSource="{Binding Staffs}"
+                                         SelectedValue="{Binding Entity.Staff.ID, Mode=TwoWay}"
+                                         ItemTemplate="{StaticResource StaffItemTemplate}" />
 
-                    <hc:ComboBox hc:TitleElement.Title="Менеджер который продал"
-                                 hc:InfoElement.Placeholder="Выберите менеджера"
-                                 ItemsSource="{Binding Staffs}"
-                                 ItemTemplate="{DynamicResource StaffItemTemplate}"
-                                 SelectedItem="{Binding Entity.ManagerSales}"/>
+                            <hc:ComboBox hc:TitleElement.Title="Менеджер который продал"
+                                         hc:InfoElement.Placeholder="Выберите менеджера"
+                                         SelectedValuePath="ID"
+                                         ItemsSource="{Binding Staffs}"
+                                         ItemTemplate="{DynamicResource StaffItemTemplate}"
+                                         SelectedValue="{Binding Entity.Staff1.ID, Mode=TwoWay}" />
 
 
+                        </hc:UniformSpacingPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Фотографии"
+                              Height="300">
+                        <hc:ScrollViewer>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <hc:SimpleStackPanel Orientation="Horizontal">
+                                    <Button Content="Добавить"
+                                            Command="{Binding AddImageCommand}"
+                                            Margin="0 0 8 0"/>
+                                    <Button Content="Удалить"
+                                            Command="{Binding DeleteImageCommand}"
+                                            Margin="0 0 16 0"/>
+                                </hc:SimpleStackPanel>
+                                
+
+                                <Border 
+                                        BorderBrush="{DynamicResource PrimaryGrayColor}"
+                                        BorderThickness="2"
+                                    Margin="0 8 0 0"
+                                    CornerRadius="4"
+                                        Grid.Row="1">
+                                    <ItemsControl ItemsSource="{Binding ActorList}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Image}"
+                                                       Height="100" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </Border>
+
+
+                            </Grid>
+
+                        </hc:ScrollViewer>
+
+                    </GroupBox>
+
+                    <hc:SimplePanel>
+                        <Button Style="{DynamicResource ButtonPrimary}"
+                                Command="{Binding FormCommand}"
+                                Content="{Binding CurrentFormMode, Converter={StaticResource FormModeToStringConverter}}" />
+
+                    </hc:SimplePanel>
+                    
                 </hc:UniformSpacingPanel>
+
+
+
+
 
             </hc:ScrollViewer>
 

@@ -209,12 +209,16 @@
     <Compile Include="Components\VerticalSeparator1c.xaml.cs">
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileDialogFilterBuilder.cs" />
+    <Compile Include="Helpers\FullNameToInitialsHelper.cs" />
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Infastructure\Converters\CounteragentToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
+    <Compile Include="Infastructure\Converters\FormModeToStringConverter.cs" />
     <Compile Include="Infastructure\Converters\IconToGeometryConverter.cs" />
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
+    <Compile Include="Infastructure\Converters\StringToNumberConverter.cs" />
     <Compile Include="Infastructure\Converters\ThemeIconConverter.cs" />
     <Compile Include="Infastructure\Converters\ThemeUriConverter.cs" />
     <Compile Include="Infastructure\Core\AutoViewModelLocator.cs" />
@@ -235,6 +239,7 @@
     <None Include="Infastructure\Core\ViewModelLocator.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocatorBase.cs" />
     <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
+    <Compile Include="Infastructure\Validators\NumberValidationRule.cs" />
     <Compile Include="Infastructure\ViewModelLocators\MainViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\Childrens\DialogsViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\Childrens\Dialogs\MainMenuViewModelLocator.cs" />
@@ -422,6 +427,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\VerticalSeparator1c.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Infastructure\Converters\Include.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -60,6 +60,7 @@ namespace DataLayer
         public virtual DbSet<ExpenseGroup> ExpenseGroup { get; set; }
         public virtual DbSet<ExpenseType> ExpenseType { get; set; }
         public virtual DbSet<File> File { get; set; }
+        public virtual DbSet<IndividualPerson> IndividualPerson { get; set; }
         public virtual DbSet<JuridicalPerson> JuridicalPerson { get; set; }
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<LogLevel> LogLevel { get; set; }
@@ -91,6 +92,5 @@ namespace DataLayer
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserRoleRight> UserRoleRight { get; set; }
-        public virtual DbSet<IndividualPerson> IndividualPerson { get; set; }
     }
 }

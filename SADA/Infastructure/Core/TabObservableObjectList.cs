@@ -18,7 +18,7 @@ namespace SADA.Infastructure.Core
         protected int _dataCountPerPage = 20;
         protected int _maxPage = 0;
         protected T _selectedEntity = null;
-        protected ListMode _listMode = ListMode.Default;
+        protected ListMode _currentListMode = ListMode.Default;
 
         private AsyncRelayCommand<HandyControl.Data.FunctionEventArgs<int>> _pageUpdateCommand;
 
@@ -55,10 +55,10 @@ namespace SADA.Infastructure.Core
             set { SetProperty(ref _maxPage, value); }
         }
 
-        public virtual ListMode ListMode
+        public virtual ListMode CurrentListMode
         {
-            get { return _listMode; }
-            set { SetProperty(ref _listMode, value); }
+            get { return _currentListMode; }
+            set { SetProperty(ref _currentListMode, value); }
         }
 
         public virtual T SelectedEntity

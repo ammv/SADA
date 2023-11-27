@@ -143,6 +143,8 @@
     <Compile Include="District.cs">
       <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AddressHelper.cs" />
+    <Compile Include="Helpers\CounteragentTypeHelper.cs" />
     <Compile Include="Expense.cs">
       <DependentUpon>SadaModel.tt</DependentUpon>
     </Compile>

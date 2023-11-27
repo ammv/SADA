@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <conv:CounteragentToStringInfoConverter x:Key="CounteragentToStringInfoConverter" />
+    <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
+    <conv:IconToGeometryConverter x:Key="IconToGeometryConverter" />
+    <!--Не будет определен, ибо имеет свойства
+    <conv:LongToShortStringConverter x:Key="LongToShortStringConverter" />-->
+    <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
+    <conv:ThemeIconConverter x:Key="ThemeIconConverter" />
+    <conv:ThemeUriConverter x:Key="ThemeUriConverter" />
+    <conv:FormModeToStringConverter x:Key="FormModeToStringConverter" />
+    <conv:StringToNumberConverter x:Key="StringToNumberConverter" />
+
+</ResourceDictionary>

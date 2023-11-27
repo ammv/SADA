@@ -27,12 +27,12 @@
         Width="1920">
     <Window.Resources>
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
-        <conv:StaffToStringConverter x:Key="StaffToStringConverter" />
+        <!--<conv:StaffToStringConverter x:Key="StaffToStringConverter" />-->
         <conv:LongToShortStringConverter x:Key="LongToShortStringConverter"
                                          MaxLength="20" />
-        <conv:ThemeIconConverter x:Key="ThemeIconConverter" />
+        <!--<conv:ThemeIconConverter x:Key="ThemeIconConverter" />
         <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
-        <conv:IconToGeometryConverter x:Key="IconToGeometryConverter" />
+        <conv:IconToGeometryConverter x:Key="IconToGeometryConverter" />-->
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Delete"
