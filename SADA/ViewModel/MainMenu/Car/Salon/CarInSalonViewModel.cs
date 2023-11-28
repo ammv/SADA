@@ -298,6 +298,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
         protected override void LoadedInner()
         {
             _ctx = new SADAEntities();
+            while(_ctx.Database.Connection.State == System.Data.ConnectionState.Connecting) { }
             if (CurrentFormMode == FormMode.Edit || CurrentFormMode == FormMode.See)
             {
                 if (Entity == null)

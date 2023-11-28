@@ -226,6 +226,7 @@
     <Compile Include="Infastructure\Core\DataTemplateManager.cs" />
     <Compile Include="Infastructure\Core\DialogBase.cs" />
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
+    <Compile Include="Infastructure\Core\EntityFilterBase.cs" />
     <Compile Include="Infastructure\Core\EntityFrameworkExtensions.cs" />
     <Compile Include="Infastructure\Core\FormMode.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
@@ -347,11 +348,11 @@
     <Compile Include="View\MainMenu\Administration\Sys\EventJournalView.xaml.cs">
       <DependentUpon>EventJournalView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainMenu\Car\Car\PayToCounteragent.xaml.cs">
-      <DependentUpon>PayToCounteragent.xaml</DependentUpon>
+    <Compile Include="View\MainMenu\Car\Car\PayToCounteragentView.xaml.cs">
+      <DependentUpon>PayToCounteragentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragent.xaml.cs">
-      <DependentUpon>PurchaseFromCounteragent.xaml</DependentUpon>
+    <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragentView.xaml.cs">
+      <DependentUpon>PurchaseFromCounteragentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Car\Salon\CarInSalonView.xaml.cs">
       <DependentUpon>CarInSalonView.xaml</DependentUpon>
@@ -539,11 +540,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainMenu\Car\Car\PayToCounteragent.xaml">
+    <Page Include="View\MainMenu\Car\Car\PayToCounteragentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainMenu\Car\Car\PurchaseFromCounteragent.xaml">
+    <Page Include="View\MainMenu\Car\Car\PurchaseFromCounteragentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

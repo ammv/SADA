@@ -7,9 +7,10 @@
              xmlns:core="clr-namespace:SADA.Infastructure.Core"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
              mc:Ignorable="d"
-             d:DataContext="{Binding MainMenuVml.CarVml.SalonVml.CarInSalonList, Source={StaticResource mainViewModelLocator}}"
              d:DesignHeight="1040"
+             d:DataContext="{Binding Path=MainMenuVml.CarVml.SalonVml.CarInSalonList, Source={StaticResource mainViewModelLocator}}"
              d:DesignWidth="1600">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
@@ -63,35 +64,80 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <hc:UniformSpacingPanel Orientation="Horizontal"
-                                    HorizontalSpacing="32"
-                                    ItemVerticalAlignment="Bottom"
-                                    Margin="0 8 0 8">
-                <!--Блок 1-->
-                <hc:UniformSpacingPanel Orientation="Horizontal"
-                                        HorizontalSpacing="16"
-                                        ItemVerticalAlignment="Bottom">
-                    <Button Content="Создать"
-                            CommandParameter="{x:Static core:FormMode.Add}"
-                            Command="{Binding OpenCarFormCommand}"
-                            ToolTip="Создать новую запись Автомобиль" />
-                </hc:UniformSpacingPanel>
+            <!--Toolbar-->
+            <Grid Margin="0 8 0 8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="46"/>
+                </Grid.ColumnDefinitions>
 
-                <!--Блок 2-->
+                <!--Left toolbar part-->
                 <hc:UniformSpacingPanel Orientation="Horizontal"
-                                        HorizontalSpacing="16"
-                                        ItemVerticalAlignment="Bottom">
-                    <hc:TextBox hc:InfoElement.Placeholder="VIN, модель, марка"
+                                        HorizontalSpacing="32"
+                                        >
+                    <!--Create block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+                        <Button Content="Создать"
+                                CommandParameter="{x:Static core:FormMode.Add}"
+                                Command="{Binding OpenCarFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Search block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+                        <!--<hc:TextBox hc:InfoElement.Placeholder="VIN, модель, марка"
                                 Width="300"
-                                hc:InfoElement.Title="Поиск" />
+                                hc:InfoElement.Title="Поиск" />-->
 
-                    <Button Content="Искать"
-                            Style="{DynamicResource ButtonPrimary }"
-                            CommandParameter="{x:Static core:FormMode.Add}"
-                            Command="{Binding OpenCarFormCommand}"
-                            ToolTip="Создать новую запись Автомобиль" />
+                        <hc:ComboBox hc:TitleElement.Title="Бренд"
+                                     ItemsSource="{Binding CarBrands}"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     SelectedItem="{Binding SelectedCarBrand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="150" />
+                        <hc:ComboBox hc:TitleElement.Title="Модель"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     ItemsSource="{Binding SelectedCarBrand.CarModel}"
+                                     SelectedItem="{Binding SelectedCarModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="150" />
+
+                        <Button Content="Искать"
+                                Style="{DynamicResource ButtonPrimary }"
+                                CommandParameter="{x:Static core:FormMode.Add}"
+                                Command="{Binding SearchCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+
+                    
                 </hc:UniformSpacingPanel>
-            </hc:UniformSpacingPanel>
+
+                <!--Right toolbar block-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        HorizontalSpacing="32"
+                                        ItemVerticalAlignment="Bottom">
+                    <!--Other functions block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            VerticalAlignment="Bottom"
+                                            ItemVerticalAlignment="Center">
+                        <Button Content="Сохранить в файл"
+                                CommandParameter="{x:Static core:FormMode.Add}"
+                                Command="{Binding OpenCarFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль"/>
+                    </hc:UniformSpacingPanel>
+                </hc:UniformSpacingPanel>
+            </Grid>
+           
 
             <!--Фильтры-->
             <Grid Grid.Column="1"
@@ -99,7 +145,6 @@
                   Grid.RowSpan="2"
                   x:Name="filterGrid">
                 <hc:UniformSpacingPanel Margin="8"
-                                        Width="300"
                                         VerticalSpacing="32"
                                         Orientation="Vertical">
 
@@ -112,6 +157,7 @@
                                    Style="{StaticResource TextBlockDefaultBold}" />
 
                         <hc:TextBox hc:InfoElement.Placeholder="ABCD12345"
+                                    Text="{Binding Filter.VIN, Mode=TwoWay}"
                                     hc:InfoElement.Title="VIN" />
                         <hc:ComboBox hc:InfoElement.Placeholder="ABCD12345"
                                      hc:InfoElement.Title="Nissan"
@@ -121,7 +167,11 @@
                                      IsEditable="True" />
                         <hc:ComboBox hc:InfoElement.Placeholder="Алмазно-крутой"
                                      hc:InfoElement.Title="Цвет"
-                                     IsEditable="True" />
+                                     hc:InfoElement.ShowClearButton="True"
+                                     ItemsSource="{Binding CarColors}"
+                                     ItemTemplate="{StaticResource CarColorItemTemplate}"
+                                     SelectedValuePath="ID"
+                                     SelectedItem="{Binding Filter.CarColor, Mode=TwoWay}" />
                         <CheckBox Content="Показывать удаленные" />
                     </hc:UniformSpacingPanel>
 
@@ -130,10 +180,12 @@
                                             HorizontalAlignment="Center"
                                             HorizontalSpacing="16">
                         <Button Content="Применить"
+                                Command="{Binding ApplyFilterCommand}"
                                 HorizontalAlignment="Center"
                                 Style="{DynamicResource ButtonPrimary}" />
 
                         <Button Content="Сбросить"
+                                Command="{Binding ClearFilterCommand}"
                                 HorizontalAlignment="Center" />
                     </hc:UniformSpacingPanel>
                 </hc:UniformSpacingPanel>
@@ -142,6 +194,8 @@
             <ToggleButton hc:BorderElement.CornerRadius="4 0 0 4"
                           HorizontalAlignment="Right"
                           Width="30"
+                          VerticalAlignment="Bottom"
+                          Margin="0 0 0 8"
                           Checked="filterButton_Checked"
                           Unchecked="filterButton_Unchecked"
                           x:Name="filterButton"
@@ -166,10 +220,13 @@
             <DataGrid HeadersVisibility="All"
                       Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
                       Grid.Row="1"
+                      hc:BorderElement.CornerRadius="0 0 0 0"
                       Margin="0 0 0 8"
-                      SelectedItem="{Binding SelectedEntity}"
+                      SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
                       RowHeaderWidth="60"
-                      AutoGenerateColumns="True"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
                       ItemsSource="{Binding Entities}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="MouseDoubleClick">
@@ -188,6 +245,19 @@
                         <hc:ContextMenuButton Content="Удалить" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ п/п" Binding="{Binding ID}" 
+                                        />
+                    <DataGridTextColumn Header="Бренд" Binding="{Binding CarEquipment.CarModel.CarBrand.Name}" />
+                    <DataGridTextColumn Header="Марка"
+                                        Binding="{Binding CarEquipment.CarModel.Name}" />
+                    <DataGridTextColumn Header="Комплектация"
+                                        Binding="{Binding CarEquipment.Name}" />
+                    <DataGridTextColumn Header="VIN" Binding="{Binding VIN}" />
+                    <DataGridTextColumn Header="Год выпуска" Binding="{Binding YearOfRelease}" />
+                    <DataGridTextColumn Header="Статус"
+                                        Binding="{Binding CarStatus.Name}" />
+                </DataGrid.Columns>
             </DataGrid>
 
             <hc:Pagination MaxPageCount="{Binding MaxPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

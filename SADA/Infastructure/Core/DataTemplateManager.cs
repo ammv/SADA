@@ -25,11 +25,17 @@ namespace SADA.Infastructure.Core
                 .Where(
                     type => type.Namespace != null &&
                     type.Namespace.StartsWith($"{_projectName}.ViewModel") &&
+                    type.Name.EndsWith("ViewModel") &&
                     !type.Name.StartsWith("Mock") &&
-                    !type.Name.StartsWith("<"));
+                    !type.Name.StartsWith("<")).ToList();
 
             var views = _executingAssebly.GetTypes()
-                .Where(type => type.Namespace != null && type.Namespace.StartsWith($"{_projectName}.View"));
+                .Where(
+                type => type.Namespace != null &&
+                type.Namespace.StartsWith($"{_projectName}.View") &&
+                type.Name.EndsWith("View") &&
+                !type.Name.StartsWith("<")
+                ).ToList();
             foreach (var viewModelType in viewModels)
             {
                 var viewName = viewModelType.Name.Replace("ViewModel", "View");

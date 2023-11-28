@@ -5,9 +5,9 @@ namespace SADA.View.MainMenu.Car.Car
     /// <summary>
     /// Логика взаимодействия для PurchaseFromCounteragent.xaml
     /// </summary>
-    public partial class PurchaseFromCounteragent : UserControl
+    public partial class PurchaseFromCounteragentView : UserControl
     {
-        public PurchaseFromCounteragent()
+        public PurchaseFromCounteragentView()
         {
             InitializeComponent();
         }
