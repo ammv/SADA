@@ -215,6 +215,7 @@
     <Compile Include="Infastructure\Converters\CounteragentToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
     <Compile Include="Infastructure\Converters\FormModeToStringConverter.cs" />
+    <Compile Include="Infastructure\Converters\ImageHeightToWidthConverter.cs" />
     <Compile Include="Infastructure\Converters\IconToGeometryConverter.cs" />
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />

@@ -12,5 +12,6 @@
     <conv:ThemeUriConverter x:Key="ThemeUriConverter" />
     <conv:FormModeToStringConverter x:Key="FormModeToStringConverter" />
     <conv:StringToNumberConverter x:Key="StringToNumberConverter" />
+    <conv:ImageHeightToWidthConverter x:Key="ImageHeightToWidthConverter" />
 
 </ResourceDictionary>

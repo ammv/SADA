@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,16 +25,16 @@ namespace SADA.Services
             };
         }
 
-        public string FileDialogImageFilter => "PNG Images(*.png)|*.png|JPG Images(*.img)|*.jpg|JPEG Images(*.jpg)|*.jpeg|*.bmp| All files(*.*)|*.*";
+        public string FileDialogImageFilter => "Images(*.png,*jpeg,*.jpg,*.bmp)|*.png;*.jpg;*.jpeg;*.bmp|All files(*.*)|*.*";
 
-        public string[] ShowFileDialog(string filter = null)
+        public FileInfo[] ShowFileDialog(string filter = null)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = filter;
             dialog.Multiselect = true; ;
             if(dialog.ShowDialog() == true)
             {
-                return dialog.FileNames;
+                return dialog.FileNames.Select(f => new FileInfo(f)).ToArray();
             }
             return null;
         }

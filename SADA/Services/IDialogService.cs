@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 
 namespace SADA.Services
 {
@@ -6,6 +7,6 @@ namespace SADA.Services
     {
         string FileDialogImageFilter { get; }
         MessageBoxResult ShowMessageBox(string caption, string message, MessageBoxButton messageBoxButton);
-        string[] ShowFileDialog(string filter = null);
+        FileInfo[] ShowFileDialog(string filter = null);
     }
 }

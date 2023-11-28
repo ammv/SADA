@@ -3,6 +3,7 @@
                     xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <conv:CounteragentToStringInfoConverter x:Key="CounteragentToStringInfoConverter2" />
+    <conv:ImageHeightToWidthConverter x:Key="ImageHeightToWidthConverter2" />
     <DataTemplate x:Key="StaffItemTemplate" DataType="{x:Type DataLayer:Staff}">
         <TextBlock>
             <TextBlock.Text>
@@ -28,6 +29,24 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CarPhotoItemTemplate"
+                  DataType="{x:Type DataLayer:CarPhoto}">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding File.Name}"
+                       TextWrapping="Wrap"
+                       Width="200"
+                       Height="60"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="0 0 0 8" />
+            <Image Source="{Binding File.Data}"
+                   RenderOptions.BitmapScalingMode="LowQuality"
+                   Stretch="Fill"
+                   Height="192"
+                   Width="{Binding Converter={StaticResource ImageHeightToWidthConverter2}, RelativeSource={RelativeSource Self}}" />
+        </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="CounteragentItemTemplate"

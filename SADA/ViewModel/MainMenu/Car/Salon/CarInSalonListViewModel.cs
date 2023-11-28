@@ -101,10 +101,10 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             using (var ctx = new SADAEntities())
             {
                 Entities = new ObservableCollection<DataLayer.Car>(ctx.Car.IncludeAll().ToList());
-                for (int i = 0; i < 100; i++)
-                {
-                    Entities.Add(Entities[i]);
-                }
+                //for (int i = 0; i < 100; i++)
+                //{
+                //    Entities.Add(Entities[i]);
+                //}
                 MaxPage = Entities.Count() / _dataCountPerPage + 1;
             }
         }
