@@ -13,5 +13,6 @@
     <conv:FormModeToStringConverter x:Key="FormModeToStringConverter" />
     <conv:StringToNumberConverter x:Key="StringToNumberConverter" />
     <conv:ImageHeightToWidthConverter x:Key="ImageHeightToWidthConverter" />
+    <conv:CarToStringInfoConverter x:Key="CarToStringInfoConverter" />
 
 </ResourceDictionary>

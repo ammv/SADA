@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using DataLayer;
+using SADA.Helpers;
 using SADA.Infastructure.Core;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -41,19 +43,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Other fields
 
-        // Добавляется ко всем базовым запросам
-        private Expression<Func<DataLayer.Car, bool>> _baseFilter;
-
-        // Базовый запрос по умолчанию, когда нет данных
-        private IQueryable<DataLayer.Car> _currentQuery;
-
-        private IQueryable<DataLayer.Car> _defaultQuery;
-
-        // For filter
-        private IQueryable<DataLayer.Car> _filterQuery;
-
         private SADAEntities _ctx;
-
 
         #endregion Other fields
 
@@ -90,11 +80,6 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         protected CarInSalonListViewModel()
         { }
-
-        ~CarInSalonListViewModel()
-        {
-            _ctx?.Dispose();
-        }
 
         #endregion Constructor
 
@@ -183,7 +168,19 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                     .Where(c => c.CarEquipment.CarModel.ID == _selectedCarModel.ID);
             }
 
-            Entities = new ObservableCollection<DataLayer.Car>(_currentQuery.ToList());
+            try
+            {
+                Entities = new ObservableCollection<DataLayer.Car>(
+                _currentQuery
+                .Where(_baseFilter)
+                .ToList());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                DbEntityValidationExceptionHelper.ShowException(ex);
+            }
+
+            
         }
 
         private void _SaveAsFileCommand()
@@ -192,20 +189,34 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         private void _ApplyFilterCommand()
         {
+            try
+            {
+                _currentQuery = _defaultQuery.Where(_filter.MakeFilter());
+                Entities = new ObservableCollection<DataLayer.Car>(
+                    _currentQuery.ToList());
+            }
+            catch (DbEntityValidationException ex)
+            {
+
+                DbEntityValidationExceptionHelper.ShowException(ex);
+            }
             
-            //_filterQuery = _filter.MakeQuery();
-            Entities = new ObservableCollection<DataLayer.Car>(_defaultQuery.Where(_filter.MakeFilter()).ToList());
         }
 
         private void _ClearFilterCommand()
         {
-            _filterQuery = null;
             _filter.FilterFieldsClear();
-            //Entities = new ObservableCollection<DataLayer.Car>(_filterQuery.ToList());
         }
 
         private void _OpenCarFormCommand(FormMode parameter)
         {
+            if (_currentListMode == ListMode.Select && _selectedEntity != null)
+            {
+                _selectAction?.Invoke(_selectedEntity);
+                _RaiseCloseEvent();
+                return;
+            }
+
             if (parameter == FormMode.Edit)
             {
                 if (_selectedEntity == null)
@@ -219,6 +230,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                 vm.CurrentFormMode = FormMode.Edit;
                 _tabService.OpenTab(vm);
             }
+            
             else
             {
                 var vm = App.Current.GetService<CarInSalonViewModel>();
@@ -230,41 +242,79 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         protected override async Task _PageUpdateCommand(HandyControl.Data.FunctionEventArgs<int> e)
         {
-            MaxPage = _currentQuery.Count() / _dataCountPerPage;
-            Entities = new ObservableCollection<DataLayer.Car>(await _currentQuery.Skip((e.Info - 1) * _dataCountPerPage).Take(_dataCountPerPage).IncludeAll().ToListAsync());
+            
+            try
+            {
+                MaxPage = _currentQuery.Count() / _dataCountPerPage;
+                Entities = new ObservableCollection<DataLayer.Car>(
+                    await JoinBaseQuery(_currentQuery)
+                    .Skip((e.Info - 1) * _dataCountPerPage)
+                    .Take(_dataCountPerPage)
+                    .ToListAsync());
+            }
+            catch (DbEntityValidationException ex)
+            {
+                DbEntityValidationExceptionHelper.ShowException(ex);
+            }
         }
+        
 
         protected override void LoadedInner()
         {
-            _ctx = new SADAEntities();
+            try
+            {
+                _ctx = new SADAEntities();
 
-            _baseFilter = c => c.IsDeleted == false;
+                _baseFilter = c => c.IsDeleted == false;
 
-            _defaultQuery = _ctx.Car
-                .AsNoTracking()
-                .Include(c => c.CarEquipment)
-                .Include(c => c.CarEquipment.CarModel)
-                .Include(c => c.CarEquipment.CarModel.CarBrand)
-                .Where(_baseFilter);
+                _defaultQuery = JoinBaseQuery(_ctx.Car);
 
-            Entities = new ObservableCollection<DataLayer.Car>(_ctx.Car.IncludeAll().ToList());
-            CarBrands = _ctx.CarBrand.ToList();
-            CarColors = _ctx.CarColor.ToList();
-            MaxPage = Entities.Count() / _dataCountPerPage + 1;
+                Entities = new ObservableCollection<DataLayer.Car>(_defaultQuery.Take(_dataCountPerPage).ToList());
+
+                CarBrands = _ctx.CarBrand.ToList();
+                CarColors = _ctx.CarColor.ToList();
+
+                MaxPage = Entities.Count() / _dataCountPerPage + 1;
+            }
+            catch(DbEntityValidationException ex)
+            {
+                DbEntityValidationExceptionHelper.ShowException(ex);
+            }
+            
         }
 
         #endregion Command implementation
 
         #region Other
 
-        internal class CarFilterMaker : EntityFilterBase<DataLayer.Car>
+        public IQueryable<DataLayer.Car> JoinBaseQuery(IQueryable<DataLayer.Car> query)
         {
-            #region Filter fields
+            return query
+                .Include(c => c.CarStatus)
+                .Include(c => c.CarEquipment)
+                .Include(c => c.CarEquipment.CarModel)
+                .Include(c => c.CarEquipment.CarModel.CarBrand)
+                .AsNoTracking();
+        }
+
+        internal sealed class CarFilterMaker : EntityFilterBase<DataLayer.Car>
+        {
+            #region Filter private fields
+            private CarBrand _carBrand;
+            #endregion
+            #region Filter properties
 
             public string VIN { get; set; }
             public CarColor CarColor { get; set; }
+            public CarBrand CarBrand 
+            { 
+                get => _carBrand;
+                set => SetProperty(ref _carBrand, value);
+            }
+            public CarModel CarModel { get; set; }
+            public bool? IsDeleted { get; set; }
 
-            #endregion Filter fields
+            #endregion Filter properties
 
             public override Expression<Func<DataLayer.Car, bool>> MakeFilter()
             {
@@ -277,23 +327,20 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                 {
                     expression = expression.And(c => c.CarColor.ID == CarColor.ID);
                 }
+                if (CarBrand != null)
+                {
+                    expression = expression.And(c => c.CarEquipment.CarModel.CarBrand.ID == CarBrand.ID);
+                }
+                if (CarModel != null)
+                {
+                    expression = expression.And(c => c.CarEquipment.CarModel.ID == CarModel.ID);
+                }
+                if (IsDeleted != null)
+                {
+                    expression = expression.And(c => c.IsDeleted == true || c.IsDeleted == false);
+                }
 
                 return expression;
-            }
-
-            public IQueryable<DataLayer.Car> MakeQuery()
-            {
-                var query = Enumerable.Empty<DataLayer.Car>().AsQueryable<DataLayer.Car>();
-                if (VIN != null)
-                {
-                    query = query.Where(c => c.VIN == VIN);
-                }
-                if (CarColor != null)
-                {
-                    query = query.Where(c => c.CarColor.ID == CarColor.ID);
-                }
-
-                return query;
             }
         }
 

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
+using SADA.ViewModel.MainMenu.Car.Car;
 using SADA.ViewModel.MainMenu.Car.Salon;
 using SADA.ViewModel.Start;
 using System;
@@ -47,7 +48,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _PayToCounteragentCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<PayToCounteragentListViewModel>("Оплата контрагентам за автомобиль");
         }
 
         private void _PurchaseFromCounteragentCommand()
@@ -57,8 +58,6 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _CarInSalonCommand()
         {
-            
-
             _tabService.OpenTab<CarInSalonListViewModel>("Автомобили в салоне");
         }
 

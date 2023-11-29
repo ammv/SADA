@@ -22,6 +22,10 @@ namespace SADA.Infastructure.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string s = (value as string).Replace('.', ',');
+            if(string.IsNullOrEmpty(s))
+            {
+                return Binding.DoNothing;
+            }
 
             Type underlyingType = Nullable.GetUnderlyingType(targetType);
             if(underlyingType != null)

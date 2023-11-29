@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Car.Car;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
-    internal class CarViewModelLocator : ViewModelLocatorBase
+    public class CarViewModelLocator : ViewModelLocatorBase
     {
         public PayToCounteragentViewModel PayToCounteragent
         {
@@ -11,11 +11,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
             {
                 if (IsInDesignMode())
                 {
-                    return new PayToCounteragentViewModel();
+                    return new MockPayToCounteragentViewModel();
                 }
                 else
                 {
                     return App.Current.GetService<PayToCounteragentViewModel>();
+                }
+            }
+        }
+
+        public PayToCounteragentListViewModel PayToCounteragentList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockPayToCounteragentListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<PayToCounteragentListViewModel>();
                 }
             }
         }

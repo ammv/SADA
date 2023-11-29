@@ -166,6 +166,7 @@ namespace SADA
         private void СonfigureMainMenu_Car(ServiceCollection services)
         {
             СonfigureMainMenu_Car_Salon(services);
+            СonfigureMainMenu_Car_Car(services);
             
         }
 
@@ -173,6 +174,14 @@ namespace SADA
         {
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonListViewModel>();
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonViewModel>();
+        }
+
+        private void СonfigureMainMenu_Car_Car(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.Car.Car.PayToCounteragentListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Car.Car.PayToCounteragentViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Car.Car.PurchaseFromCounteragentListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Car.Car.PurchaseFromCounteragentViewModel>();
         }
 
         private void ConfigureStart(ServiceCollection services)

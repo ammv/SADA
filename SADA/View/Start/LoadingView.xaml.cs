@@ -1,22 +1,11 @@
-﻿using HandyControl.Controls;
-using SADA.Services;
+﻿using SADA.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using MessageBox = System.Windows.MessageBox;
 using Window = System.Windows.Window;
 
 namespace SADA.View.Start
@@ -26,9 +15,10 @@ namespace SADA.View.Start
     /// </summary>
     public partial class LoadingView : Window
     {
-        DispatcherTimer timer = new DispatcherTimer();
+        private DispatcherTimer timer = new DispatcherTimer();
         public bool isLoaded = false;
         private RepeatBehavior _repeatBehavior = new RepeatBehavior(1);
+
         public LoadingView()
         {
             InitializeComponent();
@@ -37,9 +27,9 @@ namespace SADA.View.Start
             animationPath.RepeatBehavior = _repeatBehavior;
         }
 
-        private async void AnimationPath_Completed(object sender, EventArgs e)
+        private void AnimationPath_Completed(object sender, EventArgs e)
         {
-            if(isLoaded)
+            if (isLoaded)
             {
                 Thread.Sleep(100);
                 animationPath.Fill = Application.Current.Resources["PrimaryBlueBrush"] as Brush;
@@ -49,17 +39,12 @@ namespace SADA.View.Start
 
                 timer.Tick += (p1, p2) =>
                 {
-
                     IWindowService windowService = App.Current.GetService<IWindowService>();
 
                     windowService.ShowAndCloseWindow<View.Start.AuthView>(this);
                 };
 
                 timer.Start();
-
-                
-
-
             }
             else
             {
@@ -67,18 +52,12 @@ namespace SADA.View.Start
                 animationPath.RepeatBehavior = _repeatBehavior;
                 animationPath.IsPlaying = true;
             }
-            
 
-            
-
-           
             //MessageBox.Show("end");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            
             timer.Start();
         }
 
@@ -91,7 +70,7 @@ namespace SADA.View.Start
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }

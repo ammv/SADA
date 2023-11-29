@@ -1,9 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
                     xmlns:conv="clr-namespace:SADA.Infastructure.Converters"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <conv:CounteragentToStringInfoConverter x:Key="CounteragentToStringInfoConverter2" />
     <conv:ImageHeightToWidthConverter x:Key="ImageHeightToWidthConverter2" />
+    <conv:CarToStringInfoConverter x:Key="CarToStringInfoConverter2" />
+
+    <sys:Boolean x:Key="entitiesTrue">True</sys:Boolean>
+    
     <DataTemplate x:Key="StaffItemTemplate" DataType="{x:Type DataLayer:Staff}">
         <TextBlock>
             <TextBlock.Text>
@@ -29,6 +34,11 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CarExtendItemTemplate"
+                  DataType="{x:Type DataLayer:CarColor}">
+        <TextBlock Text="{Binding Converter={StaticResource CarToStringInfoConverter2}, ConverterParameter={StaticResource entitiesTrue}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="CarPhotoItemTemplate"

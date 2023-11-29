@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace SADA.Infastructure.Core
 {
@@ -28,8 +29,17 @@ namespace SADA.Infastructure.Core
             foreach (var propertyInfo in _propertyInfos)
             {
                 propertyInfo.SetValue(this, null);
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyInfo.Name));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyInfo.Name));
             }
+        }
+
+        public bool SetProperty<TProperty>(ref TProperty field, TProperty newValue, [CallerMemberName]string propertyName = null)
+        {
+            if (Equals(field, newValue))
+                return false;
+            field = newValue;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return true;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.MainMenu.Car.Car
 {
-    internal class PurchaseFromCounteragentViewModel
+    public class PurchaseFromCounteragentViewModel
     {
     }
 }

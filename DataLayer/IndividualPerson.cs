@@ -12,6 +12,8 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
+    using PropertyChanged;
+    [AddINotifyPropertyChangedInterface]
     public partial class IndividualPerson
     {
         public int CounteragentID { get; set; }

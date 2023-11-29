@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace SADA.Infastructure.Core
 {
-    internal abstract class ViewModelLocatorBase
+    public abstract class ViewModelLocatorBase
     {
         private DependencyObject dummy = new DependencyObject();
 

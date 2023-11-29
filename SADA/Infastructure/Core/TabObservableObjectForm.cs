@@ -10,10 +10,10 @@ namespace SADA.Infastructure.Core
     /// Представляет вкладку представляющию форму для работы с конкретной сущностью
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    abstract class TabObservableObjectForm<T>: TabObservableObjectWithLoading
+    public abstract class TabObservableObjectForm<T>: TabObservableObjectWithLoading
         where T: class
     {
-        protected FormMode _currentFormMode = FormMode.Add;
+        protected FormMode _currentFormMode = FormMode.NotSet;
         protected T _entity = null;
         
         public virtual FormMode CurrentFormMode

@@ -12,6 +12,8 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
+    using PropertyChanged;
+    [AddINotifyPropertyChangedInterface]
     public partial class CarExpense
     {
         public int ID { get; set; }

@@ -209,9 +209,11 @@
     <Compile Include="Components\VerticalSeparator1c.xaml.cs">
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DbEntityValidationExceptionHelper.cs" />
     <Compile Include="Helpers\FileDialogFilterBuilder.cs" />
     <Compile Include="Helpers\FullNameToInitialsHelper.cs" />
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Infastructure\Converters\CarToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\CounteragentToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
     <Compile Include="Infastructure\Converters\FormModeToStringConverter.cs" />
@@ -286,7 +288,11 @@
     <Compile Include="ViewModel\MainMenu\Administration\Login\UserRoleManagementViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UsersViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\System\EventJournalViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\MockPayToCounteragentListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\MockPayToCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonViewModel.cs" />
@@ -348,8 +354,14 @@
     <Compile Include="View\MainMenu\Administration\Sys\EventJournalView.xaml.cs">
       <DependentUpon>EventJournalView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu\Car\Car\PayToCounteragentListView.xaml.cs">
+      <DependentUpon>PayToCounteragentListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainMenu\Car\Car\PayToCounteragentView.xaml.cs">
       <DependentUpon>PayToCounteragentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragentListView.xaml.cs">
+      <DependentUpon>PurchaseFromCounteragentListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragentView.xaml.cs">
       <DependentUpon>PurchaseFromCounteragentView.xaml</DependentUpon>
@@ -540,7 +552,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainMenu\Car\Car\PayToCounteragentListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainMenu\Car\Car\PayToCounteragentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Car\Car\PurchaseFromCounteragentListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

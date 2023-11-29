@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
              xmlns:valid="clr-namespace:SADA.Infastructure.Validators"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
@@ -141,6 +141,7 @@
                                         hc:InfoElement.Placeholder="Еще не присвоен"
                                         Text="{Binding Entity.ID}" />
                             <hc:ComboBox hc:TitleElement.Title="Автосалон"
+                                         hc:InfoElement.Necessary="True"
                                          hc:InfoElement.Placeholder="Выберите автосалон"
                                          ItemsSource="{Binding CarDealerships}"
                                          SelectedValuePath="ID"
@@ -203,6 +204,8 @@
 
                             <hc:TextBox hc:TitleElement.Title="VIN"
                                         hc:InfoElement.Placeholder="Введите VIN"
+                                        MaxLength="17"
+                                        hc:ToolTip="VIN номер состоит из 17 символов"
                                         hc:InfoElement.ShowClearButton="True"
                                         Text="{Binding Entity.VIN, Mode=TwoWay}" />
 
@@ -296,7 +299,7 @@
 
                             <hc:DatePicker hc:TitleElement.Title="Дата продажи"
                                            hc:InfoElement.Placeholder="Выберите дату прибытия"
-                                           SelectedDate="{Binding Entity.ArrivalDate, Mode=TwoWay}" />
+                                           SelectedDate="{Binding Entity.SaleDate, Mode=TwoWay}" />
 
                             <hc:ComboBox hc:TitleElement.Title="Тип оплаты"
                                          hc:InfoElement.Placeholder="Выберите тип оплаты"

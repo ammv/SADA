@@ -9,6 +9,10 @@ namespace SADA.Infastructure.Core
     public enum FormMode
     {
         /// <summary>
+        /// Режим не задан
+        /// </summary>
+        NotSet,
+        /// <summary>
         /// Форма открыта в режиме добавления новой сущности
         /// </summary>
         Add,

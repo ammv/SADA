@@ -159,12 +159,18 @@
                         <hc:TextBox hc:InfoElement.Placeholder="ABCD12345"
                                     Text="{Binding Filter.VIN, Mode=TwoWay}"
                                     hc:InfoElement.Title="VIN" />
-                        <hc:ComboBox hc:InfoElement.Placeholder="ABCD12345"
-                                     hc:InfoElement.Title="Nissan"
-                                     IsEditable="True" />
-                        <hc:ComboBox hc:InfoElement.Placeholder="Nissan almera"
-                                     hc:InfoElement.Title="Модель"
-                                     IsEditable="True" />
+                        <hc:ComboBox hc:TitleElement.Title="Бренд"
+                                     ItemsSource="{Binding CarBrands}"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     SelectedItem="{Binding Filter.CarBrand, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+                        <hc:ComboBox hc:TitleElement.Title="Модель"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     ItemsSource="{Binding Filter.CarBrand.CarModel}"
+                                     SelectedItem="{Binding Filter.CarModel, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True"/>
                         <hc:ComboBox hc:InfoElement.Placeholder="Алмазно-крутой"
                                      hc:InfoElement.Title="Цвет"
                                      hc:InfoElement.ShowClearButton="True"

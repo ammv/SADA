@@ -18,7 +18,6 @@ namespace DataLayer
         public SADAEntities()
             : base("name=SADAEntities")
         {
-            Database.CommandTimeout = 600;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
