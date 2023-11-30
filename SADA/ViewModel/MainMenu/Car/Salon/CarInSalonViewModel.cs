@@ -2,6 +2,7 @@
 using DataLayer;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
+using SADA.Infastructure.Core.Enums;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
@@ -245,7 +246,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             {
                 if (_currentFormMode == FormMode.Edit || _currentFormMode == FormMode.Add)
                 {
-                    string msg = "Запись об автомобиле изменена";
+                    string msg = $"Запись об автомобиле {Entity.ID} изменена";
                     if (_currentFormMode == FormMode.Add)
                     {
                         _ctx.Car.Add(Entity);

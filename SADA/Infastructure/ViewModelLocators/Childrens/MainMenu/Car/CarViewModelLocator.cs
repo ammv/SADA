@@ -1,5 +1,6 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Car.Car;
+using SADA.ViewModel.MainMenu.Car.Car.Mocks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
@@ -41,11 +42,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
             {
                 if (IsInDesignMode())
                 {
-                    return new PurchaseFromCounteragentViewModel();
+                    return new MockPurchaseFromCounteragentViewModel();
                 }
                 else
                 {
                     return App.Current.GetService<PurchaseFromCounteragentViewModel>();
+                }
+            }
+        }
+
+        public PurchaseFromCounteragentListViewModel PurchaseFromCounteragentList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockPurchaseFromCounteragentListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<PurchaseFromCounteragentListViewModel>();
                 }
             }
         }

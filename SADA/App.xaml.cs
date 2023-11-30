@@ -1,10 +1,12 @@
 ﻿using DataLayer;
 using FadeWpf;
 using HandyControl.Themes;
+using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using SADA.Infastructure.Core;
 using SADA.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using WpfUtils;
@@ -61,7 +63,9 @@ namespace SADA
 
         #region Properties
 
-        public static User CurrentUser { get; set; }
+        public User CurrentUser { get; set; }
+
+        public ObservableCollection<ITab> UserTabs { get; set; }
 
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
@@ -94,6 +98,7 @@ namespace SADA
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //base.OnStartup(e);
+            ConfigHelper.Instance.SetLang("ru");
 
             DispatcherUnhandledException += App_DispatcherUnhandledException;
 
@@ -113,7 +118,6 @@ namespace SADA
 
             _idleDetector.Start();
         }
-
         private void IdleDetect_Handler(IdleDetector sender, IdleTimeInfo idleTimeInfo)
         {
             IWindowService windowService = Services.GetService<IWindowService>();
@@ -161,6 +165,14 @@ namespace SADA
         private void СonfigureMainMenu(ServiceCollection services)
         {
             СonfigureMainMenu_Car(services);
+            СonfigureMainMenu_Home(services);
+        }
+
+        private void СonfigureMainMenu_Home(ServiceCollection services)
+        {
+            СonfigureMainMenu_Home_Expense(services);
+            //СonfigureMainMenu_Car_Income(services);
+            СonfigureMainMenu_Car_Counteragent(services);
         }
 
         private void СonfigureMainMenu_Car(ServiceCollection services)
@@ -168,6 +180,22 @@ namespace SADA
             СonfigureMainMenu_Car_Salon(services);
             СonfigureMainMenu_Car_Car(services);
             
+        }
+
+        private void СonfigureMainMenu_Home_Expense(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.Home.Expense.CarExpenseListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Home.Expense.CarExpenseViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Home.Expense.GeneralExpenseListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Home.Expense.GeneralExpenseViewModel>();
+        }
+
+        private void СonfigureMainMenu_Car_Counteragent(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.Home.Counteragent.CounteragentListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Home.Counteragent.CounteragentViewModel>();
+            //services.AddTransient<ViewModel.MainMenu.Home.Expense.GeneralExpenseListViewModel>();
+            //services.AddTransient<ViewModel.MainMenu.Home.Expense.GeneralExpenseViewModel>();
         }
 
         private void СonfigureMainMenu_Car_Salon(ServiceCollection services)

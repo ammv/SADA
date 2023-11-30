@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using HandyControl.Controls;
+using HandyControl.Tools;
+using System.Windows;
+using Window = System.Windows.Window;
 
 namespace SADA.View.Start
 {

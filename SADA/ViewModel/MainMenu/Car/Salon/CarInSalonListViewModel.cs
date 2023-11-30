@@ -2,6 +2,7 @@
 using DataLayer;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
+using SADA.Infastructure.Core.Enums;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
@@ -225,7 +226,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                     return;
                 }
                 var vm = App.Current.GetService<CarInSalonViewModel>();
-                vm.Name = "Изменение автомобиля";
+                vm.Name = $"Изменение автомобиля №{_selectedEntity.ID}";
                 vm.Entity = SelectedEntity;
                 vm.CurrentFormMode = FormMode.Edit;
                 _tabService.OpenTab(vm);

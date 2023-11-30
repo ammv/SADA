@@ -62,7 +62,7 @@
                             <TextBlock Text="Доходы от продажи товаров" />
                         </Hyperlink>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Visibility="Hidden">
                         <Hyperlink Command="{Binding CarSaleIncomeCommand}">
                             <TextBlock Text="Доходы от продажи автомобилей" />
                         </Hyperlink>

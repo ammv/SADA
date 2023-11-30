@@ -5,6 +5,7 @@
              xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:core="clr-namespace:SADA.Infastructure.Core"
+             xmlns:enums="clr-namespace:SADA.Infastructure.Core.Enums"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
@@ -81,7 +82,7 @@
                                             HorizontalSpacing="16"
                                             ItemVerticalAlignment="Bottom">
                         <Button Content="Создать"
-                                CommandParameter="{x:Static core:FormMode.Add}"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
                                 Command="{Binding OpenCarFormCommand}"
                                 ToolTip="Создать новую запись Автомобиль" />
                     </hc:UniformSpacingPanel>
@@ -111,7 +112,7 @@
 
                         <Button Content="Искать"
                                 Style="{DynamicResource ButtonPrimary }"
-                                CommandParameter="{x:Static core:FormMode.Add}"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
                                 Command="{Binding SearchCommand}"
                                 ToolTip="Создать новую запись Автомобиль" />
                     </hc:UniformSpacingPanel>
@@ -131,7 +132,7 @@
                                             VerticalAlignment="Bottom"
                                             ItemVerticalAlignment="Center">
                         <Button Content="Сохранить в файл"
-                                CommandParameter="{x:Static core:FormMode.Add}"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
                                 Command="{Binding OpenCarFormCommand}"
                                 ToolTip="Создать новую запись Автомобиль"/>
                     </hc:UniformSpacingPanel>
@@ -237,14 +238,14 @@
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="MouseDoubleClick">
                         <intr:InvokeCommandAction Command="{Binding OpenCarFormCommand}"
-                                                  CommandParameter="{x:Static core:FormMode.Edit}" />
+                                                  CommandParameter="{x:Static enums:FormMode.Edit}" />
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <hc:ContextMenuButton Content="Изменить"
                                               Command="{Binding OpenCarFormCommand}"
-                                              CommandParameter="{x:Static core:FormMode.Edit}" />
+                                              CommandParameter="{x:Static enums:FormMode.Edit}" />
                         <hc:ContextMenuButton Content="Копировать данные" />
                         <hc:ContextMenuButton Content="Сделать дупликат" />
                         <hc:ContextMenuButton Content="Сделать дупликат и изменить" />

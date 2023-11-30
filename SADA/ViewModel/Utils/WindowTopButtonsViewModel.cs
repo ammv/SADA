@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HandyControl.Themes;
+using HandyControl.Tools;
 using SADA.Services;
 using System.Diagnostics;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace SADA.ViewModel.Utils
 
         private WindowState _windowState = WindowState.Maximized;
         private readonly IDialogService _dialogService;
+        private readonly IWindowService _windowService;
         private bool _isMaximized = true;
 
         #endregion Fields
@@ -143,6 +145,7 @@ namespace SADA.ViewModel.Utils
             OpenCalendarToolCommand = new RelayCommand(_OpenCalendarToolCommand);
 
             _dialogService = App.Current.GetService<IDialogService>();
+            _windowService = App.Current.GetService<IWindowService>();
         }
 
         #endregion Constructor
@@ -160,10 +163,11 @@ namespace SADA.ViewModel.Utils
         #endregion Commands
 
         #region Commands implementations
-
+            
         private void _ChangeThemeCommand()
         {
             ThemeManager.Current.ApplicationTheme = ThemeManager.Current.ApplicationTheme == ApplicationTheme.Light ? ApplicationTheme.Dark : ApplicationTheme.Light;
+            ThemeAnimationHelper.AnimateTheme(_windowService.LastOpenedWindow, ThemeAnimationHelper.SlideDirection.Top, 0.4, 0.7, 1);
         }
 
         private void _OpenCalculatorToolCommand()

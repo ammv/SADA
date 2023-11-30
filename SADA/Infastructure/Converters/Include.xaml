@@ -14,5 +14,10 @@
     <conv:StringToNumberConverter x:Key="StringToNumberConverter" />
     <conv:ImageHeightToWidthConverter x:Key="ImageHeightToWidthConverter" />
     <conv:CarToStringInfoConverter x:Key="CarToStringInfoConverter" />
+    <conv:ComparisonOperatorToStringConverter x:Key="ComparisonOperatorToStringConverter" />
+    <conv:EnumToCollectionConverter x:Key="EnumToCollectionConverter" />
+    <conv:FormModeToBoolConverter x:Key="FormModeToBoolConverter" />
+    <conv:AddressToStringConverter x:Key="AddressToStringConverter" />
+    <conv:ObjectEqualsToVisibilityConverter x:Key="ObjectEqualsToVisibilityConverter" />
 
 </ResourceDictionary>

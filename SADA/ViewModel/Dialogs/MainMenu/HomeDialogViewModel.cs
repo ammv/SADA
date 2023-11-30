@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
+using SADA.ViewModel.MainMenu.Home.Counteragent;
+using SADA.ViewModel.MainMenu.Home.Expense;
 using SADA.ViewModel.Start;
 using System;
 
@@ -56,7 +58,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _CounteragentCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<CounteragentListViewModel>("Контрагенты");
         }
 
         private void _InteractionWithCounteragentCommand()
@@ -66,12 +68,12 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _CarExpenseCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<CarExpenseListViewModel>("Расходы на авто");
         }
 
         private void _GeneralExpenseCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<GeneralExpenseListViewModel>("Общие расходы");
         }
 
         private void _CarSaleIncomeCommand()

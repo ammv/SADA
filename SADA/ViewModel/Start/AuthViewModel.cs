@@ -94,7 +94,12 @@ namespace SADA.ViewModel.Start
                 return;
             }
 
-            App.CurrentUser = user;
+            if(App.Current.CurrentUser?.ID != user.ID && App.Current.UserTabs != null)
+            {
+                App.Current.UserTabs.Clear();
+                App.Current.UserTabs = null;
+            }
+            App.Current.CurrentUser = user;
 
             //_windowFadeChanger.Change(App.Current.MainWindow,
             //    App.Current.Services.GetService(typeof(MainView)) as MainView);

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
+using SADA.ViewModel.MainMenu.Home.Expense;
 using SADA.ViewModel.Start;
 using System;
 
@@ -26,6 +27,8 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         #region Commands
 
         public RelayCommand TestCommand { get; }
+        public RelayCommand CarExpenseCommand { get; }
+        public RelayCommand GeneralExpenseCommand { get; }
 
         #endregion Commands
 
@@ -35,6 +38,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
         {
             _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
         }
+
 
         #endregion Commands implementations
     }

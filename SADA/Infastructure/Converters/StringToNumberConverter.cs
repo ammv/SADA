@@ -33,7 +33,16 @@ namespace SADA.Infastructure.Converters
                 targetType = underlyingType;
             }
 
-            return TypeDescriptor.GetConverter(targetType).ConvertFromInvariantString(s);
+            try
+            {
+                return TypeDescriptor.GetConverter(targetType).ConvertFromInvariantString(s);
+            }
+            catch
+            {
+                return Binding.DoNothing;
+            }
+
+            
         }
     }
 }

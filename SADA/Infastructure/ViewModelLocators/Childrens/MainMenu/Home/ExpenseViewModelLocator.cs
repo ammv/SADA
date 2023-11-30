@@ -1,9 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Home.Expense;
+using SADA.ViewModel.MainMenu.Home.Expense.Mocks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
 {
-    internal class ExpenseViewModelLocator : ViewModelLocatorBase
+    public class ExpenseViewModelLocator : ViewModelLocatorBase
     {
         public CarExpenseViewModel CarExpense
         {
@@ -11,11 +12,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
             {
                 if (IsInDesignMode())
                 {
-                    return new CarExpenseViewModel();
+                    return new MockCarExpenseViewModel();
                 }
                 else
                 {
                     return App.Current.GetService<CarExpenseViewModel>();
+                }
+            }
+        }
+
+        public CarExpenseListViewModel CarExpenseList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockCarExpenseListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<CarExpenseListViewModel>();
                 }
             }
         }
@@ -26,11 +42,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
             {
                 if (IsInDesignMode())
                 {
-                    return new GeneralExpenseViewModel();
+                    return new MockGeneralExpenseViewModel();
                 }
                 else
                 {
                     return App.Current.GetService<GeneralExpenseViewModel>();
+                }
+            }
+        }
+
+        public GeneralExpenseListViewModel GeneralExpenseList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockGeneralExpenseListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<GeneralExpenseListViewModel>();
                 }
             }
         }

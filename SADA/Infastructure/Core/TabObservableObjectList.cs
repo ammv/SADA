@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using SADA.Infastructure.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,7 +58,13 @@ namespace SADA.Infastructure.Core
         public virtual ObservableCollection<T> Entities
         {
             get { return _entities; }
-            set { SetProperty(ref _entities, value); }
+            set 
+            { 
+                if(SetProperty(ref _entities, value))
+                {
+                    MaxPage = _entities.Count() / _dataCountPerPage + 1;
+                }
+            }
         }
 
         public virtual int DataCountPerPage

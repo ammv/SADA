@@ -1,12 +1,294 @@
 ﻿<UserControl x:Class="SADA.View.MainMenu.Car.Car.PurchaseFromCounteragentListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SADA.View.MainMenu.Car.Car"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:core="clr-namespace:SADA.Infastructure.Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:enums="clr-namespace:SADA.Infastructure.Core.Enums"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+             mc:Ignorable="d"
+             d:DesignHeight="1040"
+             d:DataContext="{Binding Path=MainMenuVml.CarVml.CarVml.PurchaseFromCounteragentList, Source={StaticResource mainViewModelLocator}}"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
-            
+
+        <Grid Background="{DynamicResource RegionBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--Toolbar-->
+            <Grid Margin="0 8 0 8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="46" />
+                </Grid.ColumnDefinitions>
+
+                <!--Left toolbar part-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        HorizontalSpacing="32">
+                    <!--Create block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+                        <Button Content="Создать"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding OpenEntityFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Search block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+                        <!--<hc:TextBox hc:InfoElement.Placeholder="VIN, модель, марка"
+                                Width="300"
+                                hc:InfoElement.Title="Поиск" />-->
+
+                        <hc:ComboBox hc:TitleElement.Title="Контрагент"
+                                     ItemsSource="{Binding Counteragents}"
+                                     ItemTemplate="{StaticResource CounteragentItemTemplate}"
+                                     SelectedValuePath="ID"
+                                     SelectedItem="{Binding SelectedCounteragent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="300" />
+                        <hc:ComboBox hc:TitleElement.Title="Тип оплаты"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     ItemsSource="{Binding PaymentTypes}"
+                                     SelectedItem="{Binding SelectedPaymentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="150" />
+
+                        <Button Content="Искать"
+                                Style="{DynamicResource ButtonPrimary }"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding SearchCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+
+
+                </hc:UniformSpacingPanel>
+
+                <!--Right toolbar block-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        HorizontalSpacing="32"
+                                        ItemVerticalAlignment="Bottom">
+                    <!--Other functions block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            VerticalAlignment="Bottom"
+                                            ItemVerticalAlignment="Center">
+                        <Button Content="Сохранить в файл"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding OpenEntityFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+                </hc:UniformSpacingPanel>
+            </Grid>
+
+
+            <!--Фильтры-->
+            <Grid Grid.Column="1"
+                  Width="0"
+                  Grid.RowSpan="2"
+                  x:Name="filterGrid">
+                <hc:UniformSpacingPanel Margin="8"
+                                        VerticalSpacing="32"
+                                        Orientation="Vertical">
+
+                    <!--Сами фильтры-->
+                    <hc:UniformSpacingPanel Orientation="Vertical"
+                                            TextElement.FontSize="{StaticResource TextFontSize}"
+                                            VerticalSpacing="16">
+                        <TextBlock Text="Фильтры"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource TextBlockDefaultBold}" />
+
+
+                        <hc:ComboBox hc:TitleElement.Title="Группа контрагента"
+                                     ItemsSource="{Binding Filter.CounteragentGroups}"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     SelectedItem="{Binding Filter.CounteragentGroup, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Контрагент"
+                                     ItemTemplate="{StaticResource CounteragentItemTemplate}"
+                                     ItemsSource="{Binding Filter.Counteragents}"
+                                     SelectedItem="{Binding Filter.Counteragent, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Тип оплаты"
+                                     DisplayMemberPath="Name"
+                                     SelectedValue="ID"
+                                     ItemsSource="{Binding PaymentTypes}"
+                                     SelectedItem="{Binding Filter.PaymentType, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:DatePicker hc:TitleElement.Title="Начальная дата"
+                                       hc:InfoElement.Placeholder="Выберите начальную дату"
+                                       SelectedDate="{Binding Filter.StartDate, Mode=TwoWay}" />
+
+                        <hc:DatePicker hc:TitleElement.Title="Конечная дата"
+                                       hc:InfoElement.Placeholder="Выберите конечную дату"
+                                       SelectedDate="{Binding Filter.EndDate, Mode=TwoWay}" />
+
+                        <CheckBox Content="Показывать удаленные"
+                                  IsChecked="{Binding Filter.ShowIsDeleted, Mode=TwoWay}" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Кнопки для работы с фильтрами-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            HorizontalSpacing="16">
+                        <Button Content="Применить"
+                                Command="{Binding ApplyFilterCommand}"
+                                HorizontalAlignment="Center"
+                                Style="{DynamicResource ButtonPrimary}" />
+
+                        <Button Content="Сбросить"
+                                Command="{Binding ClearFilterCommand}"
+                                HorizontalAlignment="Center" />
+                    </hc:UniformSpacingPanel>
+                </hc:UniformSpacingPanel>
+            </Grid>
+
+            <ToggleButton hc:BorderElement.CornerRadius="4 0 0 4"
+                          HorizontalAlignment="Right"
+                          Width="30"
+                          VerticalAlignment="Bottom"
+                          Margin="0 0 0 8"
+                          Checked="filterButton_Checked"
+                          Unchecked="filterButton_Unchecked"
+                          x:Name="filterButton"
+                          ToolTip="Фильтр"
+                          Padding="0"
+                          hc:IconElement.Width="15"
+                          hc:IconElement.Geometry="{DynamicResource FilterIcon}">
+            </ToggleButton>
+
+            <Grid VerticalAlignment="Center"
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <hc:LoadingCircle DotSpeed="3" />
+                    <TextBlock Text="Подождите, данные загружаются"
+                               Margin="0 10 0 0"
+                               Style="{StaticResource TextBlockDefault}" />
+                </StackPanel>
+            </Grid>
+
+            <DataGrid HeadersVisibility="All"
+                      Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+                      Grid.Row="1"
+                      hc:BorderElement.CornerRadius="0 0 0 0"
+                      Margin="0 0 0 8"
+                      SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
+                      RowHeaderWidth="60"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding Entities}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="MouseDoubleClick">
+                        <intr:InvokeCommandAction Command="{Binding OpenEntityFormCommand}"
+                                                  CommandParameter="{x:Static enums:FormMode.Edit}" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <hc:ContextMenuButton Content="Изменить"
+                                              Command="{Binding OpenEntityFormCommand}"
+                                              CommandParameter="{x:Static enums:FormMode.Edit}" />
+                        <hc:ContextMenuButton Content="Копировать данные" />
+                        <hc:ContextMenuButton Content="Сделать дупликат" />
+                        <hc:ContextMenuButton Content="Сделать дупликат и изменить" />
+                        <hc:ContextMenuButton Content="Удалить" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ п/п"
+                                        Binding="{Binding ID}" />
+                    <DataGridTextColumn Header="Контрагент"
+                                        Binding="{Binding Counteragent,
+                        Converter={StaticResource CounteragentToStringInfoConverter}}" />
+                    <DataGridTextColumn Header="Автомобиль"
+                                        Binding="{Binding Car, Converter={StaticResource CarToStringInfoConverter}}" />
+                    <DataGridTextColumn Header="Дата"
+                                        Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" />
+                    <DataGridTextColumn Header="Сумма"
+                                        Binding="{Binding Sum, StringFormat={}{0}₽}" />
+                    <DataGridTextColumn Header="Тип оплаты"
+                                        Binding="{Binding PaymentType.Name}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <hc:Pagination MaxPageCount="{Binding MaxPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           Grid.Row="2"
+                           Margin="0 0 0 8"
+                           HorizontalAlignment="Center"
+                           DataCountPerPage="{Binding DataCountPerPage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           IsJumpEnabled="True">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="Navigated">
+                        <intr:InvokeCommandAction Command="{Binding PageUpdateCommand}"
+                                                  PassEventArgsToCommand="True" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </hc:Pagination>
+        </Grid>
     </Grid>
 </UserControl>

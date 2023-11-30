@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SADA.Infastructure.Core
+namespace SADA.Infastructure.Core.Enums
 {
     public enum FormMode
     {
@@ -24,17 +24,5 @@ namespace SADA.Infastructure.Core
         /// Форма открыта только для просмотра сущности
         /// </summary>
         See
-    }
-
-    public enum ListMode
-    {
-        /// <summary>
-        /// Список открыт в обычном режиме
-        /// </summary>
-        Default,
-        /// <summary>
-        /// Список открыт в обычном режиме + по двойному нажатию на сущность вкладка закрывается
-        /// </summary>
-        Select
     }
 }

@@ -146,6 +146,7 @@
                             <hc:DateTimePicker hc:TitleElement.Title="Дата и время оплаты"
                                                Style="{DynamicResource DateTimePickerExtend}"
                                                VerticalAlignment="Bottom"
+                                               
                                                hc:InfoElement.Necessary="True"
                                                hc:InfoElement.Placeholder="Выберите дату и время оплаты"
                                                SelectedDateTime="{Binding Entity.Date, Mode=TwoWay}" />

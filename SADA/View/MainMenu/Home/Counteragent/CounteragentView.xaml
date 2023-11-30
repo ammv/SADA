@@ -1,11 +1,517 @@
 ﻿<UserControl x:Class="SADA.View.MainMenu.Home.Counteragent.CounteragentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SADA.View.MainMenu.Home.Counteragent"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+             xmlns:valid="clr-namespace:SADA.Infastructure.Validators"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DataContext="{Binding MainMenuVml.HomeVml.CounteragentVml.Counteragent, Source={StaticResource mainViewModelLocator}}"
+             d:DesignHeight="1040"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <win:GridLength x:Key="SpaceSize">8</win:GridLength>
+    </UserControl.Resources>
+    <Grid Margin="0 0 8 0">
+        <Grid VerticalAlignment="Center"
+              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <hc:LoadingCircle DotSpeed="3" />
+                <TextBlock Text="Подождите, данные загружаются"
+                           Margin="0 10 0 0"
+                           Style="{StaticResource TextBlockDefault}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+              Background="{DynamicResource RegionBrush}">
+            <hc:ScrollViewer hc:ScrollViewerAttach.Orientation="Vertical"
+                             Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}}"
+                             Margin="0 8 0 0"
+                             hc:ScrollViewer.IsInertiaEnabled="True">
+
+                <hc:UniformSpacingPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalSpacing="16">
+
+                    <GroupBox Header="Главное">
+                        <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                ChildWrapping="Wrap"
+                                                ItemWidth="300"
+                                                HorizontalAlignment="Center"
+                                                HorizontalSpacing="16"
+                                                VerticalSpacing="16">
+                            <hc:TextBox hc:TitleElement.Title="№ п/п"
+                                        IsReadOnly="True"
+                                        BorderThickness="0"
+                                        hc:InfoElement.Placeholder="Еще не присвоен"
+                                        Text="{Binding Entity.ID}" />
+                            <hc:ComboBox hc:TitleElement.Title="Тип контрагента"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите тип контрагента"
+                                         ItemsSource="{Binding CounteragentTypes}"
+                                         SelectedItem="{Binding SelectedCounteragentType, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:ComboBox hc:TitleElement.Title="Группа контрагента"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите группу контрагента"
+                                         ItemsSource="{Binding CounteragentGroups}"
+                                         SelectedItem="{Binding Entity.CounteragentGroup, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:TextBox hc:TitleElement.Title="Электронная почта"
+                                        hc:InfoElement.Placeholder="Введите электронную почту"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.Email, Mode=TwoWay}" />
+
+                            <hc:TextBox hc:TitleElement.Title="Номер телефона"
+                                        hc:InfoElement.Placeholder="Введите номер телефон"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.Phone, Mode=TwoWay}" />
+                        </hc:UniformSpacingPanel>
+                    </GroupBox>
+                    <GroupBox Header="Вторичное">
+                        <Grid>
+                            <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                    ChildWrapping="Wrap"
+                                                    Visibility="{Binding SelectedCounteragentTypeNative, ConverterParameter={x:Type dataLayer:JuridicalPerson}, Converter={StaticResource ObjectEqualsToVisibilityConverter}}"
+                                                    ItemWidth="300"
+                                                    HorizontalAlignment="Center"
+                                                    HorizontalSpacing="16"
+                                                    VerticalSpacing="16">
+                                <hc:TextBox hc:TitleElement.Title="Полное наименование организации"
+                                            hc:InfoElement.Placeholder="Введите полное наименование организации"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding JuridicalPerson.FullName, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Сокращенное наименование организации"
+                                            hc:InfoElement.Placeholder="Введите сокращенное наименование организации"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding JuridicalPerson.ShortName, Mode=TwoWay}" />
+
+                                <Grid>
+                                    <!--Add StringToDecimalConverter-->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <hc:TextBox hc:TitleElement.Title="Юридический адрес"
+                                                IsReadOnly="True"
+                                                hc:InfoElement.Placeholder="Введите юридический адрес"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.Address, Converter={StaticResource AddressToStringConverter}, Mode=TwoWay}" />
+                                    <Button Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Command="{Binding OpenAddressDialogCommand}"
+                                            hc:IconElement.Geometry="{DynamicResource EditIcon}"
+                                            Style="{DynamicResource ButtonDefaultIconGood2}" />
+                                </Grid>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.INN.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="ИНН"
+                                                MaxLength="10"
+                                                hc:InfoElement.Placeholder="Введите ИНН (10 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.INN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.KPP.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="КПП"
+                                                MaxLength="9"
+                                                hc:InfoElement.Placeholder="Введите КПП (9 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.KPP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.OKPO.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="ОКПО"
+                                                MaxLength="8"
+                                                hc:InfoElement.Placeholder="Введите ОКПО (8 символов)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.OKPO, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+                                
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.OGRN.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="ОГРН"
+                                                MaxLength="13"
+                                                hc:InfoElement.Placeholder="Введите ОГРН (13 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.OGRN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+                                
+
+                                <hc:DatePicker hc:TitleElement.Title="Дата присвоения ОГРН"
+                                               hc:InfoElement.Placeholder="Выберите дату присвоения ОГРН"
+                                               SelectedDate="{Binding JuridicalPerson.DateOfAssignmentOGRN, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="ФИО Директора"
+                                            hc:InfoElement.Placeholder="Введите ФИО Директора"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding JuridicalPerson.DirectorFullName, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="ФИО Главного Бухгалтера"
+                                            hc:InfoElement.Placeholder="Введите Главного Бухгалтера"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding JuridicalPerson.ChiefAccountantFullName}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Наименование банка"
+                                            hc:InfoElement.Placeholder="Введите наименование банка"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding JuridicalPerson.Bank, Mode=TwoWay}" />
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.BIK.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="БИК"
+                                                MaxLength="10"
+                                                hc:InfoElement.Placeholder="Введите БИК(10 символов)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.BIK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+                                
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.CorrespondentAccount.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="Корреспондентский счет"
+                                                MaxLength="20"
+                                                hc:InfoElement.Placeholder="Введите Корреспондентский счет (20 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.CorrespondentAccount, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.PaymentAccount.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="Рассчетный счет"
+                                                MaxLength="20"
+                                                hc:InfoElement.Placeholder="Введите рассчетный счет (20 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding JuridicalPerson.PaymentAccount, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:TextBox hc:TitleElement.Title="Основной код ОКВЭД"
+                                            MaxLength="32"
+                                            hc:InfoElement.Placeholder="Введите ОКВЭД"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding JuridicalPerson.OKVED, Mode=TwoWay}" />
+
+                                <hc:ComboBox hc:TitleElement.Title="Система налогообложения"
+                                             DisplayMemberPath="Name"
+                                             SelectedValuePath="ID"
+                                             hc:InfoElement.Placeholder="Выберите систему налогообложения"
+                                             ItemsSource="{Binding TaxationSystemTypes}"
+                                             SelectedItem="{Binding JuridicalPerson.TaxationSystemType, Mode=TwoWay}"
+                                             hc:InfoElement.ShowClearButton="True" />
+
+                            </hc:UniformSpacingPanel>
+
+                            <!--SoloTrader-->
+                            <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                    ChildWrapping="Wrap"
+                                                    Visibility="{Binding SelectedCounteragentTypeNative, ConverterParameter={x:Type dataLayer:SoloTrader}, Converter={StaticResource ObjectEqualsToVisibilityConverter}}"
+                                                    ItemWidth="300"
+                                                    HorizontalAlignment="Center"
+                                                    HorizontalSpacing="16"
+                                                    VerticalSpacing="16">
+                                <hc:TextBox hc:TitleElement.Title="Полное наименование организации"
+                                            hc:InfoElement.Placeholder="Введите полное наименование организации"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding SoloTrader.FullName, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Сокращенное наименование организации"
+                                            hc:InfoElement.Placeholder="Введите сокращенное наименование организации"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding SoloTrader.ShortName, Mode=TwoWay}" />
+
+                                <Grid>
+                                    <!--Add StringToDecimalConverter-->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <hc:TextBox hc:TitleElement.Title="Адрес регистрации по месту жительства"
+                                                IsReadOnly="True"
+                                                hc:InfoElement.Placeholder="Введите адрес регистрации по п.м."
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.Address, Converter={StaticResource AddressToStringConverter}, Mode=TwoWay}" />
+                                    <Button Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Command="{Binding OpenAddressDialogCommand}"
+                                            hc:IconElement.Geometry="{DynamicResource EditIcon}"
+                                            Style="{DynamicResource ButtonDefaultIconGood2}" />
+                                </Grid>
+
+                                <Grid>
+                                    <!--Add StringToDecimalConverter-->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <hc:TextBox hc:TitleElement.Title="Адрес ведения деятельности"
+                                                IsReadOnly="True"
+                                                hc:InfoElement.Placeholder="Введите ведения деятельности"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.Address1, Converter={StaticResource AddressToStringConverter}, Mode=TwoWay}" />
+                                    <Button Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Command="{Binding OpenAddressDialogCommand}"
+                                            hc:IconElement.Geometry="{DynamicResource EditIcon}"
+                                            Style="{DynamicResource ButtonDefaultIconGood2}" />
+                                </Grid>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding SoloTrader.INN.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="ИНН"
+                                                MaxLength="12"
+                                                hc:InfoElement.Placeholder="Введите ИНН (12 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.INN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding JuridicalPerson.OGRN.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="ОГРНИП"
+                                                MaxLength="15"
+                                                hc:InfoElement.Placeholder="Введите ОГРНИП (15 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.OGRNIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+
+                                <hc:DatePicker hc:TitleElement.Title="Дата присвоения ОГРНИП"
+                                               hc:InfoElement.Placeholder="Выберите дату присвоения ОГРНИП"
+                                               SelectedDate="{Binding SoloTrader.DateOfAssignmentORGRIP, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Наименование банка"
+                                            hc:InfoElement.Placeholder="Введите наименование банка"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding SoloTrader.Bank, Mode=TwoWay}" />
+                                
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding SoloTrader.BIK.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="БИК"
+                                                MaxLength="10"
+                                                hc:InfoElement.Placeholder="Введите БИК(10 символов)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.BIK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+
+                                <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                          Text=""
+                                          Value="{Binding SoloTrader.CorrespondentAccount.Length}"
+                                          BorderThickness="0"
+                                          BadgeMargin="0">
+                                    <hc:TextBox hc:TitleElement.Title="Корреспондентский счет"
+                                                MaxLength="20"
+                                                hc:InfoElement.Placeholder="Введите Корреспондентский счет (20 цифр)"
+                                                hc:InfoElement.ShowClearButton="True"
+                                                Text="{Binding SoloTrader.CorrespondentAccount, UpdateSourceTrigger=PropertyChanged}" />
+                                </hc:Badge>
+
+                                <hc:TextBox hc:TitleElement.Title="Основной код ОКВЭД"
+                                            MaxLength="32"
+                                            hc:InfoElement.Placeholder="Введите ОКВЭД"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding SoloTrader.OKVED, Mode=TwoWay}" />
+
+                                <hc:ComboBox hc:TitleElement.Title="Система налогообложения"
+                                             DisplayMemberPath="Name"
+                                             SelectedValuePath="ID"
+                                             hc:InfoElement.Placeholder="Выберите систему налогообложения"
+                                             ItemsSource="{Binding TaxationSystemTypes}"
+                                             SelectedItem="{Binding SoloTrader.TaxationSystemType, Mode=TwoWay}"
+                                             hc:InfoElement.ShowClearButton="True" />
+
+                            </hc:UniformSpacingPanel>
+
+                            <!--Физическое лицо-->
+                            <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                    ChildWrapping="Wrap"
+                                                    Visibility="{Binding SelectedCounteragentTypeNative, ConverterParameter={x:Type dataLayer:IndividualPerson}, Converter={StaticResource ObjectEqualsToVisibilityConverter}}"
+                                                    ItemWidth="300"
+                                                    HorizontalAlignment="Center"
+                                                    HorizontalSpacing="16"
+                                                    VerticalSpacing="16">
+                                <hc:TextBox hc:TitleElement.Title="Фамилия"
+                                            hc:InfoElement.Placeholder="Введите фамилию"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding IndividualPerson.Surname, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Имя"
+                                            hc:InfoElement.Placeholder="Введите имя"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding IndividualPerson.Name, Mode=TwoWay}" />
+
+                                <hc:TextBox hc:TitleElement.Title="Отчество"
+                                            hc:InfoElement.Placeholder="Введите отчество"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            MaxLength="256"
+                                            Text="{Binding IndividualPerson.Patronymic, Mode=TwoWay}" />
+                            </hc:UniformSpacingPanel>
+                        </Grid>
+                        
+                    </GroupBox>
+
+                    <GroupBox Header="Прочее">
+                        <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                ChildWrapping="Wrap"
+                                                ItemWidth="300"
+                                                HorizontalAlignment="Center"
+                                                HorizontalSpacing="16"
+                                                VerticalSpacing="16">
+
+                            <hc:Badge Foreground="{DynamicResource PrimaryGrayColor}"
+                                      Text=""
+                                      Value="{Binding Entity.Note.Length}"
+                                      BorderThickness="0"
+                                      BadgeMargin="0">
+                                <hc:TextBox hc:TitleElement.Title="Заметка"
+                                            TextWrapping="Wrap"
+                                            Height="100"
+                                            TextAlignment="Left"
+                                            VerticalContentAlignment="Top"
+                                            hc:InfoElement.Placeholder="Введите заметку (до 256 символов)"
+                                            hc:InfoElement.ShowClearButton="True"
+                                            Text="{Binding Entity.Note, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </hc:Badge>
+
+                            
+                        </hc:UniformSpacingPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Контактные лица"
+                              Height="200">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <hc:SimpleStackPanel Orientation="Horizontal"
+                                                 HorizontalAlignment="Center">
+                                <Button Content="Добавить"
+                                        Command="{Binding AddImageCommand}"
+                                        Margin="0 0 8 0" />
+                                <Button Content="Удалить"
+                                        Command="{Binding DeleteImageCommand}"
+                                        Margin="0 0 16 0" />
+                            </hc:SimpleStackPanel>
+
+                            <DataGrid HeadersVisibility="All"
+                                      Margin="0 8 0 0"
+                                      Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+                                      Grid.Row="1"
+                                      hc:BorderElement.CornerRadius="0 0 0 0"
+                                      SelectedItem="{Binding SelectedCounteragentContactPerson, Mode=TwoWay}"
+                                      RowHeaderWidth="60"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="True"
+                                      ItemsSource="{Binding Entity.CounteragentContactPerson}"
+                                      AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№ п/п"
+                                                        Binding="{Binding ID}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+
+                    <hc:SimplePanel>
+                        <Button Style="{DynamicResource ButtonPrimary}"
+                                Command="{Binding FormCommand}"
+                                Content="{Binding CurrentFormMode, Converter={StaticResource FormModeToStringConverter}}" />
+                    </hc:SimplePanel>
+                </hc:UniformSpacingPanel>
+            </hc:ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

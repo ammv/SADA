@@ -1,4 +1,5 @@
 ﻿using SADA.Infastructure.Core;
+using SADA.Infastructure.Core.Enums;
 using System;
 using System.Globalization;
 using System.Windows.Data;

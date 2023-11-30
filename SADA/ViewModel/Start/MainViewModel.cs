@@ -25,7 +25,7 @@ namespace SADA.ViewModel.Start
     {
         #region Fields
 
-        private ObservableCollection<ITab> _Tabs = new ObservableCollection<ITab>();
+        private ObservableCollection<ITab> _Tabs = App.Current.UserTabs ?? new ObservableCollection<ITab>();
         private int _selectedTabItemIndex = -1;
         private readonly WindowFadeChanger _windowFadeChanger;
         private readonly IWindowService _windowService;
@@ -54,7 +54,11 @@ namespace SADA.ViewModel.Start
 
             _Tabs.CollectionChanged += _Tabs_CollectionChanged;
 
-            _Tabs.Add(App.Current.GetService<WelcomeTabViewModel>());
+            if(_Tabs.Count == 0)
+            {
+                _Tabs.Add(App.Current.GetService<WelcomeTabViewModel>());
+            }
+            
 
             using (var ctx = new SADAEntities())
             {
@@ -182,6 +186,8 @@ namespace SADA.ViewModel.Start
 
             if (result == System.Windows.MessageBoxResult.Yes)
             {
+                _Tabs.CollectionChanged -= _Tabs_CollectionChanged;
+                App.Current.UserTabs = _Tabs;
                 _windowService.ShowAndCloseWindow<AuthView>(_windowService.LastOpenedWindow);
                 
             }

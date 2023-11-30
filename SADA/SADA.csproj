@@ -209,17 +209,24 @@
     <Compile Include="Components\VerticalSeparator1c.xaml.cs">
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ComparisonOperatorHelper.cs" />
     <Compile Include="Helpers\DbEntityValidationExceptionHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\FileDialogFilterBuilder.cs" />
     <Compile Include="Helpers\FullNameToInitialsHelper.cs" />
+    <Compile Include="Infastructure\Converters\AddressToStringConverter.cs" />
     <Compile Include="Infastructure\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Infastructure\Converters\CarToStringInfoConverter.cs" />
+    <Compile Include="Infastructure\Converters\ComparisonOperatorToStringConverter.cs" />
     <Compile Include="Infastructure\Converters\CounteragentToStringInfoConverter.cs" />
     <Compile Include="Infastructure\Converters\DoubleToGridLengthConverter.cs" />
+    <Compile Include="Infastructure\Converters\EnumToCollectionConverter.cs" />
+    <Compile Include="Infastructure\Converters\FormModeToBoolConverter.cs" />
     <Compile Include="Infastructure\Converters\FormModeToStringConverter.cs" />
     <Compile Include="Infastructure\Converters\ImageHeightToWidthConverter.cs" />
     <Compile Include="Infastructure\Converters\IconToGeometryConverter.cs" />
     <Compile Include="Infastructure\Converters\LongToShortStringConverter.cs" />
+    <Compile Include="Infastructure\Converters\ObjectEqualsToVisibilityConverter.cs" />
     <Compile Include="Infastructure\Converters\StaffToStringConverter.cs" />
     <Compile Include="Infastructure\Converters\StringToNumberConverter.cs" />
     <Compile Include="Infastructure\Converters\ThemeIconConverter.cs" />
@@ -230,7 +237,10 @@
     <Compile Include="Infastructure\Core\DataGridColumnsBehavior.cs" />
     <Compile Include="Infastructure\Core\EntityFilterBase.cs" />
     <Compile Include="Infastructure\Core\EntityFrameworkExtensions.cs" />
-    <Compile Include="Infastructure\Core\FormMode.cs" />
+    <Compile Include="Infastructure\Core\Enums\ComparisonOperator.cs" />
+    <Compile Include="Infastructure\Core\Enums\FormMode.cs" />
+    <Compile Include="Infastructure\Core\Enums\ListMode.cs" />
+    <Compile Include="Infastructure\Core\EnumToItemSource.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
     <Compile Include="Infastructure\Core\TabContent.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
@@ -241,6 +251,7 @@
     <Compile Include="Infastructure\Core\TabObservableObjectWithLoading.cs" />
     <Compile Include="Infastructure\Core\TypeWrapper.cs" />
     <None Include="Infastructure\Core\ViewModelLocator.cs" />
+    <Compile Include="Infastructure\Core\ValueDescription.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocatorBase.cs" />
     <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
     <Compile Include="Infastructure\Validators\NumberValidationRule.cs" />
@@ -288,8 +299,10 @@
     <Compile Include="ViewModel\MainMenu\Administration\Login\UserRoleManagementViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UsersViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\System\EventJournalViewModel.cs" />
-    <Compile Include="ViewModel\MainMenu\Car\Car\MockPayToCounteragentListViewModel.cs" />
-    <Compile Include="ViewModel\MainMenu\Car\Car\MockPayToCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\Mocks\MockPayToCounteragentListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\Mocks\MockPayToCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\Mocks\MockPurchaseFromCounteragentListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Car\Mocks\MockPurchaseFromCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentListViewModel.cs" />
@@ -299,10 +312,19 @@
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\MockCarInSalonListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Counteragent\CounteragentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\CounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Counteragent\InteractionWithCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Counteragent\Mocks\MockCounteragentListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Counteragent\Mocks\MockCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\CarExpenseListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Expense\CarExpenseViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\GeneralExpenseListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Expense\GeneralExpenseViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\Mocks\MockCarExpenseListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\Mocks\MockCarExpenseViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\Mocks\MockGeneralExpenseListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Home\Expense\Mocks\MockGeneralExpenseViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Income\CarSaleIncomeViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Home\Income\ProductSaleIncomeViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Product\Income\ProductIncomeViewModel.cs" />
@@ -375,14 +397,23 @@
     <Compile Include="View\MainMenu\Car\Other\Equipment.xaml.cs">
       <DependentUpon>Equipment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu\Home\Counteragent\CounteragentListView.xaml.cs">
+      <DependentUpon>CounteragentListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainMenu\Home\Counteragent\CounteragentView.xaml.cs">
       <DependentUpon>CounteragentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Home\Counteragent\InteractionWithCounteragentView.xaml.cs">
       <DependentUpon>InteractionWithCounteragentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu\Home\Expense\CarExpenseListView.xaml.cs">
+      <DependentUpon>CarExpenseListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainMenu\Home\Expense\CarExpenseView.xaml.cs">
       <DependentUpon>CarExpenseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\Home\Expense\GeneralExpenseListView.xaml.cs">
+      <DependentUpon>GeneralExpenseListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Home\Expense\GeneralExpenseView.xaml.cs">
       <DependentUpon>GeneralExpenseView.xaml</DependentUpon>
@@ -580,6 +611,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainMenu\Home\Counteragent\CounteragentListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainMenu\Home\Counteragent\CounteragentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -588,9 +623,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainMenu\Home\Expense\CarExpenseListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainMenu\Home\Expense\CarExpenseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\Home\Expense\GeneralExpenseListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainMenu\Home\Expense\GeneralExpenseView.xaml">
       <SubType>Designer</SubType>

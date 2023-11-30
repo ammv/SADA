@@ -43,6 +43,11 @@ namespace SADA.Infastructure.Converters
                     return "Неизвестный тип контрагента";
             }
 
+            if(parameter is bool isShort && isShort == true)
+            {
+                return $"{text}";
+            }
+
             return $"{text} ({counteragent.CounteragentGroup?.Name})";
         }
 

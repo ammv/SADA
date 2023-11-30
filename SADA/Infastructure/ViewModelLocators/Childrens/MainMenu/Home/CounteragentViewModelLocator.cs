@@ -1,9 +1,10 @@
 ﻿using SADA.Infastructure.Core;
 using SADA.ViewModel.MainMenu.Home.Counteragent;
+using SADA.ViewModel.MainMenu.Home.Counteragent.Mocks;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
 {
-    internal class CounteragentViewModelLocator : ViewModelLocatorBase
+    public class CounteragentViewModelLocator : ViewModelLocatorBase
     {
         public CounteragentViewModel Counteragent
         {
@@ -11,11 +12,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Home
             {
                 if (IsInDesignMode())
                 {
-                    return new CounteragentViewModel();
+                    return new MockCounteragentViewModel();
                 }
                 else
                 {
                     return App.Current.GetService<CounteragentViewModel>();
+                }
+            }
+        }
+
+        public CounteragentListViewModel CounteragentList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new MockCounteragentListViewModel();
+                }
+                else
+                {
+                    return App.Current.GetService<CounteragentListViewModel>();
                 }
             }
         }

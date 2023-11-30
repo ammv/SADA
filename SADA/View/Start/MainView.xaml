@@ -29,7 +29,7 @@
         <utils:WindowTopButtonsViewModel x:Key="WindowTopButtonsViewModel" />
         <!--<conv:StaffToStringConverter x:Key="StaffToStringConverter" />-->
         <conv:LongToShortStringConverter x:Key="LongToShortStringConverter"
-                                         MaxLength="20" />
+                                         MaxLength="50" />
         <!--<conv:ThemeIconConverter x:Key="ThemeIconConverter" />
         <conv:DoubleToGridLengthConverter x:Key="DoubleToGridLengthConverter" />
         <conv:IconToGeometryConverter x:Key="IconToGeometryConverter" />-->
@@ -135,6 +135,8 @@
 
                 <!--Вкладки-->
                 <hc:TabControl IsDraggable="True"
+                               x:Name="tabControl"
+                               TabItemHeight="50"
                                core:TabContent.IsCached="True"
                                SelectedIndex="{Binding SelectedTabItemIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                Grid.Column="2"
@@ -144,25 +146,56 @@
                     <hc:TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type core:ITab}">
                             <Grid hc:Poptip.Content="{Binding Name}"
-                                  hc:Poptip.Placement="BottomLeft">
+                                  Margin="-8 0 0 0"
+                                  Background="Transparent"
+                                  Height="50"
+                                  hc:Poptip.HorizontalOffset="-150"
+                                  hc:Poptip.Placement="Bottom">
                                 <Grid.Resources>
                                     <Style TargetType="Button"
                                            BasedOn="{StaticResource TransparentButton}">
                                     </Style>
                                 </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="135" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Name, Converter={StaticResource LongToShortStringConverter}}"
+                                           TextWrapping="Wrap"
+                                           Grid.Column="1"
                                            HorizontalAlignment="Left"
                                            Style="{DynamicResource TextBlockDefault}"
                                            VerticalAlignment="Center" />
                                 <Button Style="{DynamicResource ButtonIcon}"
                                         Command="{Binding CloseCommand}"
                                         x:Name="btn"
+                                        Grid.Column="3"
                                         Panel.ZIndex="1"
                                         hc:IconElement.Geometry="{StaticResource WndCloseButton}"
                                         hc:IconElement.Height="12"
                                         hc:IconElement.Width="12"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right" />
+
+                                <Border Background="{Binding BottomBrush}" Margin="-1 0 0 0"
+                                        x:Name="border"
+                                        CornerRadius="2"
+                                        Height="3"
+                                        VerticalAlignment="Bottom"
+                                        Grid.ColumnSpan="4"/>
+                                <Grid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Поменять цвет"
+                                                  Icon="{mahicon:BootstrapIcons Kind=Palette}"
+                                                  Command="{Binding ChangeBottomBrushCommand}"
+                                                  CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                                        <MenuItem Header="Закрыть"
+                                                  Icon="{mahicon:BootstrapIcons Kind=X}"
+                                                  Command="{Binding CloseCommand}" />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
                             </Grid>
                         </DataTemplate>
                     </hc:TabControl.ItemTemplate>

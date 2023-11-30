@@ -2,6 +2,7 @@
 using DataLayer;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
+using SADA.Infastructure.Core.Enums;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,6 @@ namespace SADA.ViewModel.MainMenu.Car.Car
         private IEnumerable<PaymentType> _paymentTypes;
         private IEnumerable<DataLayer.Car> _cars;
 
-        private DataLayer.Car _selectedCar;
-
         #endregion Main Form fields
 
         #endregion Fields
@@ -50,11 +49,6 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         protected PayToCounteragentViewModel()
         { }
-
-        ~PayToCounteragentViewModel()
-        {
-            _dialogService.ShowMessageBox("notify", nameof(PayToCounteragentViewModel) + " disposed", MessageBoxButton.OK);
-        }
 
         #endregion Constructor
 
@@ -250,6 +244,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
                     {
                         case FormMode.Add:
                             _entity = new CarPaymentToCounteragent();
+                            _entity.Date = DateTime.Now;
                             break;
                     }
                 }

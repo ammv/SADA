@@ -30,7 +30,7 @@ namespace SADA.Infastructure.Core
         protected abstract void LoadedInner();
 
         #endregion
-
+        
         #region Commands
         public AsyncRelayCommand LoadedCommand
         {

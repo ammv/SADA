@@ -2,6 +2,7 @@
 using DataLayer;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
+using SADA.Infastructure.Core.Enums;
 using SADA.Services;
 using System;
 using System.Collections.Generic;
@@ -207,7 +208,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
                     return;
                 }
                 var vm = App.Current.GetService<PayToCounteragentViewModel>();
-                vm.Name = "Изменение оплаты контрагенту за авто";
+                vm.Name = $"Изменение оплаты контрагенту за авто №{SelectedEntity.ID}";
                 vm.Entity = SelectedEntity;
                 vm.CurrentFormMode = FormMode.Edit;
                 _tabService.OpenTab(vm);

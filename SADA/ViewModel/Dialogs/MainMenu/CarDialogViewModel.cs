@@ -48,12 +48,12 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _PayToCounteragentCommand()
         {
-            _tabService.OpenTab<PayToCounteragentListViewModel>("Оплата контрагентам за автомобиль");
+            _tabService.OpenTab<PayToCounteragentListViewModel>("Оплата контрагентам за автомобили");
         }
 
         private void _PurchaseFromCounteragentCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<PurchaseFromCounteragentListViewModel>("Оплата от контрагентов за автомобили");
         }
 
         private void _CarInSalonCommand()
