@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace SADA.Infastructure.Converters
 {
-    internal class LongToShortStringConverter : IValueConverter
+    public class LongToShortStringConverter : IValueConverter
     {
         public int? MaxLength { get; set; } = null;
 

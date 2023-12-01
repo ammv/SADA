@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace SADA.ViewModel.MainMenu.Car.Salon
 {
-    internal class CarInSalonViewModel : TabObservableObjectForm<DataLayer.Car>
+    public class CarInSalonViewModel : TabObservableObjectForm<DataLayer.Car>
     {
         #region Fields
 

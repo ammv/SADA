@@ -5,9 +5,9 @@ using SADA.Infastructure.Messages;
 using SADA.Services;
 using SADA.ViewModel.Start;
 
-namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
+namespace SADA.ViewModel.Dialogs.MainMenu
 {
-    internal class ProductDialogViewModel : DialogBase
+    public class ProductDialogViewModel : DialogBase
     {
         private readonly ITabService _tabService;
         #region Constructor

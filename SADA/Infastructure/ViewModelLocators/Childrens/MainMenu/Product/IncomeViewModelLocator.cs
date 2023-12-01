@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Product.Income;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Product
 {
-    internal class IncomeViewModelLocator : ViewModelLocatorBase
+    public class IncomeViewModelLocator : ViewModelLocatorBase
     {
         public ProductIncomeViewModel ProductIncome
         {

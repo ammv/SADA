@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Product.Other;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Product
 {
-    internal class OtherViewModelLocator : ViewModelLocatorBase
+    public class OtherViewModelLocator : ViewModelLocatorBase
     {
         public PriceListViewModel PriceList
         {

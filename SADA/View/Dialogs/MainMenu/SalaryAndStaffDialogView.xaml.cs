@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SADA.Infastructure.Dialogs.View.MainMenu
+namespace SADA.View.Dialogs.MainMenu
 {
     /// <summary>
     /// Логика взаимодействия для SalaryAndStaffDialogView.xaml

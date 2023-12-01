@@ -2,8 +2,9 @@
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    internal class DialogsViewModelLocator : ViewModelLocatorBase
+    public class DialogsViewModelLocator : ViewModelLocatorBase
     {
         public Dialogs.MainMenuViewModelLocator MainMenuVml { get; } = new Dialogs.MainMenuViewModelLocator();
+        public Dialogs.OtherViewModelLocator OtherVml { get; } = new Dialogs.OtherViewModelLocator();
     }
 }

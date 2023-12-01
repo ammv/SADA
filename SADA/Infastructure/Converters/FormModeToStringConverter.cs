@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace SADA.Infastructure.Converters
 {
-    internal class FormModeToStringConverter : IValueConverter
+    public class FormModeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

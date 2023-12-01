@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace SADA.Services
 {
-    internal class DataGridService : IDataGridService
+    public class DataGridService : IDataGridService
     {
         public void FillDataTable(DataTable dataTable, ICollection<DataGridColumn> columns, List<object> entities, Dictionary<string, string> propertyMap)
         {

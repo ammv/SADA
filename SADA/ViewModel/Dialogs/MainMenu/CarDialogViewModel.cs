@@ -8,9 +8,9 @@ using SADA.ViewModel.MainMenu.Car.Salon;
 using SADA.ViewModel.Start;
 using System;
 
-namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
+namespace SADA.ViewModel.Dialogs.MainMenu
 {
-    internal class CarDialogViewModel : DialogBase
+    public class CarDialogViewModel : DialogBase
     {
         private readonly ITabService _tabService;
         #region Constructor

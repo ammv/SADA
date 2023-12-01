@@ -3,7 +3,7 @@ using SADA.ViewModel.Utils;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    internal class UtilsViewModelLocator : ViewModelLocatorBase
+    public class UtilsViewModelLocator : ViewModelLocatorBase
     {
         public WindowTopButtonsViewModel WindowTopButtons
         {

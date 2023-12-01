@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Administration.System;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Administration
 {
-    internal class LoginViewModelLocator : ViewModelLocatorBase
+    public class LoginViewModelLocator : ViewModelLocatorBase
     {
         public EventJournalViewModel EventJournal
         {

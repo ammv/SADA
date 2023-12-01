@@ -21,7 +21,7 @@ using Window = System.Windows.Window;
 
 namespace SADA.ViewModel.Start
 {
-    internal partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
+    public partial class MainViewModel : ObservableObject, IRecipient<DialogTabChangedMessage>
     {
         #region Fields
 
@@ -68,12 +68,12 @@ namespace SADA.ViewModel.Start
 
             _dialogMappings = new Dictionary<string, Type>
             {
-                { "Главное", typeof(Infastructure.Dialogs.View.MainMenu.HomeDialogView) },
-                { "Администрирование", typeof(Infastructure.Dialogs.View.MainMenu.AdministrationDialogView) },
-                { "Автомобили", typeof(Infastructure.Dialogs.View.MainMenu.CarDialogView) },
-                { "Зарплата и кадры", typeof(Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView) },
-                { "Справочники", typeof(Infastructure.Dialogs.View.MainMenu.ManualDialogView) },
-                { "Товары", typeof(Infastructure.Dialogs.View.MainMenu.ProductDialogView) }
+                { "Главное", typeof(View.Dialogs.MainMenu.HomeDialogView) },
+                { "Администрирование", typeof(View.Dialogs.MainMenu.AdministrationDialogView) },
+                { "Автомобили", typeof(View.Dialogs.MainMenu.CarDialogView) },
+                { "Зарплата и кадры", typeof(View.Dialogs.MainMenu.SalaryAndStaffDialogView) },
+                { "Справочники", typeof(View.Dialogs.MainMenu.ManualDialogView) },
+                { "Товары", typeof(View.Dialogs.MainMenu.ProductDialogView) }
             };
 
             WeakReferenceMessenger.Default.Register(this);

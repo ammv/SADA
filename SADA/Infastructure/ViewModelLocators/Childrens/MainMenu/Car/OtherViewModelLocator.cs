@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Car.Other;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
-    internal class OtherViewModelLocator : ViewModelLocatorBase
+    public class OtherViewModelLocator : ViewModelLocatorBase
     {
         public EquipmentViewModel Equipment
         {

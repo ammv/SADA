@@ -27,11 +27,11 @@ namespace SADA.Services
 
         public string FileDialogImageFilter => "Images(*.png,*jpeg,*.jpg,*.bmp)|*.png;*.jpg;*.jpeg;*.bmp|All files(*.*)|*.*";
 
-        public FileInfo[] ShowFileDialog(string filter = null)
+        public FileInfo[] ShowFileDialog(string filter = null, bool multiChoice = false)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = filter;
-            dialog.Multiselect = true; ;
+            dialog.Multiselect = multiChoice;
             if(dialog.ShowDialog() == true)
             {
                 return dialog.FileNames.Select(f => new FileInfo(f)).ToArray();

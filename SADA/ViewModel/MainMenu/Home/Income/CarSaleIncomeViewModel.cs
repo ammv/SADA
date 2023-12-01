@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.MainMenu.Home.Income
 {
-    internal class CarSaleIncomeViewModel
+    public class CarSaleIncomeViewModel
     {
     }
 }

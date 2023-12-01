@@ -9,7 +9,7 @@ namespace SADA.Infastructure.Core
     /// <summary>
     /// Finds the ViewModel for the View using System.Reflection and naming conventions in MVVM using the attached AutoWireViewModelProperty dependency property in the XAML markup of the View
     /// </summary>
-    internal class AutoViewModelLocator
+    public class AutoViewModelLocator
     {
         public static DependencyProperty AutoWireViewModelProperty = DependencyProperty.RegisterAttached("AutoWireViewModel", typeof(bool),
         typeof(AutoViewModelLocator), new PropertyMetadata(false, AutoWireViewModelChanged));

@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.SalaryAndStaff.Salary;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
 {
-    internal class SalaryViewModelLocator : ViewModelLocatorBase
+    public class SalaryViewModelLocator : ViewModelLocatorBase
     {
         public AccrualOfSalariesViewModel AccrualOfSalaries
         {

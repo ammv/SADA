@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace SADA.ViewModel.MainMenu.Car.Salon
 {
-    internal class CarInSalonListViewModel : TabObservableObjectList<DataLayer.Car>
+    public class CarInSalonListViewModel : TabObservableObjectList<DataLayer.Car>
     {
         #region Fields
 
@@ -298,7 +298,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                 .AsNoTracking();
         }
 
-        internal sealed class CarFilterMaker : EntityFilterBase<DataLayer.Car>
+        public sealed class CarFilterMaker : EntityFilterBase<DataLayer.Car>
         {
             #region Filter private fields
             private CarBrand _carBrand;

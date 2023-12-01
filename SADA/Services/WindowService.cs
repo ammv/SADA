@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace SADA.Services
 {
-    internal class WindowService : IWindowService
+    public class WindowService : IWindowService
     {
         private Window _lastOpenedWindow = null;
         public Window LastOpenedWindow => _lastOpenedWindow;

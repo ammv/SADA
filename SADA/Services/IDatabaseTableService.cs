@@ -2,7 +2,7 @@
 
 namespace SADA.Services
 {
-    internal interface IDatabaseTableService
+    public interface IDatabaseTableService
     {
         bool ContainsTable(string tableName);
 

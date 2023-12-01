@@ -2,7 +2,7 @@
 
 namespace SADA.Infastructure.Core
 {
-    internal class TypeWrapper<TBase>
+    public class TypeWrapper<TBase>
     {
         public Type TypeBase { get => typeof(TBase); }
 

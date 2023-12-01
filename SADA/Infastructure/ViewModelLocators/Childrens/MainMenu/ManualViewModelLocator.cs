@@ -2,7 +2,7 @@
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu
 {
-    internal class ManualViewModelLocator : ViewModelLocatorBase
+    public class ManualViewModelLocator : ViewModelLocatorBase
     {
     }
 }

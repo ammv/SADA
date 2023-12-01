@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Administration.Login;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Administration
 {
-    internal class SystemViewModelLocator : ViewModelLocatorBase
+    public class SystemViewModelLocator : ViewModelLocatorBase
     {
         public UserRoleManagementViewModel UserRoleManagement
         {

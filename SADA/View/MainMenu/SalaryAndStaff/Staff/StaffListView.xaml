@@ -1,0 +1,333 @@
+﻿<UserControl x:Class="SADA.View.MainMenu.SalaryAndStaff.Staff.StaffListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:core="clr-namespace:SADA.Infastructure.Core"
+             xmlns:enums="clr-namespace:SADA.Infastructure.Core.Enums"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+             xmlns:win="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="1040"
+             d:DataContext="{Binding Path=MainMenuVml.SalaryAndStaffVml.StaffVml.StaffList, Source={StaticResource mainViewModelLocator}}"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <win:GridLength x:Key="SpaceSize">8</win:GridLength>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid Background="{DynamicResource RegionBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--Toolbar-->
+            <Grid Margin="0 8 0 8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="46" />
+                </Grid.ColumnDefinitions>
+
+                <!--Left toolbar part-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        HorizontalSpacing="32">
+                    <!--Create block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+                        <Button Content="Создать"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding OpenEntityFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Search block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            ItemVerticalAlignment="Bottom">
+
+                        <hc:ComboBox hc:TitleElement.Title="Роль"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите роль"
+                                     ItemsSource="{Binding StaffRoleCollection.Collection}"
+                                     SelectedItem="{Binding StaffRoleCollection.Selected, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="225" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Должность"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите должность"
+                                     ItemsSource="{Binding StaffPosts.Collection}"
+                                     SelectedItem="{Binding StaffPosts.Selected}"
+                                     hc:InfoElement.ShowClearButton="True"
+                                     Width="225" />
+
+                        <Button Content="Искать"
+                                Style="{DynamicResource ButtonPrimary }"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding SearchCommand}"
+                                ToolTip="Создать новую запись общие расходы" />
+                    </hc:UniformSpacingPanel>
+
+
+                </hc:UniformSpacingPanel>
+
+                <!--Right toolbar block-->
+                <hc:UniformSpacingPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        HorizontalSpacing="32"
+                                        ItemVerticalAlignment="Bottom">
+                    <!--Other functions block-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalSpacing="16"
+                                            VerticalAlignment="Bottom"
+                                            ItemVerticalAlignment="Center">
+                        <Button Content="Сохранить в файл"
+                                CommandParameter="{x:Static enums:FormMode.Add}"
+                                Command="{Binding OpenEntityFormCommand}"
+                                ToolTip="Создать новую запись Автомобиль" />
+                    </hc:UniformSpacingPanel>
+                </hc:UniformSpacingPanel>
+            </Grid>
+
+
+            <!--Фильтры-->
+            <Grid Grid.Column="1"
+                  Width="300"
+                  Grid.RowSpan="2"
+                  x:Name="filterGrid">
+                <hc:UniformSpacingPanel Margin="8"
+                                        VerticalSpacing="32"
+                                        Orientation="Vertical">
+
+                    <!--Сами фильтры-->
+                    <hc:UniformSpacingPanel Orientation="Vertical"
+                                            TextElement.FontSize="{StaticResource TextFontSize}"
+                                            VerticalSpacing="16">
+                        <TextBlock Text="Фильтры"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource TextBlockDefaultBold}" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Роль"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите роль"
+                                     ItemsSource="{Binding Filter.StaffRoles.Collection}"
+                                     SelectedItem="{Binding Filter.StaffRoles.Selected, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Должность"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите должность"
+                                     ItemsSource="{Binding Filter.StaffPosts.Collection}"
+                                     SelectedItem="{Binding Filter.StaffPosts.Selected, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Автосалон"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите автосалон"
+                                     ItemsSource="{Binding Filter.CarDealerships.Collection}"
+                                     SelectedItem="{Binding Filter.CarDealerships.Selected, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:ComboBox hc:TitleElement.Title="Привязанный пользователь"
+                                     DisplayMemberPath="Name"
+                                     SelectedValuePath="ID"
+                                     hc:InfoElement.Placeholder="Выберите пользователя"
+                                     ItemsSource="{Binding Filter.Users.Collection}"
+                                     SelectedItem="{Binding Filter.Users.Selected, Mode=TwoWay}"
+                                     hc:InfoElement.ShowClearButton="True" />
+
+                        <hc:TextBox Text="{Binding Filter.FullName, Mode=TwoWay}"
+                                    hc:TitleElement.Title="ФИО"
+                                    hc:InfoElement.ShowClearButton="True"
+                                    hc:InfoElement.Placeholder="Введите ФИО" />
+
+
+                        <CheckBox Content="Показывать удаленные"
+                                  IsChecked="{Binding Filter.ShowIsDeleted, Mode=TwoWay}" />
+                    </hc:UniformSpacingPanel>
+
+                    <!--Кнопки для работы с фильтрами-->
+                    <hc:UniformSpacingPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            HorizontalSpacing="16">
+                        <Button Content="Применить"
+                                Command="{Binding ApplyFilterCommand}"
+                                HorizontalAlignment="Center"
+                                Style="{DynamicResource ButtonPrimary}" />
+
+                        <Button Content="Сбросить"
+                                Command="{Binding ClearFilterCommand}"
+                                HorizontalAlignment="Center" />
+                    </hc:UniformSpacingPanel>
+                </hc:UniformSpacingPanel>
+            </Grid>
+
+            <ToggleButton hc:BorderElement.CornerRadius="4 0 0 4"
+                          HorizontalAlignment="Right"
+                          Width="30"
+                          VerticalAlignment="Bottom"
+                          Margin="0 0 0 8"
+                          Checked="filterButton_Checked"
+                          Unchecked="filterButton_Unchecked"
+                          x:Name="filterButton"
+                          ToolTip="Фильтр"
+                          Padding="0"
+                          hc:IconElement.Width="15"
+                          hc:IconElement.Geometry="{DynamicResource FilterIcon}">
+            </ToggleButton>
+
+            <Grid VerticalAlignment="Center"
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <hc:LoadingCircle DotSpeed="3" />
+                    <TextBlock Text="Подождите, данные загружаются"
+                               Margin="0 10 0 0"
+                               Style="{StaticResource TextBlockDefault}" />
+                </StackPanel>
+            </Grid>
+
+            <DataGrid HeadersVisibility="All"
+                      Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+                      Grid.Row="1"
+                      hc:BorderElement.CornerRadius="0 0 0 0"
+                      Margin="0 0 0 8"
+                      SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
+                      RowHeaderWidth="60"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding Entities}"
+                      AutoGenerateColumns="False">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="MouseDoubleClick">
+                        <intr:InvokeCommandAction Command="{Binding OpenEntityFormCommand}"
+                                                  CommandParameter="{x:Static enums:FormMode.Edit}" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <hc:ContextMenuButton Content="Изменить"
+                                              Command="{Binding OpenEntityFormCommand}"
+                                              CommandParameter="{x:Static enums:FormMode.Edit}" />
+                        <hc:ContextMenuButton Content="Копировать данные" />
+                        <hc:ContextMenuButton Content="Сделать дупликат" />
+                        <hc:ContextMenuButton Content="Сделать дупликат и изменить" />
+                        <hc:ContextMenuButton Content="Удалить" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ п/п"
+                                        Binding="{Binding ID}" />
+                    <DataGridTemplateColumn Header="Фото"
+                                            SortMemberPath="Passport.Surname">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type DataLayer:Staff}">
+                                <Ellipse Height="100"
+                                         Width="100">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding File.Data}"
+                                                    Stretch="UniformToFill"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="ФИО"
+                                            SortMemberPath="Passport.Surname">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type DataLayer:Staff}">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} {2}">
+                                            <Binding Path="Passport.Surname" />
+                                            <Binding Path="Passport.Name" />
+                                            <Binding Path="Passport.Patronymic" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Роль"
+                                        Binding="{Binding StaffRole.Name}" />
+                    <DataGridTextColumn Header="Должность"
+                                        Binding="{Binding StaffPost.Name}" />
+                    <DataGridTextColumn Header="Автосалон"
+                                        Binding="{Binding CarDealership.Name}" />
+                    <DataGridTextColumn Header="Заметка"
+                                        Binding="{Binding Note}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <hc:Pagination MaxPageCount="{Binding MaxPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           Grid.Row="2"
+                           Margin="0 0 0 8"
+                           HorizontalAlignment="Center"
+                           DataCountPerPage="{Binding DataCountPerPage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           IsJumpEnabled="True">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="Navigated">
+                        <intr:InvokeCommandAction Command="{Binding PageUpdateCommand}"
+                                                  PassEventArgsToCommand="True" />
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </hc:Pagination>
+        </Grid>
+    </Grid>
+</UserControl>

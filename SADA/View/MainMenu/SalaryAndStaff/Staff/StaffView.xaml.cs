@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using HandyControl.Controls;
+using System.IO;
+using System.Windows.Controls;
 
 namespace SADA.View.MainMenu.SalaryAndStaff.Staff
 {

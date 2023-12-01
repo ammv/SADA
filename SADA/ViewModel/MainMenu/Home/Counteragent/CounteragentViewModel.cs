@@ -1,10 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using DataLayer;
 using DataLayer.Helpers;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Core.Enums;
 using SADA.Services;
+using SADA.View.Dialogs.Other;
+using SADA.ViewModel.Dialogs.Other;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,12 +18,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SADA.ViewModel.MainMenu.Home.Counteragent
 {
     public class CounteragentViewModel : TabObservableObjectForm<DataLayer.Counteragent>
     {
         #region Fields
+
+        private Dialog _currentDialog = null;
 
         private SADAEntities _ctx;
 
@@ -52,6 +59,9 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
             CloseCommand = new RelayCommand(_OnClose);
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
+
+            AddContactPersonCommand = new RelayCommand(_AddContactPersonCommand);
+            DeleteContactPersonCommand = new RelayCommand(_DeleteContactPersonCommand);
 
             _dialogService = dialogService;
             _tabService = tabService;
@@ -155,6 +165,8 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
         public AsyncRelayCommand<Type> OpenTypeListCommand { get; }
         public RelayCommand FormCommand { get; }
+        public RelayCommand AddContactPersonCommand { get; }
+        public RelayCommand DeleteContactPersonCommand { get; }
 
         #endregion Commands
 
@@ -167,6 +179,38 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
             {
                 _RaiseCloseEvent();
                 _ctx?.Dispose();
+            }
+        }
+
+        private void _AddContactPersonCommand()
+        {
+            UserControl uc = App.Current.Services.GetService(typeof(CounteragentContactPersonDialogView)) as UserControl;
+            var vm = uc.DataContext as CounteragentContactPersonDialogViewModel;
+            vm.StaffPosts = _ctx.StaffPost.ToList();
+            vm.StaffRoles = _ctx.StaffRole.ToList();
+            vm.CurrentFormMode = FormMode.Add;
+            vm.ContactPerson = new CounteragentContactPerson();
+            vm.AddAction = (e) =>
+            {
+                _counteragentContactPersons.Add(e);
+                _currentDialog?.Close();
+            };
+            _currentDialog = Dialog.Show(uc);
+        }
+
+        private void _DeleteContactPersonCommand()
+        {
+            if(_selectedCounteragentContactPerson != null)
+            {
+                if(_selectedCounteragentContactPerson.ID != 0)
+                {
+                    _selectedCounteragentContactPerson.IsDeleted = true;
+                }
+                else
+                {
+                    CounteragentContactPersons.Remove(_selectedCounteragentContactPerson);
+                }
+                
             }
         }
 
@@ -188,13 +232,38 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
             //OnPropertyChanged()
         }
 
+        private bool Validate()
+        {
+            string[] necessary = new string[0];
+            switch (CounteragentTypeHelper.CounteragentTypeMap[Entity.CounteragentType.Name])
+            {
+                case CounteragentTypeEnum.IndividualPerson:
+                    necessary = new string[]{ _individualPerson.Name, _individualPerson.Surname};
+                    break;
+                case CounteragentTypeEnum.JuridicalPerson:
+                    necessary = new string[] {};
+                    break;
+                case CounteragentTypeEnum.SoloTrader:
+                    necessary = new string[] {};
+                    break;
+            }
+
+            return !necessary.Any(s => string.IsNullOrEmpty(s));
+            
+        }
+
         private void _FormCommand()
         {
+            if(!Validate())
+            {
+                _dialogService.ShowMessageBox("Ошибка", "Вы не заполнили все поля", MessageBoxButton.OK);
+                return;
+            }
             try
             {
                 if (_currentFormMode == FormMode.Edit || _currentFormMode == FormMode.Add)
                 {
-                    string msg = $"Запись об общем расходе изменена №{Entity.ID}";
+                    string msg = $"Запись об контрагенте №{Entity.ID} изменена ";
                     if (_currentFormMode == FormMode.Add)
                     {
                         _ctx.Counteragent.Add(Entity);

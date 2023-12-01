@@ -7,6 +7,6 @@ namespace SADA.Services
     {
         string FileDialogImageFilter { get; }
         MessageBoxResult ShowMessageBox(string caption, string message, MessageBoxButton messageBoxButton);
-        FileInfo[] ShowFileDialog(string filter = null);
+        FileInfo[] ShowFileDialog(string filter = null, bool multiChoice = false);
     }
 }

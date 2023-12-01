@@ -21,7 +21,7 @@ namespace SADA.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
+    public class Resources
     {
 
         private static global::System.Resources.ResourceManager resourceMan;
@@ -29,7 +29,7 @@ namespace SADA.Properties
         private static global::System.Globalization.CultureInfo resourceCulture;
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
+        public Resources()
         {
         }
 
@@ -37,7 +37,7 @@ namespace SADA.Properties
         ///   Возврат кэшированного экземпляра ResourceManager, используемого этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
+        public static global::System.Resources.ResourceManager ResourceManager
         {
             get
             {
@@ -55,7 +55,7 @@ namespace SADA.Properties
         ///   подстановки ресурсов с помощью этого класса ресурсов со строгим типом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
+        public static global::System.Globalization.CultureInfo Culture
         {
             get
             {

@@ -7,5 +7,6 @@
         <ResourceDictionary Source="Button.xaml" />
         <ResourceDictionary Source="TabControl.xaml" />
         <ResourceDictionary Source="WindowButtons.xaml" />
+        <ResourceDictionary Source="DataGrid.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -166,6 +166,20 @@ namespace SADA
         {
             СonfigureMainMenu_Car(services);
             СonfigureMainMenu_Home(services);
+            СonfigureMainMenu_SalaryAndStaff(services);
+        }
+
+        private void СonfigureMainMenu_SalaryAndStaff(ServiceCollection services)
+        {
+            СonfigureMainMenu_SalaryAndStaff_Staff(services);
+            //СonfigureMainMenu_Car_Income(services);
+           // СonfigureMainMenu_Car_Counteragent(services);
+        }
+
+        private void СonfigureMainMenu_SalaryAndStaff_Staff(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.SalaryAndStaff.Staff.StaffListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.SalaryAndStaff.Staff.StaffViewModel>();
         }
 
         private void СonfigureMainMenu_Home(ServiceCollection services)
@@ -227,25 +241,29 @@ namespace SADA
 
         private void ConfigureDialogs(ServiceCollection services)
         {
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.AdministrationDialogView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.CarDialogView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.HomeDialogView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ManualDialogView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.ProductDialogView>();
-            services.AddSingleton<Infastructure.Dialogs.View.MainMenu.SalaryAndStaffDialogView>();
+            services.AddSingleton<View.Dialogs.MainMenu.AdministrationDialogView >();
+            services.AddSingleton<View.Dialogs.MainMenu.CarDialogView>();
+            services.AddSingleton<View.Dialogs.MainMenu.HomeDialogView>();
+            services.AddSingleton<View.Dialogs.MainMenu.ManualDialogView>();
+            services.AddSingleton<View.Dialogs.MainMenu.ProductDialogView>();
+            services.AddSingleton<View.Dialogs.MainMenu.SalaryAndStaffDialogView>();
 
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<View.Dialogs.Other.CounteragentContactPersonDialogView>();
+
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.AdministrationDialogViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.CarDialogViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.HomeDialogViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.ManualDialogViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.ProductDialogViewModel>();
-            services.AddSingleton<Infastructure.Dialogs.ViewModel
+            services.AddSingleton<ViewModel.Dialogs
                 .MainMenu.SalaryAndStaffDialogViewModel>();
+
+            services.AddSingleton<ViewModel.Dialogs.Other.CounteragentContactPersonDialogViewModel>();
         }
 
         private void ConfigureOtherServices(ServiceCollection services)

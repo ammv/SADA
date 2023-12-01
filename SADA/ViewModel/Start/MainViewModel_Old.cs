@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace SADA.ViewModel.Start
 {
-    internal class MainViewModel_Old : ObservableObject
+    public class MainViewModel_Old : ObservableObject
     {
         #region Constructor
 

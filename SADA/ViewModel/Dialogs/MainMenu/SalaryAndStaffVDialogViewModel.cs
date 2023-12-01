@@ -3,12 +3,13 @@ using CommunityToolkit.Mvvm.Messaging;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
+using SADA.ViewModel.MainMenu.SalaryAndStaff.Staff;
 using SADA.ViewModel.Start;
 using System;
 
-namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
+namespace SADA.ViewModel.Dialogs.MainMenu
 {
-    internal class SalaryAndStaffDialogViewModel : DialogBase
+    public class SalaryAndStaffDialogViewModel : DialogBase
     {
         private readonly ITabService _tabService;
         #region Constructor
@@ -54,7 +55,7 @@ namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
 
         private void _StaffCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<StaffListViewModel>("Сотрудники");
         }
 
         #endregion Commands implementations

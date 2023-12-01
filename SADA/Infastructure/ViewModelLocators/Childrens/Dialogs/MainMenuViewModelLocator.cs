@@ -1,9 +1,9 @@
 ﻿using SADA.Infastructure.Core;
-using SADA.Infastructure.Dialogs.ViewModel.MainMenu;
+using SADA.ViewModel.Dialogs.MainMenu;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
 {
-    internal class MainMenuViewModelLocator : ViewModelLocatorBase
+    public class MainMenuViewModelLocator : ViewModelLocatorBase
     {
         public AdministrationDialogViewModel AdministrationDialog
         {

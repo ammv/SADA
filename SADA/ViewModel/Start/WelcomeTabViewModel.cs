@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    internal class WelcomeTabViewModel : TabObservableObject
+    public class WelcomeTabViewModel : TabObservableObject
     {
         public WelcomeTabViewModel()
         {

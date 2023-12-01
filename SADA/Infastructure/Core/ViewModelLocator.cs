@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace SADA.Infastructure.Core
 {
-    internal class ViewModelLocator
+    public class ViewModelLocator
     {
         private DependencyObject dummy = new DependencyObject();
         private _Dialogs _dialogs = new _Dialogs();
@@ -66,7 +66,7 @@ namespace SADA.Infastructure.Core
             return DesignerProperties.GetIsInDesignMode(dummy);
         }
 
-        internal class _Dialogs
+        public class _Dialogs
         {
             private DependencyObject dummy = new DependencyObject();
 

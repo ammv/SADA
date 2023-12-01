@@ -3,7 +3,7 @@ using SADA.ViewModel.Start;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    internal class StartViewModelLocator : ViewModelLocatorBase
+    public class StartViewModelLocator : ViewModelLocatorBase
     {
         public AuthViewModel Auth
         {

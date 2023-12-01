@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Salary
 {
-    internal class SalaryReportViewModel
+    public class SalaryReportViewModel
     {
     }
 }

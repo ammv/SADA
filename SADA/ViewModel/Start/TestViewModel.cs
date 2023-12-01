@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace SADA.ViewModel.Start
 {
-    internal class TestViewModel : TabObservableObject
+    public class TestViewModel : TabObservableObject
     {
         private string _buttonText;
 

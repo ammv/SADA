@@ -2,7 +2,7 @@
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu
 {
-    internal class CarViewModelLocator : ViewModelLocatorBase
+    public class CarViewModelLocator : ViewModelLocatorBase
     {
         public Car.CarViewModelLocator CarVml { get; } = new Car.CarViewModelLocator();
         public Car.OtherViewModelLocator OtherVml { get; } = new Car.OtherViewModelLocator();

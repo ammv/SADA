@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SADA.Services
 {
-    internal class UserService : IUserService
+    public class UserService : IUserService
     {
         public bool CheckPassword(User user, string password)
         {

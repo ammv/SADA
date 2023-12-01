@@ -469,7 +469,8 @@
                     </GroupBox>
 
                     <GroupBox Header="Контактные лица"
-                              Height="200">
+                              Height="Auto"
+                              MaxHeight="300">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -479,10 +480,10 @@
                             <hc:SimpleStackPanel Orientation="Horizontal"
                                                  HorizontalAlignment="Center">
                                 <Button Content="Добавить"
-                                        Command="{Binding AddImageCommand}"
+                                        Command="{Binding AddContactPersonCommand}"
                                         Margin="0 0 8 0" />
                                 <Button Content="Удалить"
-                                        Command="{Binding DeleteImageCommand}"
+                                        Command="{Binding DeleteContactPersonCommand}"
                                         Margin="0 0 16 0" />
                             </hc:SimpleStackPanel>
 
@@ -494,12 +495,27 @@
                                       SelectedItem="{Binding SelectedCounteragentContactPerson, Mode=TwoWay}"
                                       RowHeaderWidth="60"
                                       CanUserAddRows="False"
+                                      hc:DataGridAttach.ShowRowNumber="True"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding Entity.CounteragentContactPerson}"
+                                      ItemsSource="{Binding CounteragentContactPersons}"
                                       AutoGenerateColumns="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="№ п/п"
                                                         Binding="{Binding ID}" />
+                                    <DataGridTextColumn Header="Фамилия"
+                                                        Binding="{Binding Surname}" />
+                                    <DataGridTextColumn Header="Отчетсво"
+                                                        Binding="{Binding Patronymic}" />
+                                    <DataGridTextColumn Header="Телефон"
+                                                        Binding="{Binding PhoneNumber}" />
+                                    <DataGridTextColumn Header="Email"
+                                                        Binding="{Binding Email}" />
+                                    <DataGridTextColumn Header="Роль"
+                                                        Binding="{Binding StaffRole.Name}" />
+                                    <DataGridTextColumn Header="Должность"
+                                                        Binding="{Binding StaffPost.Name}" />
+                                    <DataGridTextColumn Header="Замтека"
+                                                        Binding="{Binding Note}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>

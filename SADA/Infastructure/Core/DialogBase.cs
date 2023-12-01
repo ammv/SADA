@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace SADA.Infastructure.Core
 {
-    internal class DialogBase : ObservableObject
+    public class DialogBase : ObservableObject
     {
         #region Constructor
 

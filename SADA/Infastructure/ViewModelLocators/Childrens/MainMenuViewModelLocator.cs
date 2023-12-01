@@ -3,7 +3,7 @@ using SADA.Infastructure.ViewModelLocators.Childrens.MainMenu;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens
 {
-    internal class MainMenuViewModelLocator : ViewModelLocatorBase
+    public class MainMenuViewModelLocator : ViewModelLocatorBase
     {
         public AdministrationViewModelLocator AdministationVml { get; } = new AdministrationViewModelLocator();
         public CarViewModelLocator CarVml { get; } = new CarViewModelLocator();

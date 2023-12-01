@@ -3,7 +3,7 @@ using SADA.ViewModel.MainMenu.Car.Salon;
 
 namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.Car
 {
-    internal class SalonViewModelLocator : ViewModelLocatorBase
+    public class SalonViewModelLocator : ViewModelLocatorBase
     {
         public CarInSalonListViewModel CarInSalonList
         {

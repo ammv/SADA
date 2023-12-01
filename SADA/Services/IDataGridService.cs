@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace SADA.Services
 {
-    internal interface IDataGridService
+    public interface IDataGridService
     {
         void FillDataTable(DataTable dataTable, ICollection<DataGridColumn> columns, List<object> entities, Dictionary<string, string> propertyMap);
     }

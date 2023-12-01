@@ -7,9 +7,9 @@ using SADA.ViewModel.MainMenu.Home.Expense;
 using SADA.ViewModel.Start;
 using System;
 
-namespace SADA.Infastructure.Dialogs.ViewModel.MainMenu
+namespace SADA.ViewModel.Dialogs.MainMenu
 {
-    internal class ManualDialogViewModel : DialogBase
+    public class ManualDialogViewModel : DialogBase
     {
         private readonly ITabService _tabService;
         #region Constructor

@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.MainMenu.Car.Other
 {
-    internal class EquipmentViewModel
+    public class EquipmentViewModel
     {
     }
 }

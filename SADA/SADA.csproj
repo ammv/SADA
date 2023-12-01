@@ -242,6 +242,7 @@
     <Compile Include="Infastructure\Core\Enums\ListMode.cs" />
     <Compile Include="Infastructure\Core\EnumToItemSource.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
+    <Compile Include="Infastructure\Core\CollectionWithSelection.cs" />
     <Compile Include="Infastructure\Core\TabContent.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Infastructure\Core\ViewModelLocatorBase.cs" />
     <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
     <Compile Include="Infastructure\Validators\NumberValidationRule.cs" />
+    <Compile Include="Infastructure\ViewModelLocators\Childrens\Dialogs\OtherViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\MainViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\Childrens\DialogsViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\Childrens\Dialogs\MainMenuViewModelLocator.cs" />
@@ -296,6 +298,7 @@
     <Compile Include="ViewModel\Dialogs\MainMenu\ManualDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\ProductDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MainMenu\SalaryAndStaffVDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Other\CounteragentContactPersonDialogViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UserRoleManagementViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\Login\UsersViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Administration\System\EventJournalViewModel.cs" />
@@ -333,6 +336,9 @@
     <Compile Include="ViewModel\MainMenu\Product\Sales\ProductSaleViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\SalaryReportViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\Mocks\MockStaffListViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\Mocks\MockStaffViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\StaffListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\StaffViewModel.cs" />
     <Compile Include="ViewModel\Start\MainViewModel_Old.cs" />
     <Compile Include="ViewModel\Start\MockMainViewModel.cs" />
@@ -366,6 +372,9 @@
     </Compile>
     <Compile Include="View\Dialogs\MainMenu\SalaryAndStaffDialogView.xaml.cs">
       <DependentUpon>SalaryAndStaffDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\Other\CounteragentContactPersonDialogView.xaml.cs">
+      <DependentUpon>CounteragentContactPersonDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Administration\Login\UserRoleManagementView.xaml.cs">
       <DependentUpon>UserRoleManagementView.xaml</DependentUpon>
@@ -441,6 +450,9 @@
     </Compile>
     <Compile Include="View\MainMenu\SalaryAndStaff\Salary\SalaryReportView.xaml.cs">
       <DependentUpon>SalaryReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu\SalaryAndStaff\Staff\StaffListView.xaml.cs">
+      <DependentUpon>StaffListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\SalaryAndStaff\Staff\StaffView.xaml.cs">
       <DependentUpon>StaffView.xaml</DependentUpon>
@@ -523,6 +535,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resource\Style\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\Style\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -570,6 +586,10 @@
     <Page Include="View\Dialogs\MainMenu\SalaryAndStaffDialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\Other\CounteragentContactPersonDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainMenu\Administration\Login\UserRoleManagementView.xaml">
       <SubType>Designer</SubType>
@@ -670,6 +690,10 @@
     <Page Include="View\MainMenu\SalaryAndStaff\Salary\SalaryReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\SalaryAndStaff\Staff\StaffListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainMenu\SalaryAndStaff\Staff\StaffView.xaml">
       <SubType>Designer</SubType>

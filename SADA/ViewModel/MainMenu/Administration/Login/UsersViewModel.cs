@@ -1,6 +1,6 @@
 ﻿namespace SADA.ViewModel.MainMenu.Administration.Login
 {
-    internal class UsersViewModel
+    public class UsersViewModel
     {
     }
 }
