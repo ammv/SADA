@@ -22,16 +22,12 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         #region Services fields
 
-        private readonly IDialogService _dialogService;
-        private readonly IWindowService _windowService;
-        private readonly ITabService _tabService;
-
         #endregion Services fields
 
         #region IEnumerables fields
 
         private IEnumerable<ExpenseGroup> _expenseGroups;
-        private IEnumerable<DataLayer.Car> _cars;
+        private ObservableCollection<DataLayer.Car> _cars;
 
         #endregion IEnumerables fields
 
@@ -59,27 +55,19 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         #region Constructor
 
-        public CarExpenseListViewModel(IDialogService dialogService, IWindowService windowService, ITabService tabService)
+        public CarExpenseListViewModel(IDialogService dialogService, ITabService tabService)
+            :base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<CarExpense>>.Make<CarExpenseViewModel>())
         {
-            CloseCommand = new RelayCommand(_OnClose);
-            OpenEntityFormCommand = new RelayCommand<FormMode>(_OpenEntityFormCommand);
-
-            SearchCommand = new RelayCommand(_SearchCommand);
-            SaveAsFileCommand = new RelayCommand(_SaveAsFileCommand);
-
-            ApplyFilterCommand = new RelayCommand(_ApplyFilterCommand);
-            ClearFilterCommand = new RelayCommand(_ClearFilterCommand);
-
-            
-
-            _dialogService = dialogService;
-            _windowService = windowService;
-            _tabService = tabService;
-
             _filter = new FilterMaker(_tabService);
+
+            AddTabName = (e) => "Добавление расхода на автомобиль";
+            EditTabName = (e) => $"Изменение расхода на автомобиль №{_selectedEntity.ID}";
+
+            OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
         }
 
-        protected CarExpenseListViewModel() { }
+        protected CarExpenseListViewModel(): base(null, null, null)
+        { }
 
 
         #endregion Constructor
@@ -92,7 +80,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             set => SetProperty(ref _expenseGroups, value);
         }
 
-        public IEnumerable<DataLayer.Car> Cars
+        public ObservableCollection<DataLayer.Car> Cars
         {
             get => _cars;
             set => SetProperty(ref _cars, value);
@@ -129,20 +117,13 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
         #endregion Properties
 
         #region Commands
-
-        public RelayCommand<FormMode> OpenEntityFormCommand { get; }
-        public RelayCommand SearchCommand { get; }
-        public RelayCommand SaveAsFileCommand { get; }
-
-        public RelayCommand ApplyFilterCommand { get; }
-        public RelayCommand ClearFilterCommand { get; }
-        public RelayCommand<Type> OpenTypeListCommand { get; }
+        public AsyncRelayCommand<Type> OpenTypeListCommand { get; }
 
         #endregion Commands
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -152,7 +133,19 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             }
         }
 
-        private void _SearchCommand()
+        private async Task _OpenTypeListCommand(Type type)
+        {
+            switch (type.Name)
+            {
+                case nameof(DataLayer.Car):
+                    _tabService.OpenTabForSelect<Car.Salon.CarInSalonListViewModel, DataLayer.Car>(
+                        "Выбор автомобиля", _cars, (e) => SelectedCar = e);
+                    break;
+            }
+
+        }
+
+        protected override void _SearchCommand()
         {
             // Базовый поиск по типу оплаты, контрагенту
 
@@ -194,11 +187,11 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             }
         }
 
-        private void _SaveAsFileCommand()
+        protected override void _SaveAsFileCommand()
         {
         }
 
-        private void _ApplyFilterCommand()
+        protected override void _ApplyFilterCommand()
         {
             try
             {
@@ -212,50 +205,9 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             }
         }
 
-        private void _ClearFilterCommand()
+        protected override void _ClearFilterCommand()
         {
             _filter.FilterFieldsClear();
-        }
-
-        private void _OpenEntityFormCommand(FormMode parameter)
-        {
-            if (parameter == FormMode.Edit)
-            {
-                if (_selectedEntity == null)
-                {
-                    _dialogService.ShowMessageBox("Ошибка", "Вы не выбрали запись для редактирования", MessageBoxButton.OK);
-                    return;
-                }
-                var vm = App.Current.GetService<CarExpenseViewModel>();
-                vm.Name = $"Изменение расхода на автомобиль №{_selectedEntity.ID}";
-                vm.Entity = SelectedEntity;
-                vm.CurrentFormMode = FormMode.Edit;
-                _tabService.OpenTab(vm);
-            }
-            else
-            {
-                var vm = App.Current.GetService<CarExpenseViewModel>();
-                vm.Name = "Добавление расхода на автомобиль";
-                vm.CurrentFormMode = FormMode.Add;
-                _tabService.OpenTab(vm);
-            }
-        }
-
-        protected override async Task _PageUpdateCommand(HandyControl.Data.FunctionEventArgs<int> e)
-        {
-            try
-            {
-                MaxPage = _currentQuery.Count() / _dataCountPerPage;
-                Entities = new ObservableCollection<CarExpense>(
-                    await JoinBaseQuery(_currentQuery)
-                    .Skip((e.Info - 1) * _dataCountPerPage)
-                    .Take(_dataCountPerPage)
-                    .ToListAsync());
-            }
-            catch (DbEntityValidationException ex)
-            {
-                DbEntityValidationExceptionHelper.ShowException(ex);
-            }
         }
 
         protected override void LoadedInner()
@@ -275,14 +227,15 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
                     .AsNoTracking()
                     .ToList();
 
-                Cars = _ctx.Car
+                Cars = new ObservableCollection<DataLayer.Car>(_ctx.Car
                     .Include(c => c.CarEquipment)
                     .Include(c => c.CarEquipment.CarModel)
                     .Include(c => c.CarEquipment.CarModel.CarBrand)
                     .AsNoTracking()
-                    .ToList();
+                    .ToList());
 
                 _filter.ExpenseGroups = _expenseGroups;
+                _filter.Cars = _cars;
             }
             catch (DbEntityValidationException ex)
             {
@@ -294,7 +247,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         #region Other
 
-        public IQueryable<CarExpense> JoinBaseQuery(IQueryable<CarExpense> query)
+        protected override IQueryable<CarExpense> JoinBaseQuery(IQueryable<CarExpense> query)
         {
             return query
                 .Include(e => e.Car)
@@ -309,7 +262,8 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             #region Filter private fields
 
             private IEnumerable<ExpenseGroup> _expenseGroups;
-            private IEnumerable<DataLayer.Car> _cars;
+            private ObservableCollection<DataLayer.Car> _cars;
+            private DataLayer.Car _selectedCar;
             private ExpenseGroup _selectedExpenseGroup;
 
             #endregion Filter private fields
@@ -322,14 +276,18 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
                 set => SetProperty(ref _expenseGroups, value);
             }
 
-            public IEnumerable<DataLayer.Car> Cars
+            public ObservableCollection<DataLayer.Car> Cars
             {
                 get => _cars;
                 set => SetProperty(ref _cars, value);
             }
 
             public ExpenseType SelectedExpenseType { get; set; }
-            public DataLayer.Car SelectedCar { get; set; }
+            public DataLayer.Car SelectedCar
+            { 
+                get => _selectedCar;
+                set => SetProperty(ref _selectedCar, value); 
+            }
             public ExpenseGroup SelectedExpenseGroup
             {
                 get => _selectedExpenseGroup;
@@ -417,34 +375,32 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             public FilterMaker(ITabService tabService)
             {
                 ChangeHasPaymentModeCommand = new RelayCommand<int>(_ChangeHasPaymentMode);
-                OpenTypeListCommand = new RelayCommand<Type>(_OpenTypeListCommand);
+                OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
                 _tabService = tabService;
             }
 
             public RelayCommand<int> ChangeHasPaymentModeCommand { get; }
-            public RelayCommand<Type> OpenTypeListCommand { get; }
+            public AsyncRelayCommand<Type> OpenTypeListCommand { get; }
 
             private void _ChangeHasPaymentMode(int x)
             {
                 SelectedHasPaymentMode = (HasPaymentMode)x;
             }
 
-            private void _OpenTypeListCommand(Type type)
+            private async Task _OpenTypeListCommand(Type type)
             {
                 switch (type.Name)
                 {
                     case nameof(DataLayer.Car):
-                        var vm = App.Current.GetService<Car.Salon.CarInSalonListViewModel>();
-                        vm.Name = "Выбор автомобиля";
-                        vm.CurrentListMode = ListMode.Select;
-                        vm.SelectAction = (car) =>
-                        {
-                            SelectedCar = _cars.FirstOrDefault(c => c.ID == car.ID);
-                        };
-                        _tabService.OpenTab(vm);
+                        _tabService.OpenTabForSelect<Car.Salon.CarInSalonListViewModel, DataLayer.Car>(
+                            "Выбор автомобиля", _cars, (e) => SelectedCar = e);
                         break;
                 }
+
+
+                // executer
+                // input: Type, select action
             }
 
             public enum HasPaymentMode

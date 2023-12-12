@@ -18,6 +18,7 @@ namespace SADA.Infastructure.Core
         private string _name;
         private SolidColorBrush _brush = new SolidColorBrush();
         private RelayCommand<FrameworkElement> _changeBottomBrushCommand;
+        private ICommand _closeCommand;
 
         public string Name
         {
@@ -30,7 +31,13 @@ namespace SADA.Infastructure.Core
             get => this;
         }
 
-        public ICommand CloseCommand { get; protected set; }
+        public ICommand CloseCommand 
+        {
+            get
+            {
+                return _closeCommand ?? new RelayCommand(_OnClose);
+            }
+        }
         public SolidColorBrush BottomBrush 
         { 
             get => _brush;
@@ -91,5 +98,7 @@ namespace SADA.Infastructure.Core
         {
             return _name;
         }
+
+        protected abstract void _OnClose();
     }
 }

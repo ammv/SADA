@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 using MessageBox = HandyControl.Controls.MessageBox;
 using Window = System.Windows.Window;
 
@@ -204,6 +205,7 @@ namespace SADA.ViewModel.Start
                 Tabs.Add(message.Value);
                 SelectedTabItemIndex = Tabs.Count - 1;
                 _currentDialog.Close();
+                
             }
         }
 

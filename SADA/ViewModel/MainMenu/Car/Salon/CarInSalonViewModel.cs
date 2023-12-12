@@ -27,7 +27,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Main Form fields
 
-        private IEnumerable<Counteragent> _counteragents;
+        private ObservableCollection<Counteragent> _counteragents;
         private IEnumerable<CarEquipment> _carEquipments;
         private IEnumerable<CarColor> _carColors;
         private IEnumerable<Staff> _staffs;
@@ -63,7 +63,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         public CarInSalonViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose);
+
             FormCommand = new RelayCommand(_FormCommand);
             AddImageCommand = new RelayCommand(_AddImageCommand);
             DeleteImageCommand = new RelayCommand(_DeleteImageCommand);
@@ -82,7 +82,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Main Form properties
 
-        public IEnumerable<Counteragent> Counteragents
+        public ObservableCollection<Counteragent> Counteragents
         {
             get => _counteragents;
             set => SetProperty(ref _counteragents, value);
@@ -221,7 +221,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             _carPhotos.Remove(_selectedCarPhoto);
         }
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -235,9 +235,12 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
         {
             switch (type.Name)
             {
-                case nameof(DataLayer.Car):
+                case nameof(DataLayer.Counteragent):
+                    _tabService.OpenTabForSelect<Home.Counteragent.CounteragentListViewModel, DataLayer.Counteragent>(
+                        "Выбор контрагента", _counteragents, (e) => Entity.Counteragent = e);
                     break;
             }
+
         }
 
         private void _FormCommand()
@@ -256,6 +259,11 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                     Entity.CarPhoto = _carPhotos;
 
                     _ctx.SaveChanges();
+
+                    if (_currentFormMode == FormMode.Add)
+                    {
+                        Entity = new DataLayer.Car();
+                    }
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
@@ -336,7 +344,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                 SelectedCarEquipment = Entity.CarEquipment;
             }
 
-            Counteragents = _ctx.Counteragent
+            Counteragents = new ObservableCollection<Counteragent>(_ctx.Counteragent
                 .Include(c => c.CounteragentType)
                 .Include(c => c.CounteragentGroup)
                 .Include(c => c.IndividualPerson)
@@ -344,7 +352,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                 .Include(c => c.JuridicalPerson)
                 .OrderByDescending(c => c.CounteragentGroup.Name)
                 .OrderByDescending(c => c.CounteragentType.Name)
-                .ToList();
+                .ToList());
 
             CarColors = _ctx.CarColor
                 .OrderByDescending(c => c.Paint)

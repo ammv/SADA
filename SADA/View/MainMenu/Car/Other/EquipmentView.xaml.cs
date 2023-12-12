@@ -5,9 +5,9 @@ namespace SADA.View.MainMenu.Car.Other
     /// <summary>
     /// Логика взаимодействия для Equipment.xaml
     /// </summary>
-    public partial class Equipment : UserControl
+    public partial class EquipmentView : UserControl
     {
-        public Equipment()
+        public EquipmentView()
         {
             InitializeComponent();
         }

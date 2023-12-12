@@ -206,6 +206,9 @@
     <Compile Include="Components\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\MenuDialog.xaml.cs">
+      <DependentUpon>MenuDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\VerticalSeparator1c.xaml.cs">
       <DependentUpon>VerticalSeparator1c.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,7 @@
     <Compile Include="Infastructure\Core\EnumToItemSource.cs" />
     <Compile Include="Infastructure\Core\ITab.cs" />
     <Compile Include="Infastructure\Core\CollectionWithSelection.cs" />
+    <Compile Include="Infastructure\Core\NavigationItem.cs" />
     <Compile Include="Infastructure\Core\TabContent.cs" />
     <Compile Include="Infastructure\Core\TabObservableObject.cs" />
     <Compile Include="Infastructure\Core\PasswordBoxBehavior.cs" />
@@ -255,6 +259,7 @@
     <Compile Include="Infastructure\Core\ValueDescription.cs" />
     <Compile Include="Infastructure\Core\ViewModelLocatorBase.cs" />
     <Compile Include="Infastructure\Messages\DialogTabChangedMessage.cs" />
+    <Compile Include="Infastructure\Core\NavigationGroup.cs" />
     <Compile Include="Infastructure\Validators\NumberValidationRule.cs" />
     <Compile Include="Infastructure\ViewModelLocators\Childrens\Dialogs\OtherViewModelLocator.cs" />
     <Compile Include="Infastructure\ViewModelLocators\MainViewModelLocator.cs" />
@@ -288,6 +293,7 @@
     <Compile Include="Services\IDatabaseTableService.cs" />
     <Compile Include="Services\IDataGridService.cs" />
     <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="Services\IListSelecter.cs" />
     <Compile Include="Services\ITabService.cs" />
     <Compile Include="Services\IWindowService.cs" />
     <Compile Include="Services\TabService.cs" />
@@ -310,6 +316,7 @@
     <Compile Include="ViewModel\MainMenu\Car\Car\PayToCounteragentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Car\PurchaseFromCounteragentViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Other\EquipmentViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Car\Salon\CarInSalonListViewModel.cs" />
@@ -334,7 +341,9 @@
     <Compile Include="ViewModel\MainMenu\Product\Other\PriceListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Product\Other\ProductRemainsViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\Product\Sales\ProductSaleViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\SalaryReportListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Salary\SalaryReportViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\Mocks\MockStaffListViewModel.cs" />
     <Compile Include="ViewModel\MainMenu\SalaryAndStaff\Staff\Mocks\MockStaffViewModel.cs" />
@@ -397,14 +406,17 @@
     <Compile Include="View\MainMenu\Car\Car\PurchaseFromCounteragentView.xaml.cs">
       <DependentUpon>PurchaseFromCounteragentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu\Car\Other\EquipmentListView.xaml.cs">
+      <DependentUpon>EquipmentListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainMenu\Car\Salon\CarInSalonView.xaml.cs">
       <DependentUpon>CarInSalonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Car\Salon\CarInSalonListView.xaml.cs">
       <DependentUpon>CarInSalonListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainMenu\Car\Other\Equipment.xaml.cs">
-      <DependentUpon>Equipment.xaml</DependentUpon>
+    <Compile Include="View\MainMenu\Car\Other\EquipmentView.xaml.cs">
+      <DependentUpon>EquipmentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenu\Home\Counteragent\CounteragentListView.xaml.cs">
       <DependentUpon>CounteragentListView.xaml</DependentUpon>
@@ -445,6 +457,9 @@
     <Compile Include="View\MainMenu\Product\Sales\ProductSaleView.xaml.cs">
       <DependentUpon>ProductSaleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesListView.xaml.cs">
+      <DependentUpon>AccrualOfSalariesListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesView.xaml.cs">
       <DependentUpon>AccrualOfSalariesView.xaml</DependentUpon>
     </Compile>
@@ -480,6 +495,10 @@
       <DependentUpon>WindowTopButtonsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MenuDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -619,6 +638,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainMenu\Car\Other\EquipmentListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainMenu\Car\Salon\CarInSalonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -627,7 +650,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainMenu\Car\Other\Equipment.xaml">
+    <Page Include="View\MainMenu\Car\Other\EquipmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -682,6 +705,10 @@
     <Page Include="View\MainMenu\Product\Sales\ProductSaleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainMenu\SalaryAndStaff\Salary\AccrualOfSalariesView.xaml">
       <SubType>Designer</SubType>
@@ -754,7 +781,9 @@
   <ItemGroup>
     <Folder Include="Infastructure\ViewModelLocators\Childrens\MainMenu\Manual\" />
     <Folder Include="Model\" />
+    <Folder Include="ViewModel\MainMenu\Car\Other\Mocks\" />
     <Folder Include="ViewModel\MainMenu\Manual\" />
+    <Folder Include="ViewModel\MainMenu\SalaryAndStaff\Salary\Mocks\" />
     <Folder Include="View\MainMenu\Manual\" />
   </ItemGroup>
   <ItemGroup>

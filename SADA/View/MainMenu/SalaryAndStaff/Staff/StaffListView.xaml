@@ -98,8 +98,8 @@
                                      DisplayMemberPath="Name"
                                      SelectedValuePath="ID"
                                      hc:InfoElement.Placeholder="Выберите роль"
-                                     ItemsSource="{Binding StaffRoleCollection.Collection}"
-                                     SelectedItem="{Binding StaffRoleCollection.Selected, Mode=TwoWay}"
+                                     ItemsSource="{Binding StaffRoles.Collection}"
+                                     SelectedItem="{Binding StaffRoles.Selected, Mode=TwoWay}"
                                      hc:InfoElement.ShowClearButton="True"
                                      Width="225" />
 
@@ -144,7 +144,7 @@
 
             <!--Фильтры-->
             <Grid Grid.Column="1"
-                  Width="300"
+                  Width="0"
                   Grid.RowSpan="2"
                   x:Name="filterGrid">
                 <hc:UniformSpacingPanel Margin="8"
@@ -250,6 +250,7 @@
                       Margin="0 0 0 8"
                       SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
                       RowHeaderWidth="60"
+                      RowHeight="120"
                       CanUserAddRows="False"
                       IsReadOnly="True"
                       ItemsSource="{Binding Entities}"
@@ -279,6 +280,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type DataLayer:Staff}">
                                 <Ellipse Height="100"
+                                         Stroke="{DynamicResource PrimaryBlueBrush}"
+                                         StrokeThickness="2"
                                          Width="100">
                                     <Ellipse.Fill>
                                         <ImageBrush ImageSource="{Binding File.Data}"

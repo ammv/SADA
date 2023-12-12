@@ -4,6 +4,7 @@ using SADA.Infastructure.Core;
 using SADA.Infastructure.Messages;
 using SADA.Services;
 using SADA.ViewModel.MainMenu.Car.Car;
+using SADA.ViewModel.MainMenu.Car.Other;
 using SADA.ViewModel.MainMenu.Car.Salon;
 using SADA.ViewModel.Start;
 using System;
@@ -12,17 +13,25 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 {
     public class CarDialogViewModel : DialogBase
     {
-        private readonly ITabService _tabService;
         #region Constructor
 
-        public CarDialogViewModel(ITabService tabService = null) : base()
+        public CarDialogViewModel(ITabService tabService = null) : base(tabService)
         {
-            TestCommand = new RelayCommand(_TestCommand);
-            PayToCounteragentCommand = new RelayCommand(_PayToCounteragentCommand);
-            PurchaseFromCounteragentCommand = new RelayCommand(_PurchaseFromCounteragentCommand);
-            CarInSalonCommand = new RelayCommand(_CarInSalonCommand);
-            EquipmentCommand = new RelayCommand(_EquipmentCommand);
-            _tabService = tabService;
+            //TestCommand = new RelayCommand(_TestCommand);
+            //PayToCounteragentCommand = new RelayCommand(_PayToCounteragentCommand);
+            //PurchaseFromCounteragentCommand = new RelayCommand(_PurchaseFromCounteragentCommand);
+            //CarInSalonCommand = new RelayCommand(_CarInSalonCommand);
+            //EquipmentCommand = new RelayCommand(_EquipmentCommand);
+
+            NavigationGroups.Add(new NavigationGroup("Автомобили")
+                .Add(_PayToCounteragentCommand, "Оплата контрагентам за автомобиль")
+                .Add(_PurchaseFromCounteragentCommand, "Плата от контрагентов за автомобиль"));
+
+            NavigationGroups.Add(new NavigationGroup("Салон")
+                .Add(_CarInSalonCommand, "Автомобили в салоне"));
+
+            NavigationGroups.Add(new NavigationGroup("Прочее")
+                .Add(_EquipmentCommand, "Оплата контрагентам за автомобиль"));
         }
 
         #endregion Constructor
@@ -63,7 +72,7 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 
         private void _EquipmentCommand()
         {
-            _tabService.OpenTab<TestViewModel>(nameof(TestViewModel));
+            _tabService.OpenTab<EquipmentListViewModel>("Комплектации автомобилей");
         }
 
         #endregion Commands implementations

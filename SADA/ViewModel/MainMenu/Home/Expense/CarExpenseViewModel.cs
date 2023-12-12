@@ -28,7 +28,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
         #region Main Form fields
 
         private IEnumerable<ExpenseGroup> _expenseGroups;
-        private IEnumerable<DataLayer.Car> _cars;
+        private ObservableCollection<DataLayer.Car> _cars;
         private ExpenseGroup _selectedExpenseGroup;
 
         #endregion Main Form fields
@@ -39,7 +39,6 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         public CarExpenseViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose);
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
@@ -62,7 +61,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             set => SetProperty(ref _expenseGroups, value);
         }
 
-        public IEnumerable<DataLayer.Car> Cars
+        public ObservableCollection<DataLayer.Car> Cars
         {
             get => _cars;
             set => SetProperty(ref _cars, value);
@@ -88,7 +87,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -103,17 +102,10 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             switch (type.Name)
             {
                 case nameof(DataLayer.Car):
-                    var vm = App.Current.GetService<Car.Salon.CarInSalonListViewModel>();
-                    vm.Name = "Выбор автомобиля";
-                    vm.CurrentListMode = ListMode.Select;
-                    vm.SelectAction = (car) =>
-                    {
-                        Entity.Car = _cars.FirstOrDefault(c => c.ID == car.ID);
-                    };
-                    _tabService.OpenTab(vm);
+                    _tabService.OpenTabForSelect<Car.Salon.CarInSalonListViewModel, DataLayer.Car>(
+                        "Выбор автомобиля", _cars, (e) => Entity.Car = e);
                     break;
             }
-            //OnPropertyChanged()
         }
 
         private void _FormCommand()
@@ -130,6 +122,12 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
                     }
 
                     _ctx.SaveChanges();
+
+                    if(_currentFormMode ==  FormMode.Add)
+                    {
+                        Entity = new CarExpense();
+                        Entity.Expense = new DataLayer.Expense();
+                    }
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
@@ -208,11 +206,11 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
                 .OrderByDescending(c => c.Name)
                 .ToList();
 
-            Cars = _ctx.Car
+            Cars = new ObservableCollection<DataLayer.Car>(_ctx.Car
                     .Include(c => c.CarEquipment)
                     .Include(c => c.CarEquipment.CarModel)
                     .Include(c => c.CarEquipment.CarModel.CarBrand)
-                    .ToList();
+                    .ToList());
 
             // Wait EF loading data
             Thread.Sleep(100);

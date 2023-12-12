@@ -3,15 +3,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace SADA.View.MainMenu.SalaryAndStaff.Staff
+namespace SADA.View.MainMenu.Car.Other
 {
     /// <summary>
-    /// Логика взаимодействия для StaffView.xaml
+    /// Логика взаимодействия для Equipment.xaml
     /// </summary>
-    public partial class StaffListView : UserControl
+    public partial class EquipmentListView : UserControl
     {
-
-        public StaffListView()
+        public EquipmentListView()
         {
             InitializeComponent();
         }

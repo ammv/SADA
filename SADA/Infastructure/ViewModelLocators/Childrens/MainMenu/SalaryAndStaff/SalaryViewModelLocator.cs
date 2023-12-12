@@ -11,11 +11,26 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.MainMenu.SalaryAndStaff
             {
                 if (IsInDesignMode())
                 {
-                    return new AccrualOfSalariesViewModel();
+                    return new AccrualOfSalariesViewModel(null, null);
                 }
                 else
                 {
                     return App.Current.GetService<AccrualOfSalariesViewModel>();
+                }
+            }
+        }
+
+        public AccrualOfSalariesListViewModel AccrualOfSalariesList
+        {
+            get
+            {
+                if (IsInDesignMode())
+                {
+                    return new AccrualOfSalariesListViewModel(null, null);
+                }
+                else
+                {
+                    return App.Current.GetService<AccrualOfSalariesListViewModel>();
                 }
             }
         }

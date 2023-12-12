@@ -35,7 +35,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-        public HomeDialogViewModel Home
+        public HomeDialogViewModel HomeDialog
         {
             get
             {
@@ -80,7 +80,7 @@ namespace SADA.Infastructure.ViewModelLocators.Childrens.Dialogs
             }
         }
 
-        public SalaryAndStaffDialogViewModel SalaryAndStaff
+        public SalaryAndStaffDialogViewModel SalaryAndStaffDialog
         {
             get
             {

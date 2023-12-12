@@ -172,6 +172,7 @@ namespace SADA
         private void СonfigureMainMenu_SalaryAndStaff(ServiceCollection services)
         {
             СonfigureMainMenu_SalaryAndStaff_Staff(services);
+            СonfigureMainMenu_SalaryAndStaff_Salary(services);
             //СonfigureMainMenu_Car_Income(services);
            // СonfigureMainMenu_Car_Counteragent(services);
         }
@@ -182,17 +183,24 @@ namespace SADA
             services.AddTransient<ViewModel.MainMenu.SalaryAndStaff.Staff.StaffViewModel>();
         }
 
+        private void СonfigureMainMenu_SalaryAndStaff_Salary(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.SalaryAndStaff.Salary.AccrualOfSalariesListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.SalaryAndStaff.Salary.AccrualOfSalariesViewModel>();
+        }
+
         private void СonfigureMainMenu_Home(ServiceCollection services)
         {
             СonfigureMainMenu_Home_Expense(services);
             //СonfigureMainMenu_Car_Income(services);
-            СonfigureMainMenu_Car_Counteragent(services);
+            СonfigureMainMenu_Home_Counteragent(services);
         }
 
         private void СonfigureMainMenu_Car(ServiceCollection services)
         {
             СonfigureMainMenu_Car_Salon(services);
             СonfigureMainMenu_Car_Car(services);
+            СonfigureMainMenu_Car_Other(services);
             
         }
 
@@ -204,7 +212,7 @@ namespace SADA
             services.AddTransient<ViewModel.MainMenu.Home.Expense.GeneralExpenseViewModel>();
         }
 
-        private void СonfigureMainMenu_Car_Counteragent(ServiceCollection services)
+        private void СonfigureMainMenu_Home_Counteragent(ServiceCollection services)
         {
             services.AddTransient<ViewModel.MainMenu.Home.Counteragent.CounteragentListViewModel>();
             services.AddTransient<ViewModel.MainMenu.Home.Counteragent.CounteragentViewModel>();
@@ -216,6 +224,12 @@ namespace SADA
         {
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonListViewModel>();
             services.AddTransient<ViewModel.MainMenu.Car.Salon.CarInSalonViewModel>();
+        }
+
+        private void СonfigureMainMenu_Car_Other(ServiceCollection services)
+        {
+            services.AddTransient<ViewModel.MainMenu.Car.Other.EquipmentListViewModel>();
+            services.AddTransient<ViewModel.MainMenu.Car.Other.EquipmentViewModel>();
         }
 
         private void СonfigureMainMenu_Car_Car(ServiceCollection services)

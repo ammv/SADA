@@ -4,6 +4,8 @@ using DataLayer;
 using FadeWpf;
 using SADA.Services;
 using SADA.View.Start;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SADA.ViewModel.Start
@@ -14,10 +16,12 @@ namespace SADA.ViewModel.Start
 
         public AuthViewModel(WindowFadeChanger windowFadeChanger, IUserService userService, IWindowService windowService)
         {
-            AuthCommand = new RelayCommand(_AuthCommand, _AuthCommandCanExecute);
+            AuthCommand = new AsyncRelayCommand(_AuthCommand, _AuthCommandCanExecute);
             this._windowFadeChanger = windowFadeChanger;
             this._userService = userService;
             this._windowService = windowService;
+
+            PropertyChanged += (s, e) => AuthCommand.NotifyCanExecuteChanged();
         }
 
         // For mock
@@ -35,6 +39,7 @@ namespace SADA.ViewModel.Start
         private readonly WindowFadeChanger _windowFadeChanger;
         private readonly IUserService _userService;
         private readonly IWindowService _windowService;
+        private bool _isLoading = false;
 
         #endregion Fields
 
@@ -64,51 +69,75 @@ namespace SADA.ViewModel.Start
             }
         }
 
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetProperty(ref _isLoading, value);
+        }
+
         #endregion Properties
 
         #region Commands
 
-        public RelayCommand AuthCommand { get; }
+        public AsyncRelayCommand AuthCommand { get; }
 
         #endregion Commands
 
         #region Command implementations8
 
-        private void _AuthCommand()
+        private async Task _AuthCommand()
         {
             //Window wnd = App.Current.MainWindow;
             //wnd.Hide();
             //(App.Current.Services.GetService(typeof(MainView)) as MainView).Show();
             //wnd.Close();
 
-            User user = _userService.GetUser(_login);
-            if (user == null)
-            {
-                //MessageBox.Show("Пользователь с таким логином не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                HandyControl.Controls.MessageBox.Show("Пользователь с таким логином не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (!_userService.CheckPassword(user, _password))
-            {
-                HandyControl.Controls.MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return;
-            }
+            IsLoading = true;
 
-            if(App.Current.CurrentUser?.ID != user.ID && App.Current.UserTabs != null)
-            {
-                App.Current.UserTabs.Clear();
-                App.Current.UserTabs = null;
-            }
-            App.Current.CurrentUser = user;
+            User user = null;
 
-            //_windowFadeChanger.Change(App.Current.MainWindow,
-            //    App.Current.Services.GetService(typeof(MainView)) as MainView);
-            _windowService.ShowAndCloseWindow<MainView>(_windowService.LastOpenedWindow);
+            await Task.Run(() =>
+            {
+                user = _userService.GetUser(_login);
+                if (user == null)
+                {
+                    //MessageBox.Show("Пользователь с таким логином не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                    HandyControl.Controls.MessageBox.Show("Пользователь с таким логином не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (!_userService.CheckPassword(user, _password))
+                {
+                    HandyControl.Controls.MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                    return;
+                }
+                if (user.Login != _login)
+                {
+                    HandyControl.Controls.MessageBox.Show("Неверный логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                    return;
+                }
+
+                
+            });
+
+
+            IsLoading = false;
+
+            if (user != null)
+            {
+                if (App.Current.CurrentUser?.ID != user.ID && App.Current.UserTabs != null)
+                {
+                    App.Current.UserTabs.Clear();
+                    App.Current.UserTabs = null;
+                }
+                App.Current.CurrentUser = user;
+
+                _windowService.ShowAndCloseWindow<MainView>(_windowService.LastOpenedWindow);
+            }
         }
 
         private bool _AuthCommandCanExecute()
         {
-            return !string.IsNullOrEmpty(_login) && !string.IsNullOrEmpty(_password);
+            return (!string.IsNullOrEmpty(_login) && !string.IsNullOrEmpty(_password)) || _isLoading;
         }
 
         #endregion Command implementations8

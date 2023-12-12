@@ -10,16 +10,28 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 {
     public class AdministrationDialogViewModel : DialogBase
     {
-        private readonly ITabService _tabService;
         #region Constructor
 
-        public AdministrationDialogViewModel(ITabService tabService = null) : base()
+        public AdministrationDialogViewModel(ITabService tabService = null) : base(tabService)
         {
             TestCommand = new RelayCommand(_TestCommand);
             EventJournalCommand = new RelayCommand(_EventJournalCommand);
             UsersCommand = new RelayCommand(_UsersCommand);
             UserRoleManagementCommand = new RelayCommand(_UserRoleManagementCommand);
-            _tabService = tabService;
+
+            NavigationGroup authGroup = new NavigationGroup("Вход");
+
+            authGroup.Add(_UsersCommand, "Пользователи");
+            authGroup.Add(_UserRoleManagementCommand, "Управление ролями");
+            
+
+
+            NavigationGroup journalGroup = new NavigationGroup("Журнал");
+
+            journalGroup.Add(_EventJournalCommand, "Журнал событий");
+
+            NavigationGroups.Add(authGroup);
+            NavigationGroups.Add(journalGroup);
         }
 
         #endregion Constructor

@@ -21,10 +21,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
         #region Fields
 
         #region Services fields
-
-        private readonly IDialogService _dialogService;
         private readonly IWindowService _windowService;
-        private readonly ITabService _tabService;
 
         #endregion Services fields
 
@@ -58,25 +55,17 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Constructor
 
-        public PurchaseFromCounteragentListViewModel(IDialogService dialogService, IWindowService windowService, ITabService tabService)
+        public PurchaseFromCounteragentListViewModel(IDialogService dialogService, ITabService tabService)
+            :base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<CarPaymentFromCounteragent>>.Make<PurchaseFromCounteragentViewModel>())
         {
-            CloseCommand = new RelayCommand(_OnClose);
-            OpenEntityFormCommand = new RelayCommand<FormMode>(_OpenEntityFormCommand);
-
-            SearchCommand = new RelayCommand(_SearchCommand);
-            SaveAsFileCommand = new RelayCommand(_SaveAsFileCommand);
-
-            ApplyFilterCommand = new RelayCommand(_ApplyFilterCommand);
-            ClearFilterCommand = new RelayCommand(_ClearFilterCommand);
-
-            _dialogService = dialogService;
-            _windowService = windowService;
-            _tabService = tabService;
+            AddTabName = (e) => "Добавление оплаты от контрагенту за автомобиль";
+            EditTabName = (e) => $"Изменение оплаты от контрагента за автомибиль №{e.ID}";
 
             _filter = new PayToCounteragentFilter();
         }
 
-        protected PurchaseFromCounteragentListViewModel() { }
+        protected PurchaseFromCounteragentListViewModel(): base(null, null, null)
+        { }
 
 
         #endregion Constructor
@@ -120,18 +109,11 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Commands
 
-        public RelayCommand<FormMode> OpenEntityFormCommand { get; }
-        public RelayCommand SearchCommand { get; }
-        public RelayCommand SaveAsFileCommand { get; }
-
-        public RelayCommand ApplyFilterCommand { get; }
-        public RelayCommand ClearFilterCommand { get; }
-
         #endregion Commands
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -141,7 +123,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
             }
         }
 
-        private void _SearchCommand()
+        protected override void _SearchCommand()
         {
             // Базовый поиск по типу оплаты, контрагенту
 
@@ -175,11 +157,11 @@ namespace SADA.ViewModel.MainMenu.Car.Car
             }
         }
 
-        private void _SaveAsFileCommand()
+        protected override void _SaveAsFileCommand()
         {
         }
 
-        private void _ApplyFilterCommand()
+        protected override void _ApplyFilterCommand()
         {
             try
             {
@@ -193,50 +175,9 @@ namespace SADA.ViewModel.MainMenu.Car.Car
             }
         }
 
-        private void _ClearFilterCommand()
+        protected override void _ClearFilterCommand()
         {
             _filter.FilterFieldsClear();
-        }
-
-        private void _OpenEntityFormCommand(FormMode parameter)
-        {
-            if (parameter == FormMode.Edit)
-            {
-                if (_selectedEntity == null)
-                {
-                    _dialogService.ShowMessageBox("Ошибка", "Вы не выбрали запись для редактирования", MessageBoxButton.OK);
-                    return;
-                }
-                var vm = App.Current.GetService<PurchaseFromCounteragentViewModel>();
-                vm.Name = $"Изменение оплаты от контрагента за авто №{_selectedEntity.ID}";
-                vm.Entity = SelectedEntity;
-                vm.CurrentFormMode = FormMode.Edit;
-                _tabService.OpenTab(vm);
-            }
-            else
-            {
-                var vm = App.Current.GetService<PurchaseFromCounteragentViewModel>();
-                vm.Name = "Добавление оплаты от контрагента за авто";
-                vm.CurrentFormMode = FormMode.Add;
-                _tabService.OpenTab(vm);
-            }
-        }
-
-        protected override async Task _PageUpdateCommand(HandyControl.Data.FunctionEventArgs<int> e)
-        {
-            try
-            {
-                MaxPage = _currentQuery.Count() / _dataCountPerPage;
-                Entities = new ObservableCollection<CarPaymentFromCounteragent>(
-                    await JoinBaseQuery(_currentQuery)
-                    .Skip((e.Info - 1) * _dataCountPerPage)
-                    .Take(_dataCountPerPage)
-                    .ToListAsync());
-            }
-            catch (DbEntityValidationException ex)
-            {
-                DbEntityValidationExceptionHelper.ShowException(ex);
-            }
         }
 
         protected override void LoadedInner()
@@ -289,7 +230,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Other
 
-        public IQueryable<CarPaymentFromCounteragent> JoinBaseQuery(IQueryable<CarPaymentFromCounteragent> query)
+        protected override IQueryable<CarPaymentFromCounteragent> JoinBaseQuery(IQueryable<CarPaymentFromCounteragent> query)
         {
             return query
                 .Include(c => c.Car)

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SADA.Services;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -7,22 +9,38 @@ namespace SADA.Infastructure.Core
 {
     public class DialogBase : ObservableObject
     {
+        #region Fields
+        protected readonly ITabService _tabService;
+        private List<NavigationGroup> _navigationGroups = new List<NavigationGroup>();
+        #endregion
+
         #region Constructor
 
-        public DialogBase()
+        public DialogBase(ITabService tabService)
         {
+            _tabService = tabService;
             LoadedCommand = new RelayCommand<UserControl>(_loadedCommand);
         }
 
-        #endregion Constructor
+        #endregion
+
+        #region Properties
+
+        public List<NavigationGroup> NavigationGroups
+        {
+            get => _navigationGroups;
+            set => SetProperty(ref _navigationGroups, value);
+        }
+
+        #endregion
 
         #region Commands
 
         public RelayCommand<UserControl> LoadedCommand { get; }
 
-        #endregion Commands
+        #endregion
 
-        #region Commands implementations
+        #region Command implementation
 
         private void _loadedCommand(UserControl uc)
         {
@@ -31,6 +49,11 @@ namespace SADA.Infastructure.Core
             Keyboard.Focus(uc);
         }
 
-        #endregion Commands implementations
+        #endregion
+
+        #region Other
+
+        #endregion
+
     }
 }

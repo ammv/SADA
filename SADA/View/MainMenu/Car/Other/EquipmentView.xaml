@@ -1,0 +1,227 @@
+﻿<UserControl x:Class="SADA.View.MainMenu.Car.Other.EquipmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+             xmlns:valid="clr-namespace:SADA.Infastructure.Validators"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d"
+             d:DataContext="{Binding MainMenuVml.CarVml.OtherVml.Equipment, Source={StaticResource mainViewModelLocator}}"
+             d:DesignHeight="1040"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <win:GridLength x:Key="SpaceSize">8</win:GridLength>
+    </UserControl.Resources>
+    <Grid Margin="0 0 8 0">
+        <Grid VerticalAlignment="Center"
+              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <hc:LoadingCircle DotSpeed="3" />
+                <TextBlock Text="Подождите, данные загружаются"
+                           Margin="0 10 0 0"
+                           Style="{StaticResource TextBlockDefault}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+              Background="{DynamicResource RegionBrush}">
+            <hc:ScrollViewer hc:ScrollViewerAttach.Orientation="Vertical"
+                             Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}}"
+                             Margin="0 8 0 0"
+                             hc:ScrollViewer.IsInertiaEnabled="True">
+
+                <hc:UniformSpacingPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalSpacing="16">
+
+                    <GroupBox Header="Главное">
+                        <hc:UniformSpacingPanel Orientation="Horizontal"
+                                                ChildWrapping="Wrap"
+                                                ItemWidth="300"
+                                                HorizontalAlignment="Center"
+                                                HorizontalSpacing="16"
+                                                VerticalSpacing="16">
+                            <hc:TextBox hc:TitleElement.Title="№ п/п"
+                                        IsReadOnly="True"
+                                        BorderThickness="0"
+                                        hc:InfoElement.Placeholder="Еще не присвоен"
+                                        Text="{Binding Entity.ID}" />
+
+                            <hc:ComboBox hc:TitleElement.Title="Марка автомобиля"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите марку автомобиля"
+                                         ItemsSource="{Binding CarBrands.Collection}"
+                                         SelectedItem="{Binding CarBrands.Selected, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+                            
+                            <hc:ComboBox hc:TitleElement.Title="Модель автомобиля"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите модель автомобиля"
+                                         ItemsSource="{Binding CarBrands.Selected.CarModel}"
+                                         SelectedItem="{Binding Entity.CarModel, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:TextBox hc:TitleElement.Title="Название"
+                                        hc:InfoElement.Placeholder="Введите название"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        MaxLength="256"
+                                        Text="{Binding Entity.Name, Mode=TwoWay}" />
+
+                            <hc:ComboBox hc:TitleElement.Title="Кузов"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите кузов"
+                                         ItemsSource="{Binding CarBodies}"
+                                         SelectedItem="{Binding Entity.CarBody, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:ComboBox hc:TitleElement.Title="Коробка передач"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите коробку передач"
+                                         ItemsSource="{Binding CarTransmissions}"
+                                         SelectedItem="{Binding Entity.CarTransmission, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:TextBox hc:TitleElement.Title="Вместимость двигателя"
+                                        hc:InfoElement.Placeholder="Введите вместимость двигателя"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        MaxLength="256"
+                                        Text="{Binding Entity.EngineCapacity, Converter={StaticResource StringToNumberConverter},Mode=TwoWay}" />
+
+                            <hc:TextBox hc:TitleElement.Title="Мощность двигателя"
+                                        hc:InfoElement.Placeholder="Введите мощность двигателя"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        MaxLength="256"
+                                        Text="{Binding Entity.EnginePower, Converter={StaticResource StringToNumberConverter},Mode=TwoWay}" />
+                            
+                            <hc:ComboBox hc:TitleElement.Title="Марка топлива"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите мраку топлива"
+                                         ItemsSource="{Binding CarFuels}"
+                                         SelectedItem="{Binding Entity.CarFuel, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+                            <hc:TextBox hc:TitleElement.Title="Расход"
+                                        hc:InfoElement.Placeholder="Введите расход (формат xxxx.xx)"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        MaxLength="256"
+                                        Text="{Binding Entity.Consumption, Converter={StaticResource StringToNumberConverter},Mode=TwoWay}" />
+
+                            <hc:TextBox hc:TitleElement.Title="Разгон"
+                                        hc:InfoElement.Placeholder="Введите разгон (формат xxxx.x)"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        MaxLength="256"
+                                        Text="{Binding Entity.Acceleration, Converter={StaticResource StringToNumberConverter},Mode=TwoWay}" />
+
+
+                            <hc:ComboBox hc:TitleElement.Title="Тип привода"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID"
+                                         hc:InfoElement.Placeholder="Выберите тип привода"
+                                         ItemsSource="{Binding CarDrives}"
+                                         SelectedItem="{Binding Entity.CarDrive, Mode=TwoWay}"
+                                         hc:InfoElement.ShowClearButton="True" />
+
+
+
+                        </hc:UniformSpacingPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Атрибуты"
+                              Height="Auto"
+                              MaxHeight="300">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <hc:SimpleStackPanel Orientation="Horizontal"
+                                                 HorizontalAlignment="Center">
+                                <Button Content="Добавить"
+                                        Margin="0 0 8 0" />
+                                <Button Content="Удалить"
+                                        Margin="0 0 16 0" />
+                            </hc:SimpleStackPanel>
+
+                            <DataGrid HeadersVisibility="All"
+                                      Margin="0 8 0 0"
+                                      Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+                                      Grid.Row="1"
+                                      hc:BorderElement.CornerRadius="0 0 0 0"
+                                      SelectedItem="{Binding SelectedCounteragentContactPerson, Mode=TwoWay}"
+                                      RowHeaderWidth="60"
+                                      CanUserAddRows="False"
+                                      hc:DataGridAttach.ShowRowNumber="True"
+                                      IsReadOnly="True"
+                                      ItemsSource="{Binding CarEquipmentGroupAttributes}"
+                                      AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№ п/п"
+                                                        Binding="{Binding ID}" />
+                                    <DataGridTextColumn Header="Группа"
+                                                        Binding="{Binding CarGroupAttribute.Name}" />
+                                    <DataGridTextColumn Header="Атрибут"
+                                                        Binding="{Binding CarAttribute.Name}" />
+                                    <DataGridTextColumn Header="Значение"
+                                                        Binding="{Binding Value}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+
+                    <hc:SimplePanel>
+                        <Button Style="{DynamicResource ButtonPrimary}"
+                                Command="{Binding FormCommand}"
+                                Content="{Binding CurrentFormMode, Converter={StaticResource FormModeToStringConverter}}" />
+                    </hc:SimplePanel>
+                </hc:UniformSpacingPanel>
+            </hc:ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>  

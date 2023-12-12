@@ -27,9 +27,9 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Main Form fields
 
-        private IEnumerable<Counteragent> _counteragents;
+        private ObservableCollection<Counteragent> _counteragents;
         private IEnumerable<PaymentType> _paymentTypes;
-        private IEnumerable<DataLayer.Car> _cars;
+        private ObservableCollection<DataLayer.Car> _cars;
 
         #endregion Main Form fields
 
@@ -39,7 +39,6 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         public PurchaseFromCounteragentViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose);
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
@@ -56,7 +55,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Main Form properties
 
-        public IEnumerable<Counteragent> Counteragents
+        public ObservableCollection<Counteragent> Counteragents
         {
             get => _counteragents;
             set => SetProperty(ref _counteragents, value);
@@ -68,7 +67,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
             set => SetProperty(ref _paymentTypes, value);
         }
 
-        public IEnumerable<DataLayer.Car> Cars
+        public ObservableCollection<DataLayer.Car> Cars
         {
             get => _cars;
             set => SetProperty(ref _cars, value);
@@ -94,7 +93,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -109,17 +108,14 @@ namespace SADA.ViewModel.MainMenu.Car.Car
             switch (type.Name)
             {
                 case nameof(DataLayer.Car):
-                    var vm = App.Current.GetService<Salon.CarInSalonListViewModel>();
-                    vm.Name = "Выбор автомобиля";
-                    vm.CurrentListMode = ListMode.Select;
-                    vm.SelectAction = (car) =>
-                    {
-                        Entity.Car = _cars.FirstOrDefault(c => c.ID == car.ID);
-                    };
-                    _tabService.OpenTab(vm);
+                    _tabService.OpenTabForSelect<Salon.CarInSalonListViewModel, DataLayer.Car>(
+                        "Выбор автомобиля", _cars, (e) => Entity.Car = e);
+                    break;
+                case nameof(DataLayer.Counteragent):
+                    _tabService.OpenTabForSelect<Home.Counteragent.CounteragentListViewModel, DataLayer.Counteragent>(
+                        "Выбор контрагента", _counteragents, (e) => Entity.Counteragent = e);
                     break;
             }
-            //OnPropertyChanged()
         }
 
         private void _FormCommand()
@@ -136,6 +132,12 @@ namespace SADA.ViewModel.MainMenu.Car.Car
                     }
 
                     _ctx.SaveChanges();
+
+                    if (_currentFormMode == FormMode.Add)
+                    {
+                        Entity = new CarPaymentFromCounteragent();
+                        Entity.Date = DateTime.Now;
+                    }
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
@@ -209,7 +211,7 @@ namespace SADA.ViewModel.MainMenu.Car.Car
                 //SelectedCarEquipment = Entity.CarEquipment;
             }
 
-            Counteragents = _ctx.Counteragent
+            Counteragents = new ObservableCollection<Counteragent>(_ctx.Counteragent
                 .Include(c => c.CounteragentType)
                 .Include(c => c.CounteragentGroup)
                 .Include(c => c.IndividualPerson)
@@ -217,17 +219,17 @@ namespace SADA.ViewModel.MainMenu.Car.Car
                 .Include(c => c.JuridicalPerson)
                 .OrderByDescending(c => c.CounteragentGroup.Name)
                 .OrderByDescending(c => c.CounteragentType.Name)
-                .ToList();
+                .ToList());
 
             PaymentTypes = _ctx.PaymentType
                 .OrderByDescending(c => c.Name)
                 .ToList();
 
-            Cars = _ctx.Car
+            Cars = new ObservableCollection<DataLayer.Car>(_ctx.Car
                     .Include(c => c.CarEquipment)
                     .Include(c => c.CarEquipment.CarModel)
                     .Include(c => c.CarEquipment.CarModel.CarBrand)
-                    .ToList();
+                    .ToList());
 
             // Wait EF loading data
             Thread.Sleep(100);

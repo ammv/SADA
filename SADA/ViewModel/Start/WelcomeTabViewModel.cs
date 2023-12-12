@@ -8,11 +8,10 @@ namespace SADA.ViewModel.Start
     {
         public WelcomeTabViewModel()
         {
-            CloseCommand = new RelayCommand(_OnClose);
             Name = "Приветствие";
         }
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = HandyControl.Controls.MessageBox.Show($"Закрыть вкладку {Name}?", "Question", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)

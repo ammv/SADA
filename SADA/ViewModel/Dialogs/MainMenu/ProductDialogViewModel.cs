@@ -9,17 +9,25 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 {
     public class ProductDialogViewModel : DialogBase
     {
-        private readonly ITabService _tabService;
         #region Constructor
 
-        public ProductDialogViewModel(ITabService tabService = null) : base()
+        public ProductDialogViewModel(ITabService tabService = null) : base(tabService)
         {
-            TestCommand = new RelayCommand(_TestCommand);
-            ProductIncomeCommand = new RelayCommand(_ProductIncomeCommand);
-            ProductSaleCommand = new RelayCommand(_ProductSaleCommand);
-            PriceListCommand = new RelayCommand(_PriceListCommand);
-            ProductRemainsCommand = new RelayCommand(_ProductRemainsCommand);
-            _tabService = tabService;
+            //TestCommand = new RelayCommand(_TestCommand);
+            //ProductIncomeCommand = new RelayCommand(_ProductIncomeCommand);
+            //ProductSaleCommand = new RelayCommand(_ProductSaleCommand);
+            //PriceListCommand = new RelayCommand(_PriceListCommand);
+            //ProductRemainsCommand = new RelayCommand(_ProductRemainsCommand);
+
+            NavigationGroups.Add(new NavigationGroup("Продажи")
+                .Add(_ProductSaleCommand, "Продажи товаров"));
+
+            NavigationGroups.Add(new NavigationGroup("Приходы")
+                .Add(_ProductIncomeCommand, "Приходы товаров"));
+
+            NavigationGroups.Add(new NavigationGroup("Прочее")
+                .Add(_PriceListCommand, "Прайс-лист")
+                .Add(_ProductRemainsCommand, "Остатки товаров"));
         }
 
         #endregion Constructor
@@ -28,14 +36,14 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 
         #region Commands
 
-        public RelayCommand TestCommand { get; }
+        //public RelayCommand TestCommand { get; }
 
-        public RelayCommand ProductIncomeCommand { get; }
+        //public RelayCommand ProductIncomeCommand { get; }
 
-        public RelayCommand ProductSaleCommand { get; }
+        //public RelayCommand ProductSaleCommand { get; }
 
-        public RelayCommand PriceListCommand { get; }
-        public RelayCommand ProductRemainsCommand { get; }
+        //public RelayCommand PriceListCommand { get; }
+        //public RelayCommand ProductRemainsCommand { get; }
 
         #endregion Commands
 

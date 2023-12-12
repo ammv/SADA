@@ -38,7 +38,6 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         public GeneralExpenseViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose);
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
@@ -81,7 +80,7 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -123,6 +122,12 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
                     }
 
                     _ctx.SaveChanges();
+
+                    if (_currentFormMode == FormMode.Add)
+                    {
+                        Entity = new DataLayer.Expense();
+
+                    }
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }

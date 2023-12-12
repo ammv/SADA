@@ -86,13 +86,13 @@
                        Style="{DynamicResource TextBlockLargeBold}" />
 
             <hc:TextBox Grid.Row="5"
-                        hc:TitleElement.Title="Login"
+                        hc:TitleElement.Title="Логин"
                         Grid.Column="1"
                         Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
 
             <hc:PasswordBox Grid.Row="7"
                             VerticalAlignment="Bottom"
-                            hc:TitleElement.Title="Password"
+                            hc:TitleElement.Title="Пароль"
                             IsSafeEnabled="False"
                             UnsafePassword="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                             Grid.Column="1" />

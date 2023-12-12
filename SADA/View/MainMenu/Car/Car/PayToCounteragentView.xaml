@@ -159,29 +159,6 @@
                                         hc:InfoElement.ShowClearButton="True"
                                         Text="{Binding Entity.Note, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
 
-                            <!--<hc:DateTimePicker hc:TitleElement.Title="Дата"
-                                           hc:InfoElement.Placeholder="Выберите дату прибытия"
-                                           SelectedDateTime="{Binding Entity.SaleDate, Mode=TwoWay}" />-->
-
-                            <!--<Grid>
-                                -->
-                            <!--Add StringToDecimalConverter-->
-                            <!--
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                
-                                <Button Grid.Column="2"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
-                                        CommandParameter="{x:Type dataLayer:CarEquipment}"
-                                        Command="{Binding OpenTypeListCommand}"
-                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
-                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
-                            </Grid>-->
-
                         </hc:UniformSpacingPanel>
                     </GroupBox>
                     <hc:SimplePanel>

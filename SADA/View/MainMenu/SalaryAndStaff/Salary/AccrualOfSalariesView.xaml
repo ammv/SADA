@@ -1,11 +1,161 @@
 ﻿<UserControl x:Class="SADA.View.MainMenu.SalaryAndStaff.Salary.AccrualOfSalariesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SADA.View.MainMenu.SalaryAndStaff.Salary"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:dataLayer="clr-namespace:DataLayer;assembly=DataLayer"
+             xmlns:valid="clr-namespace:SADA.Infastructure.Validators"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DataContext="{Binding MainMenuVml.SalaryAndStaffVml.SalaryVml.AccrualOfSalaries, Source={StaticResource mainViewModelLocator}}"
+             d:DesignHeight="1040"
+             d:DesignWidth="1600">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+        <sys:Boolean x:Key="True">True</sys:Boolean>
+        <sys:Boolean x:Key="False">False</sys:Boolean>
+
+        <Storyboard x:Key="animationOut">
+            <DoubleAnimation From="0"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="300">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="animationIn">
+            <DoubleAnimation From="300"
+                             Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="filterGrid"
+                             Duration="0:0:0.5"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn"
+                                 Oscillations="5"
+                                 Springiness="4" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <win:GridLength x:Key="SpaceSize">8</win:GridLength>
+    </UserControl.Resources>
+    <Grid Margin="0 0 8 0">
+        <Grid VerticalAlignment="Center"
+              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <hc:LoadingCircle DotSpeed="3" />
+                <TextBlock Text="Подождите, данные загружаются"
+                           Margin="0 10 0 0"
+                           Style="{StaticResource TextBlockDefault}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={StaticResource True}}"
+              Background="{DynamicResource RegionBrush}">
+            <hc:ScrollViewer hc:ScrollViewerAttach.Orientation="Vertical"
+                             HorizontalAlignment="Center"
+                             Margin="0 8 0 0"
+                             hc:ScrollViewer.IsInertiaEnabled="True">
+
+                <hc:UniformSpacingPanel Orientation="Vertical"
+                                        HorizontalAlignment="Center"
+                                        VerticalSpacing="16">
+
+                    <GroupBox Header="Главное">
+                        <hc:UniformSpacingPanel Orientation="Vertical"
+                                                ChildWrapping="Wrap"
+                                                ItemWidth="300"
+                                                HorizontalAlignment="Center"
+                                                HorizontalSpacing="16"
+                                                VerticalSpacing="16">
+
+                            <hc:ComboBox hc:TitleElement.Title="Тип"
+                                         hc:InfoElement.Placeholder="Выберите тип зарплаты"
+                                         hc:InfoElement.ShowClearButton="True"
+                                         ItemsSource="{Binding SalaryTypes}"
+                                         SelectedItem="{Binding Entity.SalaryType, Mode=TwoWay}"
+                                         DisplayMemberPath="Name"
+                                         SelectedValuePath="ID" />
+
+
+
+                            <hc:ComboBox hc:TitleElement.Title="Сотрудник"
+                                         hc:InfoElement.Placeholder="Выберите сотрудника"
+                                         hc:InfoElement.ShowClearButton="True"
+                                         ItemsSource="{Binding Staffs}"
+                                         ItemTemplate="{StaticResource StaffItemTemplate}"
+                                         SelectedItem="{Binding Entity.Staff, Mode=TwoWay}"
+                                         SelectedValuePath="ID" />
+
+
+                            <Grid>
+                                <!--Add StringToDecimalConverter-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="{StaticResource SpaceSize}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <hc:ComboBox hc:TitleElement.Title="Автомобиль"
+                                             hc:InfoElement.Placeholder="Выберите автомобиль"
+                                             hc:InfoElement.ShowClearButton="True"
+                                             ItemsSource="{Binding Cars}"
+                                             SelectedItem="{Binding Entity.Car, Mode=TwoWay}"
+                                             ItemTemplate="{DynamicResource CarExtendItemTemplate}"
+                                             SelectedValuePath="ID" />
+                                <Button Grid.Column="2"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        CommandParameter="{x:Type dataLayer:Car}"
+                                        Command="{Binding OpenTypeListCommand}"
+                                        hc:IconElement.Geometry="{DynamicResource SearchIcon}"
+                                        Style="{DynamicResource ButtonDefaultIconGood2}" />
+                            </Grid>
+
+                            <hc:TextBox hc:TitleElement.Title="Сумма"
+                                        hc:InfoElement.Necessary="True"
+                                        hc:InfoElement.Placeholder="Введите сумму"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.Sum, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
+
+                            <hc:DatePicker hc:TitleElement.Title="Дата выдачи"
+                                               Style="{DynamicResource DatePickerExtend}"
+                                               VerticalAlignment="Bottom"
+                                               hc:InfoElement.Necessary="True"
+                                               hc:InfoElement.Placeholder="Выберите дату выдачи"
+                                               SelectedDate="{Binding Entity.Date, Mode=TwoWay}" />
+
+                            <hc:TextBox hc:TitleElement.Title="Заметка"
+                                        TextWrapping="Wrap"
+                                        Height="100"
+                                        TextAlignment="Left"
+                                        VerticalContentAlignment="Top"
+                                        hc:InfoElement.Placeholder="Введите заметку (до 256 символов)"
+                                        hc:InfoElement.ShowClearButton="True"
+                                        Text="{Binding Entity.Note, Converter={StaticResource StringToNumberConverter}, Mode=TwoWay}" />
+
+                        </hc:UniformSpacingPanel>
+                    </GroupBox>
+                    <hc:SimplePanel>
+                        <Button Style="{DynamicResource ButtonPrimary}"
+                                Command="{Binding FormCommand}"
+                                Content="{Binding CurrentFormMode, Converter={StaticResource FormModeToStringConverter}}" />
+                    </hc:SimplePanel>
+                </hc:UniformSpacingPanel>
+            </hc:ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

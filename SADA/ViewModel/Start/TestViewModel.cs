@@ -12,10 +12,9 @@ namespace SADA.ViewModel.Start
         public TestViewModel()
         {
             ButtonText = DateTime.Now.ToLongTimeString();
-            CloseCommand = new RelayCommand(_OnClose);
         }
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = HandyControl.Controls.MessageBox.Show($"Закрыть вкладку {Name}?", "Question", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)

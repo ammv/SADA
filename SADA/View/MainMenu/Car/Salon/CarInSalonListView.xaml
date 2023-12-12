@@ -83,7 +83,7 @@
                                             ItemVerticalAlignment="Bottom">
                         <Button Content="Создать"
                                 CommandParameter="{x:Static enums:FormMode.Add}"
-                                Command="{Binding OpenCarFormCommand}"
+                                Command="{Binding OpenEntityFormCommand}"
                                 ToolTip="Создать новую запись Автомобиль" />
                     </hc:UniformSpacingPanel>
 
@@ -133,7 +133,7 @@
                                             ItemVerticalAlignment="Center">
                         <Button Content="Сохранить в файл"
                                 CommandParameter="{x:Static enums:FormMode.Add}"
-                                Command="{Binding OpenCarFormCommand}"
+                                Command="{Binding SaveAsFileCommand}"
                                 ToolTip="Создать новую запись Автомобиль"/>
                     </hc:UniformSpacingPanel>
                 </hc:UniformSpacingPanel>
@@ -237,14 +237,14 @@
                       ItemsSource="{Binding Entities}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="MouseDoubleClick">
-                        <intr:InvokeCommandAction Command="{Binding OpenCarFormCommand}"
+                        <intr:InvokeCommandAction Command="{Binding OpenEntityFormCommand}"
                                                   CommandParameter="{x:Static enums:FormMode.Edit}" />
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <hc:ContextMenuButton Content="Изменить"
-                                              Command="{Binding OpenCarFormCommand}"
+                                              Command="{Binding OpenEntityFormCommand}"
                                               CommandParameter="{x:Static enums:FormMode.Edit}" />
                         <hc:ContextMenuButton Content="Копировать данные" />
                         <hc:ContextMenuButton Content="Сделать дупликат" />

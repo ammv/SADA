@@ -56,7 +56,6 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
         public CounteragentViewModel(IDialogService dialogService, ITabService tabService)
         {
-            CloseCommand = new RelayCommand(_OnClose);
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
 
@@ -172,7 +171,7 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -273,6 +272,12 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
                     Entity.CounteragentContactPerson = _counteragentContactPersons;
 
                     _ctx.SaveChanges();
+
+                    if(_currentFormMode == FormMode.Add)
+                    {
+                        Entity = new DataLayer.Counteragent();
+                    }
+                    
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }

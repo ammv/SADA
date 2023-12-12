@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using DataLayer;
+using HandyControl.Controls;
 using SADA.Helpers;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Core.Enums;
@@ -9,10 +10,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Window = System.Windows.Window;
 
 namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 {
@@ -43,10 +48,10 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
         #region Constructor
 
         public StaffViewModel(IDialogService dialogService, ITabService tabService)
-        {
-            CloseCommand = new RelayCommand(_OnClose);
+        {;
             FormCommand = new RelayCommand(_FormCommand);
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
+            OpenImageBrowserCommand = new RelayCommand(_OpenImageBrowserCommand);
 
             AddImageCommand = new RelayCommand(_AddImageCommand);
             DeleteImageCommand = new RelayCommand(_DeleteImageCommand);
@@ -112,10 +117,15 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
         public RelayCommand AddImageCommand { get; }
 
         public RelayCommand DeleteImageCommand { get; }
+        public RelayCommand OpenImageBrowserCommand { get; }
 
         #endregion Commands
 
         #region Command implementation
+
+        private void _OpenImageBrowserCommand()
+        {
+        }
 
         private void _AddImageCommand()
         {
@@ -123,7 +133,15 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 
             try
             {
-                if (Entity.File == null) Entity.File = new File();
+                if (imageFiles == null) return;
+                if (Entity.File == null)
+                {
+                    Entity.File = new DataLayer.File
+                    {
+                        FileID = Guid.NewGuid()
+                    };
+                } 
+
                 Entity.File.Data = System.IO.File.ReadAllBytes(imageFiles[0].FullName);
             }
             catch (Exception ex)
@@ -141,7 +159,7 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
             Entity.File.Data = null;
         }
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -183,6 +201,15 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
                     }
 
                     _ctx.SaveChanges();
+
+                    if(_currentFormMode == FormMode.Add)
+                    {
+                        Entity = new DataLayer.Staff
+                        {
+                            IsDeleted = false
+                        };
+                        Entity.Passport = new Passport();
+                    }
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
@@ -270,6 +297,9 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
             StaffPosts = _ctx.StaffPost
                 .ToList();
 
+            PassportGivers = _ctx.PassportGiver
+                .ToList();
+
             // Wait EF loading data
             Thread.Sleep(100);
         }
@@ -284,7 +314,10 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
                     switch (value)
                     {
                         case FormMode.Add:
-                            _entity = new DataLayer.Staff();
+                            _entity = new DataLayer.Staff
+                            {
+                                IsDeleted = false
+                            };
                             _entity.Passport = new Passport();
                             break;
                     }

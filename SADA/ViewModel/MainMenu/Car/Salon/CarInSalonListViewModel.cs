@@ -22,10 +22,6 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Services fields
 
-        private readonly IDialogService _dialogService;
-        private readonly IWindowService _windowService;
-        private readonly ITabService _tabService;
-
         #endregion Services fields
 
         #region IEnumerables fields
@@ -55,31 +51,20 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #endregion Filter fields
 
-
-
         #endregion Fields
 
         #region Constructor
 
-        public CarInSalonListViewModel(IDialogService dialogService, IWindowService windowService, ITabService tabService)
+        public CarInSalonListViewModel(IDialogService dialogService, ITabService tabService):
+            base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Car>>.Make<CarInSalonViewModel>())
         {
-            CloseCommand = new RelayCommand(_OnClose);
-            OpenCarFormCommand = new RelayCommand<FormMode>(_OpenCarFormCommand);
-
-            SearchCommand = new RelayCommand(_SearchCommand);
-            SaveAsFileCommand = new RelayCommand(_SaveAsFileCommand);
-
-            ApplyFilterCommand = new RelayCommand(_ApplyFilterCommand);
-            ClearFilterCommand = new RelayCommand(_ClearFilterCommand);
-
-            _dialogService = dialogService;
-            _windowService = windowService;
-            _tabService = tabService;
+            AddTabName = (e) => "Добавление автомобиля";
+            EditTabName = (e) => $"Изменение автомобиля №{e.ID}";
 
             _filter = new CarFilterMaker();
         }
 
-        protected CarInSalonListViewModel()
+        protected CarInSalonListViewModel(): base(null, null, null)
         { }
 
         #endregion Constructor
@@ -123,18 +108,11 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Commands
 
-        public RelayCommand<FormMode> OpenCarFormCommand { get; }
-        public RelayCommand SearchCommand { get; }
-        public RelayCommand SaveAsFileCommand { get; }
-
-        public RelayCommand ApplyFilterCommand { get; }
-        public RelayCommand ClearFilterCommand { get; }
-
         #endregion Commands
 
         #region Command implementation
 
-        private void _OnClose()
+        protected override void _OnClose()
         {
             var result = _dialogService.ShowMessageBox("Вопрос", $"Закрыть вкладку {Name}?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
@@ -144,7 +122,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             }
         }
 
-        private void _SearchCommand()
+        protected override void _SearchCommand()
         {
             // 1  - Ничего не выбрано
             // 2 - Только бренд
@@ -180,15 +158,13 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             {
                 DbEntityValidationExceptionHelper.ShowException(ex);
             }
-
-            
         }
 
-        private void _SaveAsFileCommand()
+        protected override void _SaveAsFileCommand()
         {
         }
 
-        private void _ApplyFilterCommand()
+        protected override void _ApplyFilterCommand()
         {
             try
             {
@@ -204,62 +180,11 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
             
         }
 
-        private void _ClearFilterCommand()
+        protected override void _ClearFilterCommand()
         {
             _filter.FilterFieldsClear();
         }
-
-        private void _OpenCarFormCommand(FormMode parameter)
-        {
-            if (_currentListMode == ListMode.Select && _selectedEntity != null)
-            {
-                _selectAction?.Invoke(_selectedEntity);
-                _RaiseCloseEvent();
-                return;
-            }
-
-            if (parameter == FormMode.Edit)
-            {
-                if (_selectedEntity == null)
-                {
-                    _dialogService.ShowMessageBox("Ошибка", "Вы не выбрали запись для редактирования", MessageBoxButton.OK);
-                    return;
-                }
-                var vm = App.Current.GetService<CarInSalonViewModel>();
-                vm.Name = $"Изменение автомобиля №{_selectedEntity.ID}";
-                vm.Entity = SelectedEntity;
-                vm.CurrentFormMode = FormMode.Edit;
-                _tabService.OpenTab(vm);
-            }
-            
-            else
-            {
-                var vm = App.Current.GetService<CarInSalonViewModel>();
-                vm.Name = "Добавление автомобиля";
-                vm.CurrentFormMode = FormMode.Add;
-                _tabService.OpenTab(vm);
-            }
-        }
-
-        protected override async Task _PageUpdateCommand(HandyControl.Data.FunctionEventArgs<int> e)
-        {
-            
-            try
-            {
-                MaxPage = _currentQuery.Count() / _dataCountPerPage;
-                Entities = new ObservableCollection<DataLayer.Car>(
-                    await JoinBaseQuery(_currentQuery)
-                    .Skip((e.Info - 1) * _dataCountPerPage)
-                    .Take(_dataCountPerPage)
-                    .ToListAsync());
-            }
-            catch (DbEntityValidationException ex)
-            {
-                DbEntityValidationExceptionHelper.ShowException(ex);
-            }
-        }
-        
-
+      
         protected override void LoadedInner()
         {
             try
@@ -288,7 +213,7 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
         #region Other
 
-        public IQueryable<DataLayer.Car> JoinBaseQuery(IQueryable<DataLayer.Car> query)
+        protected override IQueryable<DataLayer.Car> JoinBaseQuery(IQueryable<DataLayer.Car> query)
         {
             return query
                 .Include(c => c.CarStatus)

@@ -12,22 +12,32 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 {
     public class HomeDialogViewModel : DialogBase
     {
-        private readonly ITabService _tabService;
         #region Constructor
 
-        public HomeDialogViewModel(ITabService tabService = null) : base()
+        public HomeDialogViewModel(ITabService tabService = null) : base(tabService)
         {
-            TestCommand = new RelayCommand(_TestCommand);
+            //TestCommand = new RelayCommand(_TestCommand);
 
-            CounteragentCommand = new RelayCommand(_CounteragentCommand);
-            InteractionWithCounteragentCommand = new RelayCommand(_InteractionWithCounteragentCommand);
+            //CounteragentCommand = new RelayCommand(_CounteragentCommand);
+            //InteractionWithCounteragentCommand = new RelayCommand(_InteractionWithCounteragentCommand);
 
-            CarExpenseCommand = new RelayCommand(_CarExpenseCommand);
-            GeneralExpenseCommand = new RelayCommand(_GeneralExpenseCommand);
+            //CarExpenseCommand = new RelayCommand(_CarExpenseCommand);
+            //GeneralExpenseCommand = new RelayCommand(_GeneralExpenseCommand);
 
-            CarSaleIncomeCommand = new RelayCommand(_CarSaleIncomeCommand);
-            ProductSaleIncomeCommand = new RelayCommand(_ProductSaleIncomeCommand);
-            _tabService = tabService;
+            //CarSaleIncomeCommand = new RelayCommand(_CarSaleIncomeCommand);
+            //ProductSaleIncomeCommand = new RelayCommand(_ProductSaleIncomeCommand);
+
+            NavigationGroups.Add(new NavigationGroup("Расходы")
+                .Add(_CarExpenseCommand, "Расходы на авто")
+                .Add(_GeneralExpenseCommand, "Общие расходы"));
+
+            NavigationGroups.Add(new NavigationGroup("Доходы")
+                .Add(_ProductSaleIncomeCommand, "Доходы от продажи товаров"));
+
+            NavigationGroups.Add(new NavigationGroup("Контрагенты")
+                .Add(_CounteragentCommand, "Контрагенты")
+                .Add(_InteractionWithCounteragentCommand, "Взаимодействие с контрагентами"));
+
         }
 
         #endregion Constructor
@@ -36,16 +46,16 @@ namespace SADA.ViewModel.Dialogs.MainMenu
 
         #region Commands
 
-        public RelayCommand TestCommand { get; }
+        //public RelayCommand TestCommand { get; }
 
-        public RelayCommand CounteragentCommand { get; }
-        public RelayCommand InteractionWithCounteragentCommand { get; }
+        //public RelayCommand CounteragentCommand { get; }
+        //public RelayCommand InteractionWithCounteragentCommand { get; }
 
-        public RelayCommand CarExpenseCommand { get; }
-        public RelayCommand GeneralExpenseCommand { get; }
+        //public RelayCommand CarExpenseCommand { get; }
+        //public RelayCommand GeneralExpenseCommand { get; }
 
-        public RelayCommand CarSaleIncomeCommand { get; }
-        public RelayCommand ProductSaleIncomeCommand { get; }
+        //public RelayCommand CarSaleIncomeCommand { get; }
+        //public RelayCommand ProductSaleIncomeCommand { get; }
 
         #endregion Commands
 

@@ -115,7 +115,7 @@
                                          DisplayMemberPath="Login"
                                          SelectedValuePath="ID"
                                          hc:InfoElement.Placeholder="Выберите пользователь"
-                                         ItemsSource="{Binding StaffRoles}"
+                                         ItemsSource="{Binding Users}"
                                          SelectedItem="{Binding Entity.User, Mode=TwoWay}"
                                          hc:InfoElement.ShowClearButton="True" />
                         </hc:UniformSpacingPanel>
@@ -215,7 +215,7 @@
                             </Grid>
 
                             <hc:ComboBox hc:TitleElement.Title="Кем выдан"
-                                         DisplayMemberPath="Login"
+                                         DisplayMemberPath="Name"
                                          SelectedValuePath="ID"
                                          hc:InfoElement.Placeholder="Выберите орган выдавший пасспорт"
                                          ItemsSource="{Binding PassportGivers}"
@@ -243,7 +243,8 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="16" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <hc:SimpleStackPanel Orientation="Horizontal"
@@ -256,11 +257,26 @@
                                         Margin="0 0 16 0" />
                             </hc:SimpleStackPanel>
 
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding Entity.File.Data}" />
-                                </Ellipse.Fill>
-                            </Ellipse>
+
+                            <ContentControl Grid.Row="2">
+                                <Ellipse
+                                        Stroke="{DynamicResource PrimaryBlueBrush}"
+                                         Height="200"
+                                         StrokeDashArray="10,5,10"
+                                         StrokeThickness="2"
+                                         Width="200"
+                                         >
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Entity.File.Data}"
+                                                    Stretch="UniformToFill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <intr:Interaction.Triggers>
+                                    <intr:EventTrigger EventName="MouseDoubleClick">
+                                        <intr:InvokeCommandAction Command="{Binding OpenImageBrowserCommand}" />
+                                    </intr:EventTrigger>
+                                </intr:Interaction.Triggers>
+                            </ContentControl>
                         </Grid>
                     </GroupBox>
 
