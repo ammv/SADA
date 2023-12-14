@@ -55,10 +55,16 @@ namespace SADA.ViewModel.MainMenu.Car.Other
             :base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<CarEquipment>>.Make<EquipmentViewModel>())
         {
 
-            AddTabName = (e) => "Добавление комплектации автомобиля";
-            EditTabName = (e) => $"Изменение комплектации автомобиля №{e.ID}";
+            //AddTabName = (e) => "Добавление комплектации автомобиля";
+            //EditTabName = (e) => $"Изменение комплектации автомобиля №{e.ID}";
 
             _filter = new FilterMaker();
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Комплектации автомобилей" },
+                {ListMode.Select, "Выбор комплектации автомобиля" },
+            };
         }
 
         protected EquipmentListViewModel(): base(null, null, null)

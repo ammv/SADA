@@ -51,6 +51,18 @@ namespace SADA.ViewModel.MainMenu.Car.Other
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<CarEquipment, string>>
+            {
+                {FormMode.Add, (s) => "Добавление комплектакции автомобиля"},
+                {FormMode.Edit, (s) => $"Изменение комлектакции автомобиля №{s.Name} №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр комлектакции автомобиля №{s.Name} №{s.ID}"}
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new CarEquipment() }
+            };
         }
 
         protected EquipmentViewModel()
@@ -264,23 +276,6 @@ namespace SADA.ViewModel.MainMenu.Car.Other
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new CarEquipment();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

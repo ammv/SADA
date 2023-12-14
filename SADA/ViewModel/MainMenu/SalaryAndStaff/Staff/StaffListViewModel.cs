@@ -57,10 +57,16 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
             base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Staff>>.Make<StaffViewModel>())
         {
 
-            EditTabName = (e) => $"Изменение сотрудника №{_selectedEntity.ID}";
-            AddTabName = (e) => "Добавление сотрудника";
+            //EditTabName = (e) => $"Изменение сотрудника №{_selectedEntity.ID}";
+            //AddTabName = (e) => "Добавление сотрудника";
 
             _filter = new FilterMaker();
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Сотрудники" },
+                {ListMode.Select, "Выбор сотрудника" },
+            };
         }
 
         protected StaffListViewModel(): base(null, null, null)

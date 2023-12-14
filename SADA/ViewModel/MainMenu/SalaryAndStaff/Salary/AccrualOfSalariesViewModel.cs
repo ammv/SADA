@@ -50,6 +50,18 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Salary
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<DataLayer.Salary, string>>
+            {
+                {FormMode.Add, (s) => "Добавление начисления зарплаты"},
+                {FormMode.Edit, (s) => $"Изменение начисления зарплаты №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр начисления зарплаты №{s.ID}"}
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new DataLayer.Salary()}
+            };
         }
 
         protected AccrualOfSalariesViewModel()
@@ -135,11 +147,7 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Salary
 
                     _ctx.SaveChanges();
 
-                    if(_currentFormMode == FormMode.Add)
-                    {
-                        _entity = new DataLayer.Salary();
-                    }
-                    
+                    FormModeActionInvoke();
 
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
@@ -229,23 +237,6 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Salary
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new DataLayer.Salary();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

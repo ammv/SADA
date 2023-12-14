@@ -4,6 +4,7 @@ using DataLayer.Helpers;
 using HandyControl.Controls;
 using HandyControl.Tools.Extension;
 using SADA.Helpers;
+using SADA.Infastructure.Converters;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Core.Enums;
 using SADA.Services;
@@ -32,6 +33,8 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
         private readonly IDialogService _dialogService;
         private readonly ITabService _tabService;
+
+        private CounteragentToStringInfoConverter _counteragentToStringInfoConverter = new CounteragentToStringInfoConverter();
 
         #region Main Form fields
 
@@ -64,6 +67,18 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<DataLayer.Counteragent, string>>
+            {
+                {FormMode.Add, (s) => "Добавление контрагента"},
+                {FormMode.Edit, (s) => $"Изменение контрагента {_counteragentToStringInfoConverter.Convert(s, null, null, null)} №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр контрагента {_counteragentToStringInfoConverter.Convert(s, null, null, null)} №{s.ID}"}
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new DataLayer.Counteragent() }
+            };
         }
 
         protected CounteragentViewModel()
@@ -379,23 +394,6 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new DataLayer.Counteragent();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

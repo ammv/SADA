@@ -59,8 +59,14 @@ namespace SADA.ViewModel.MainMenu.Car.Car
         {
             _filter = new PayToCounteragentFilter();
 
-            AddTabName = (e) => "Добавление оплаты контрагенту за автомобиль";
-            EditTabName = (e) => $"Изменение оплаты контрагенту за автомибиль №{e.ID}";
+            //AddTabName = (e) => "Добавление оплаты контрагенту за автомобиль";
+            //EditTabName = (e) => $"Изменение оплаты контрагенту за автомибиль №{e.ID}";
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Оплаты контрагентам за автомибили" },
+                {ListMode.Select, "Выбор оплаты контрагенту за автомибиль" },
+            };
         }
 
         protected PayToCounteragentListViewModel(): base(null, null, null)

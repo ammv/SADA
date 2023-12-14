@@ -57,10 +57,16 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
             base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Expense>>.Make<GeneralExpenseViewModel>())
         {
 
-            EditTabName = (e) => $"Изменение общего расхода №{e.ID}";
-            AddTabName = (e) => "Добавление общего расхода";
+            //EditTabName = (e) => $"Изменение общего расхода №{e.ID}";
+            //AddTabName = (e) => "Добавление общего расхода";
 
             _filter = new FilterMaker();
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Общие расходы" },
+                {ListMode.Select, "Выбор общего расхода" },
+            };
         }
 
         protected GeneralExpenseListViewModel(): base(null, null, null)

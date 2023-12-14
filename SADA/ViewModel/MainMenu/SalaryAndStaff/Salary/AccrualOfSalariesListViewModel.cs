@@ -56,10 +56,16 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Salary
             base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Salary>>.Make<AccrualOfSalariesViewModel>())
         {
 
-            EditTabName = (e) => $"Изменение начисления зарплаты №{_selectedEntity.ID}";
-            AddTabName = (e) => "Добавление записи об начислении зарплаты";
+            //EditTabName = (e) => $"Изменение начисления зарплаты №{_selectedEntity.ID}";
+            //AddTabName = (e) => "Добавление записи об начислении зарплаты";
 
             _filter = new FilterMaker(_tabService);
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Начисления зарплат" },
+                {ListMode.Select, "Выбор начисления зарплаты" },
+            };
         }
 
         protected AccrualOfSalariesListViewModel(): base(null, null, null)

@@ -58,10 +58,16 @@ namespace SADA.ViewModel.MainMenu.Car.Car
         public PurchaseFromCounteragentListViewModel(IDialogService dialogService, ITabService tabService)
             :base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<CarPaymentFromCounteragent>>.Make<PurchaseFromCounteragentViewModel>())
         {
-            AddTabName = (e) => "Добавление оплаты от контрагенту за автомобиль";
-            EditTabName = (e) => $"Изменение оплаты от контрагента за автомибиль №{e.ID}";
+            //AddTabName = (e) => "Добавление оплаты от контрагенту за автомобиль";
+            //EditTabName = (e) => $"Изменение оплаты от контрагента за автомибиль №{e.ID}";
 
             _filter = new PayToCounteragentFilter();
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Оплаты от контрагентов за автомибили" },
+                {ListMode.Select, "Выбор оплаты от контрагента за автомибиль" },
+            };
         }
 
         protected PurchaseFromCounteragentListViewModel(): base(null, null, null)

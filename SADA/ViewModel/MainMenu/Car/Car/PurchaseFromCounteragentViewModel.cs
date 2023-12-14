@@ -44,6 +44,18 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<CarPaymentFromCounteragent, string>>
+            {
+                {FormMode.Add, (s) => "Добавление оплаты от контрагента за автомобиль"},
+                {FormMode.Edit, (s) => $"Изменение оплаты от контрагента за автомобиль №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр оплаты от контрагента за автомобиль №{s.ID}"}
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new CarPaymentFromCounteragent{ Date = DateTime.Now} }
+            };
         }
 
         protected PurchaseFromCounteragentViewModel()
@@ -233,24 +245,6 @@ namespace SADA.ViewModel.MainMenu.Car.Car
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new CarPaymentFromCounteragent();
-                            _entity.Date = DateTime.Now;
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

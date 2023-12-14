@@ -60,15 +60,21 @@ namespace SADA.ViewModel.MainMenu.Home.Counteragent
         public CounteragentListViewModel(IDialogService dialogService, IWindowService windowService, ITabService tabService):
             base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Counteragent>>.Make<CounteragentViewModel>())
         {
-            EditTabName = (e) =>
-            {
-                string info = _counteragentToStringInfoConverter.Convert(SelectedEntity, null, null, null).ToString();
-                return $"Изменение контрагента {info} №{_selectedEntity.ID}";
-            };
+            //EditTabName = (e) =>
+            //{
+            //    string info = _counteragentToStringInfoConverter.Convert(SelectedEntity, null, null, null).ToString();
+            //    return $"Изменение контрагента {info} №{_selectedEntity.ID}";
+            //};
 
-            AddTabName = (e) => "Добавление нового контрагента";
+            //AddTabName = (e) => "Добавление нового контрагента";
 
             _filter = new FilterMaker(_tabService);
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Контрагенты" },
+                {ListMode.Select, "Выбор контрагента" },
+            };
         }
 
         protected CounteragentListViewModel(): base(null, null, null)

@@ -43,6 +43,18 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<DataLayer.Expense, string>>
+            {
+                {FormMode.Add, (s) => "Добавление общего расхода"},
+                {FormMode.Edit, (s) => $"Изменение общего расхода №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр общего расхода №{s.ID}"}
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new DataLayer.Expense() }
+            };
         }
 
         protected GeneralExpenseViewModel()
@@ -207,23 +219,6 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new DataLayer.Expense();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

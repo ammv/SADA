@@ -60,10 +60,16 @@ namespace SADA.ViewModel.MainMenu.Home.Expense
         {
             _filter = new FilterMaker(_tabService);
 
-            AddTabName = (e) => "Добавление расхода на автомобиль";
-            EditTabName = (e) => $"Изменение расхода на автомобиль №{_selectedEntity.ID}";
+            //AddTabName = (e) => "Добавление расхода на автомобиль";
+            //EditTabName = (e) => $"Изменение расхода на автомобиль №{_selectedEntity.ID}";
 
             OpenTypeListCommand = new AsyncRelayCommand<Type>(_OpenTypeListCommand);
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Расходы на автомобили" },
+                {ListMode.Select, "Выбор расхода на автомобиль" },
+            };
         }
 
         protected CarExpenseListViewModel(): base(null, null, null)

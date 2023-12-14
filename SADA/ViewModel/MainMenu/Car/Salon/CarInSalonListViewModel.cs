@@ -58,10 +58,16 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
         public CarInSalonListViewModel(IDialogService dialogService, ITabService tabService):
             base(dialogService, tabService, TypeWrapper<TabObservableObjectForm<DataLayer.Car>>.Make<CarInSalonViewModel>())
         {
-            AddTabName = (e) => "Добавление автомобиля";
-            EditTabName = (e) => $"Изменение автомобиля №{e.ID}";
+            //AddTabName = (e) => "Добавление автомобиля";
+            //EditTabName = (e) => $"Изменение автомобиля №{e.ID}";
 
             _filter = new CarFilterMaker();
+
+            ListModeMap = new Dictionary<ListMode, string>
+            {
+                {ListMode.Default, "Автомобили в салоне" },
+                {ListMode.Select, "Выбор автомобиля в салоне" },
+            };
         }
 
         protected CarInSalonListViewModel(): base(null, null, null)

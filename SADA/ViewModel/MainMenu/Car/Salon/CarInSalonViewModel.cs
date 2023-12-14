@@ -71,6 +71,18 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<DataLayer.Car, string>>
+            {
+                {FormMode.Add, (s) => "Добавление автомобиля"},
+                {FormMode.Edit, (s) => $"Изменение автомобиля {s.CarEquipment.CarModel.CarBrand.Name} {s.CarEquipment.CarModel.Name} {s.CarEquipment.Name} №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр автомобиля {s.CarEquipment.CarModel.CarBrand.Name} {s.CarEquipment.CarModel.Name} {s.CarEquipment.Name} №{s.ID}"},
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new DataLayer.Car() }
+            };
         }
 
         protected CarInSalonViewModel()
@@ -265,6 +277,8 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
                         Entity = new DataLayer.Car();
                     }
 
+                    //UpdateName();
+
                     _dialogService.ShowMessageBox("Уведомление", msg, MessageBoxButton.OK);
                 }
             }
@@ -378,23 +392,6 @@ namespace SADA.ViewModel.MainMenu.Car.Salon
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new DataLayer.Car();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other

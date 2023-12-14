@@ -21,6 +21,8 @@ namespace SADA.Infastructure.Core
 
         #region Fields
 
+        private Dictionary<ListMode, string> _listModeMap;
+
         protected int _pageIndex = 1;
         protected int _dataCountPerPage = 20;
         protected int _maxPage = 0;
@@ -73,6 +75,8 @@ namespace SADA.Infastructure.Core
 
         #region Properties
 
+        public Dictionary<ListMode, string> ListModeMap { get; set; }
+
         public Action<T> SelectAction
         {
             get => _selectAction;
@@ -117,7 +121,17 @@ namespace SADA.Infastructure.Core
         public virtual ListMode CurrentListMode
         {
             get { return _currentListMode; }
-            set { SetProperty(ref _currentListMode, value); }
+            set
+            {
+                if(SetProperty(ref _currentListMode, value))
+                {
+                    if (_listModeMap == null) return;
+                    if(_listModeMap.TryGetValue(value, out string s))
+                    {
+                        Name = s;
+                    }
+                }
+            }
         }
 
         public virtual T SelectedEntity
@@ -207,8 +221,10 @@ namespace SADA.Infastructure.Core
             }
         }
 
-        // Передать тип и какому свойству прис
-
+        /// <summary>
+        /// Реализация команды ответственной за открытие формы ссущности в различных режимах
+        /// </summary>
+        /// <param name="formMode"></param>
         private void _OpenEntityFormCommand(FormMode formMode)
         {
             if (_currentListMode == ListMode.Select && _selectedEntity != null)
@@ -217,25 +233,12 @@ namespace SADA.Infastructure.Core
                 _RaiseCloseEvent();
 
             }
+            else
+            {
+                if (formMode == FormMode.Edit && _selectedEntity == null) return;
 
-            else if(formMode == FormMode.Edit)
-            {
-                if(_selectedEntity == null)
-                {
-                    //_dialogService.ShowMessageBox("Ошибка", "Вы не выбрали запись для редактирования", MessageBoxButton.OK);
-                    return;
-                }
                 var vm = App.Current.Services.GetService(_formType.TypeDerived) as TabObservableObjectForm<T>;
-                vm.Name = EditTabName?.Invoke(_selectedEntity);
-                vm.Entity = SelectedEntity;
-                vm.CurrentFormMode = FormMode.Edit;
-                _tabService.OpenTab(vm);
-            }
-            else if(formMode == FormMode.Add)
-            {
-                var vm = App.Current.Services.GetService(_formType.TypeDerived) as TabObservableObjectForm<T>;
-                vm.Name = AddTabName?.Invoke(_selectedEntity);
-                vm.CurrentFormMode = FormMode.Add;
+                vm.Configure(formMode, _selectedEntity);
                 _tabService.OpenTab(vm);
             }
         }

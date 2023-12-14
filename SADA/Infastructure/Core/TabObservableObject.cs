@@ -26,6 +26,7 @@ namespace SADA.Infastructure.Core
             set => SetProperty(ref _name, value);
         }
 
+
         public object ViewModel
         {
             get => this;

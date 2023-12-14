@@ -2,6 +2,7 @@
 using DataLayer;
 using HandyControl.Controls;
 using SADA.Helpers;
+using SADA.Infastructure.Converters;
 using SADA.Infastructure.Core;
 using SADA.Infastructure.Core.Enums;
 using SADA.Services;
@@ -29,6 +30,8 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 
         private readonly IDialogService _dialogService;
         private readonly ITabService _tabService;
+
+        private StaffToStringConverter _staffToStringConverter = new StaffToStringConverter();
 
         #region Main Form fields
 
@@ -58,6 +61,18 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 
             _dialogService = dialogService;
             _tabService = tabService;
+
+            FormModeTabNameMap = new Dictionary<FormMode, Func<DataLayer.Staff, string>>
+            {
+                {FormMode.Add, (s) => "Добавление сотрудника"},
+                {FormMode.Edit, (s) => $"Изменение сотрудника {_staffToStringConverter.Convert(s, null, null, null)} №{s.ID}"},
+                {FormMode.See, (s) => $"Просмотр сотрудника {_staffToStringConverter.Convert(s, null, null, null)} №{s.ID}"},
+            };
+
+            FormModeActionMap = new Dictionary<FormMode, Action>
+            {
+                {FormMode.Add,  () => _entity = new DataLayer.Staff {IsDeleted = false, Passport = new Passport()} }
+            };
         }
 
         protected StaffViewModel()
@@ -302,27 +317,6 @@ namespace SADA.ViewModel.MainMenu.SalaryAndStaff.Staff
 
             // Wait EF loading data
             Thread.Sleep(100);
-        }
-
-        public override FormMode CurrentFormMode
-        {
-            get => _currentFormMode;
-            set
-            {
-                if (SetProperty(ref _currentFormMode, value))
-                {
-                    switch (value)
-                    {
-                        case FormMode.Add:
-                            _entity = new DataLayer.Staff
-                            {
-                                IsDeleted = false
-                            };
-                            _entity.Passport = new Passport();
-                            break;
-                    }
-                }
-            }
         }
 
         #endregion Other
